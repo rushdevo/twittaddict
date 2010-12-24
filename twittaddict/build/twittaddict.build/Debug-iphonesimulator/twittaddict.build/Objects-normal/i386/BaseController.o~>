@@ -1,0 +1,22 @@
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:14: warning: cannot find interface declaration for 'BaseController'
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m: In function '-[BaseController viewDidLoad]':
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:15: error: 'responseData' undeclared (first use in this function)
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:15: error: (Each undeclared identifier is reported only once
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:15: error: for each function it appears in.)
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:16: error: no super class declared in @interface for 'BaseController'
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m: In function '-[BaseController connection:didReceiveResponse:]':
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:54: error: 'responseData' undeclared (first use in this function)
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m: In function '-[BaseController connection:didReceiveData:]':
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:58: error: 'responseData' undeclared (first use in this function)
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m: In function '-[BaseController connectionDidFinishLoading:]':
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:67: error: 'responseData' undeclared (first use in this function)
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:69: warning: 'NSString' may not respond to '-JSONValue'
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:69: warning: (Messages without a matching method signature
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:69: warning: will be assumed to return 'id' and accept
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:69: warning: '...' as arguments.)
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m: In function '-[BaseController didReceiveMemoryWarning]':
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:77: error: no super class declared in @interface for 'BaseController'
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m: In function '-[BaseController viewDidUnload]':
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:83: error: no super class declared in @interface for 'BaseController'
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m: In function '-[BaseController dealloc]':
+/Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m:90: error: no super class declared in @interface for 'BaseController'
