@@ -25,9 +25,10 @@
 @synthesize user1Label;
 @synthesize user2Label;
 @synthesize user3Label;
-@synthesize tweetLabel;
+@synthesize tweetText;
 @synthesize selectedUsers;
 @synthesize correctUserID;
+
 
 - (void)viewDidAppear: (BOOL)animated {
 	
@@ -43,6 +44,7 @@
 		[self presentModalViewController: controller animated: YES];
 	}
 	
+	score = 0;
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
 	friendIDs = [[NSMutableArray alloc]init];
@@ -97,7 +99,7 @@
 		retrievedUsername = YES;
 		[_engine getFriendIDsFor:username];
 	} else {
-			NSLog(@"here");
+		[self initMode1Components:userInfo];
 	}
 }
 
@@ -113,20 +115,53 @@
 
 -(void)setupMode1 {
 	// select random tweet
-	NSDictionary *tweet = [tweets objectAtIndex:random()%[tweets count]];
-	tweetLabel.text = [tweet valueForKey:@"text"];
-	correctUserID = [tweet valueForKey:@"user_id"];
+	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	tweetText.text = [tweet valueForKey:@"text"];
+	correctUserID = [[NSString alloc]initWithString:[tweet valueForKey:@"user_id"]];
 	[tweets removeObject:tweet];
 	
 	// get user information for correct user and 2 other random users
-
-	[friendIDs removeObject:correctUserID];
-	NSString *userID1 = [friendIDs objectAtIndex:random()%[friendIDs count]];
-	[friendIDs removeObject:userID1];
-	NSString *userID2 = [friendIDs objectAtIndex:random()%[friendIDs count]];
-	[friendIDs removeObject:userID2];
+	NSString *userID1 = [self getUserIDNotEqualTo:[NSArray arrayWithObject:correctUserID]];
+	NSString *userID2 = [self getUserIDNotEqualTo:[NSArray arrayWithObjects:correctUserID,userID1,nil]];
 	NSString *friendString = [NSString stringWithFormat:@"%@, %@, %@", correctUserID, userID1, userID2];
 	[_engine getBulkUserInformationFor:friendString];
+}
+
+-(NSString *)getUserIDNotEqualTo:(NSArray *)userIDs {
+	NSString *tempID = [self tempUserID];
+	if (![userIDs containsObject:tempID]) {
+		return tempID;
+	} else {
+		[self getUserIDNotEqualTo:userIDs];
+	}
+}
+
+-(NSString *)tempUserID {
+	return [friendIDs objectAtIndex:arc4random()%[friendIDs count]];
+}				
+
+-(void)initMode1Components:(NSArray *)userInfo {
+	[self initUser:[userInfo objectAtIndex:0] withButton:user1Button withLabel:user1Label];
+	[self initUser:[userInfo objectAtIndex:1] withButton:user2Button withLabel:user2Label];
+	[self initUser:[userInfo objectAtIndex:2] withButton:user3Button withLabel:user3Label];
+}
+
+-(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label {
+	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
+	[button setImage:image forState:UIControlStateNormal];
+	button.userID = [user objectForKey:@"id"];
+	label.text = [user objectForKey:@"screen_name"];
+}
+
+-(IBAction)userSelected:(id)sender {
+	if ([[sender userID] isEqualToString:correctUserID]) {
+		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
+		score += 10;
+		scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+	} else {
+		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
+	}
+	[self setupMode1];
 }
 
 -(void)setupMode2 {
@@ -163,7 +198,7 @@
 	[user1Label release];
 	[user2Label release];
 	[user3Label release];
-	[tweetLabel release];
+	[tweetText release];
 	[correctUserID release];
     [super dealloc];
 }

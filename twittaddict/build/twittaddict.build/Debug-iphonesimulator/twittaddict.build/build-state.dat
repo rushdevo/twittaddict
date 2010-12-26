@@ -1,11 +1,15 @@
 Ttwittaddict
 v7
 r0
-t314892152.001750
+t315076852.312018
 cCheck dependencies
 cProcessInfoPlistFile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/Info.plist twittaddict-Info.plist
 cCompileXIB /Users/shannonmrush/git/twittaddict/twittaddict/MainWindow.xib
 cCompileXIB /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib
+cCpResource build/Debug-iphonesimulator/twittaddict.app/correct.png correct.png
+cCpResource build/Debug-iphonesimulator/twittaddict.app/correct@2x.png correct@2x.png
+cCpResource build/Debug-iphonesimulator/twittaddict.app/wrong.png wrong.png
+cCpResource build/Debug-iphonesimulator/twittaddict.app/wrong@2x.png wrong@2x.png
 cProcessPCH /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch.gch twittaddict_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
 cDataModelVersionCompile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict.momd /Users/shannonmrush/git/twittaddict/twittaddict/twittaddict.xcdatamodeld
 cCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/main.o /Users/shannonmrush/git/twittaddict/twittaddict/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
@@ -35,6 +39,7 @@ cCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Object
 cCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MGTwitterSocialGraphParser.o /Users/shannonmrush/git/twittaddict/twittaddict/Twitter+OAuth/MGTwitterEngine/MGTwitterSocialGraphParser.m normal i386 objective-c com.apple.compilers.gcc.4_2
 cCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MGTwitterSocialGraphLibXMLParser.o /Users/shannonmrush/git/twittaddict/twittaddict/Twitter+OAuth/MGTwitterEngine/MGTwitterSocialGraphLibXMLParser.m normal i386 objective-c com.apple.compilers.gcc.4_2
 cCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/BaseController.o /Users/shannonmrush/git/twittaddict/twittaddict/Classes/BaseController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/SRButton.o /Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.m normal i386 objective-c com.apple.compilers.gcc.4_2
 cLd /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict normal i386
 cGenerateDSYMFile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app.dSYM /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict
 cTouch /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app
@@ -160,24 +165,37 @@ i"BaseViewController.h"
 i"WagrItAppDelegate.h"
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.h
-c000000004D140EBA000000000000068C
-t1293160122
-s1676
+c000000004D17797100000000000007AE
+t1293384049
+s1966
 i<UIKit/UIKit.h>
 i"SA_OAuthTwitterController.h"
 i"MGTwitterEngine.h"
+i"SRButton.h"
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m
-c000000004D14A7CF000000000000144D
-t1293199311
-s5197
+c000000004D17796400000000000019DB
+t1293384036
+s6619
 i"MatchController.h"
 i"SA_OAuthTwitterEngine.h"
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib
-c000000004D0E1D650000000000003E5E
-t1292770661
-s15966
+c000000004D176EB30000000000008D8C
+t1293381299
+s36236
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.h
+c000000004D1768640000000000000116
+t1293379684
+s278
+i<Foundation/Foundation.h>
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.m
+c000000004D17687000000000000000D0
+t1293379696
+s208
+i"SRButton.h"
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/Classes/matchController.h
 c000000004D0E1B4400000000000000F7
@@ -204,9 +222,9 @@ i<UIKit/UIKit.h>
 i<CoreData/CoreData.h>
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m
-c000000004D0ED2A90000000000001E45
-t1292817065
-s7749
+c000000004D1762AC0000000000001E8D
+t1293378220
+s7821
 i"twittaddictAppDelegate.h"
 i"MatchController.h"
 
@@ -1291,11 +1309,11 @@ t1292776193
 s581484
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app
-t1293199333
-s272
+t1293384052
+s408
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app.dSYM
-t1293199333
+t1293384052
 s102
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/Info.plist
@@ -1307,24 +1325,40 @@ t1292767828
 s988
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/MatchController.nib
-t1292770676
-s764
+t1293381308
+s3035
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/PkgInfo
 t1292767828
 s8
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/correct.png
+t1293381076
+s846
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/correct@2x.png
+t1293381076
+s1652
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/matchController.nib
 t2
 s0
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict
-t1293199333
-s256064
+t1293384052
+s261832
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict.momd
 t1292767830
 s136
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/wrong.png
+t1293381550
+s1088
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/wrong@2x.png
+t1293381550
+s2092
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/Base64Transcoder.o
 t1292769015
@@ -1423,8 +1457,8 @@ t1293154109
 s26120
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MatchController.o
-t1293199333
-s72988
+t1293384051
+s79948
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/NSCharacterSet_Extensions.o
 t1292771697
@@ -1526,6 +1560,10 @@ N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-i
 t1292776530
 s26660
 
+N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/SRButton.o
+t1293379845
+s36988
+
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/hmac.o
 t1292769015
 s5188
@@ -1543,13 +1581,23 @@ t1292769016
 s13620
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddict.LinkFileList
-c000000004D134F3E0000000000001048
-t1293111102
-s4168
+c000000004D17690400000000000010D7
+t1293379844
+s4311
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddictAppDelegate.o
-t1293196866
-s63780
+t1293384051
+s65152
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/correct.png
+c000000004D176B58000000000000034E
+t1293380440
+s846
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/correct@2x.png
+c000000004D176CF90000000000000674
+t1293380857
+s1652
 
 N/Users/shannonmrush/git/twittaddict/twittaddict/main.m
 c000000004D0E12480000000000000166
@@ -1571,6 +1619,16 @@ i<Foundation/Foundation.h>
 i<UIKit/UIKit.h>
 i<CoreData/CoreData.h>
 
+N/Users/shannonmrush/git/twittaddict/twittaddict/wrong.png
+c000000004D176F3E0000000000000440
+t1293381438
+s1088
+
+N/Users/shannonmrush/git/twittaddict/twittaddict/wrong@2x.png
+c000000004D176F52000000000000082C
+t1293381458
+s2092
+
 N/var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-djspmafmwxxlwkaicsqejtkepguh/twittaddict_Prefix.pch.gch
 t1292767829
 s16326640
@@ -1590,7 +1648,7 @@ s909
 
 CCheck dependencies
 r0
-lSLF07#2@18"Check dependencies314892151#314892152#0(0"0(0#1#0"8622312416#0"0#
+lSLF07#2@18"Check dependencies315076851#315076851#0(0"0(0#1#0"8620837280#0"0#
 
 CCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/Base64Transcoder.o /Users/shannonmrush/git/twittaddict/twittaddict/OAuthConsumer/Crypto/Base64Transcoder.c normal i386 c com.apple.compilers.gcc.4_2
 s314461815.717770
@@ -2368,8 +2426,8 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@106"Compile /Users/shannonmrush/git/twittaddict/twittaddict/Twitter+OAuth/MGTwitterEngine/MGTwitterXMLParser.m314846909#314846909#0(0"0(0#0#98"/Users/shannonmrush/git/twittaddict/twittaddict/Twitter+OAuth/MGTwitterEngine/MGTwitterXMLParser.m8644451936#2257"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/usr/include/libxml2 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/Twitter+OAuth/MGTwitterEngine/MGTwitterXMLParser.m -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MGTwitterXMLParser.o0#
 
 CCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MatchController.o /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s314892133.309882
-e314892133.619702
+s315076851.698437
+e315076851.882971
 r1
 xCompileC
 xbuild/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MatchController.o
@@ -2378,7 +2436,9 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@81"Compile /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m314892133#314892133#0(0"0(0#0#73"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m8616130592#2229"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/usr/include/libxml2 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MatchController.o0#
+o/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m: In function '-[MatchController getUserIDNotEqualTo:]':
+o/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m:137: warning: control reaches end of non-void function
+lSLF07#2@81"Compile /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m315076851#315076851#0(259"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m: In function '-[MatchController getUserIDNotEqualTo:]':/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m:137: warning: control reaches end of non-void function1(22@40"Control reaches end of non-void function315076851#130#129#0(6@73"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m315076836#137#0#137#0#40"control reaches end of non-void function0(0#0#73"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m8590108384#2229"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/usr/include/libxml2 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.m -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/MatchController.o0#
 
 CCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/NSCharacterSet_Extensions.o /Users/shannonmrush/git/twittaddict/twittaddict/TouchJSON/Source/Extensions/NSCharacterSet_Extensions.m normal i386 objective-c com.apple.compilers.gcc.4_2
 s314464497.099955
@@ -2731,6 +2791,19 @@ xobjective-c
 xcom.apple.compilers.gcc.4_2
 lSLF07#2@70"Compile /Users/shannonmrush/git/twittaddict/twittaddict/SBJsonWriter.m314469330#314469330#0(0"0(0#0#62"/Users/shannonmrush/git/twittaddict/twittaddict/SBJsonWriter.m8633717600#2215"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/usr/include/libxml2 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/SBJsonWriter.m -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/SBJsonWriter.o0#
 
+CCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/SRButton.o /Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s315072645.084824
+e315072645.268731
+r1
+xCompileC
+xbuild/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/SRButton.o
+x/Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@74"Compile /Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.m315072645#315072645#0(0"0(0#0#66"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.m8618638752#2215"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/usr/include/libxml2 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/Classes/SRButton.m -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/SRButton.o0#
+
 CCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/hmac.o /Users/shannonmrush/git/twittaddict/twittaddict/OAuthConsumer/Crypto/hmac.c normal i386 c com.apple.compilers.gcc.4_2
 s314461815.862015
 e314461815.981710
@@ -2774,8 +2847,8 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@83"Compile /Users/shannonmrush/git/twittaddict/twittaddict/OAuthConsumer/Crypto/sha1.c314461815#314461816#0(0"0(0#0#75"/Users/shannonmrush/git/twittaddict/twittaddict/OAuthConsumer/Crypto/sha1.c8629279040#2060"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-eifslirewbcbsceojyjahguqvtqx/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/OAuthConsumer/Crypto/sha1.c -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/sha1.o0#
 
 CCompileC build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddictAppDelegate.o /Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s314889666.416017
-e314889666.806756
+s315076851.695593
+e315076851.863835
 r1
 xCompileC
 xbuild/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddictAppDelegate.o
@@ -2784,15 +2857,15 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@88"Compile /Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m314889666#314889666#0(0"0(0#0#80"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m8606402304#2243"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/usr/include/libxml2 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddictAppDelegate.o0#
+lSLF07#2@88"Compile /Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m315076851#315076851#0(0"0(0#0#80"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m8621686944#2243"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk/usr/include/libxml2 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -include /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-dxiqmzhjaurwznfmusgyggsgprcr/twittaddict_Prefix.pch -c /Users/shannonmrush/git/twittaddict/twittaddict/Classes/twittaddictAppDelegate.m -o /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddictAppDelegate.o0#
 
 CCompileXIB /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib
-s314463474.519290
-e314463476.361922
+s315074104.682639
+e315074108.358594
 r1
 xCompileXIB
 x/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib
-lSLF07#2@38"CompileXIB Classes/MatchController.xib314463474#314463476#0(0"0(0#0#75"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib8615277984#619"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/MatchController.nib /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
+lSLF07#2@38"CompileXIB Classes/MatchController.xib315074104#315074108#0(0"0(0#0#75"/Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib8618764960#619"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/MatchController.nib /Users/shannonmrush/git/twittaddict/twittaddict/Classes/MatchController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
 
 CCompileXIB /Users/shannonmrush/git/twittaddict/twittaddict/Classes/matchController.xib
 r0
@@ -2805,6 +2878,42 @@ xCompileXIB
 x/Users/shannonmrush/git/twittaddict/twittaddict/MainWindow.xib
 lSLF07#2@25"CompileXIB MainWindow.xib314460628#314460628#0(0"0(0#0#62"/Users/shannonmrush/git/twittaddict/twittaddict/MainWindow.xib8629342464#601"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/MainWindow.nib /Users/shannonmrush/git/twittaddict/twittaddict/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk0#
 
+CCpResource build/Debug-iphonesimulator/twittaddict.app/correct.png correct.png
+s315073876.289896
+e315073876.441220
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/twittaddict.app/correct.png
+xcorrect.png
+lSLF07#2@16"Copy correct.png315073876#315073876#0(0"0(0#0#59"/Users/shannonmrush/git/twittaddict/twittaddict/correct.png8618644608#500"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/shannonmrush/git/twittaddict/twittaddict/correct.png /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app0#
+
+CCpResource build/Debug-iphonesimulator/twittaddict.app/correct@2x.png correct@2x.png
+s315073876.373749
+e315073876.443305
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/twittaddict.app/correct@2x.png
+xcorrect@2x.png
+lSLF07#2@19"Copy correct@2x.png315073876#315073876#0(0"0(0#0#62"/Users/shannonmrush/git/twittaddict/twittaddict/correct@2x.png8631322496#503"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/shannonmrush/git/twittaddict/twittaddict/correct@2x.png /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app0#
+
+CCpResource build/Debug-iphonesimulator/twittaddict.app/wrong.png wrong.png
+s315074349.942256
+e315074350.013202
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/twittaddict.app/wrong.png
+xwrong.png
+lSLF07#2@14"Copy wrong.png315074349#315074350#0(0"0(0#0#57"/Users/shannonmrush/git/twittaddict/twittaddict/wrong.png8631362176#498"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/shannonmrush/git/twittaddict/twittaddict/wrong.png /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app0#
+
+CCpResource build/Debug-iphonesimulator/twittaddict.app/wrong@2x.png wrong@2x.png
+s315074349.943115
+e315074350.011892
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/twittaddict.app/wrong@2x.png
+xwrong@2x.png
+lSLF07#2@17"Copy wrong@2x.png315074349#315074350#0(0"0(0#0#60"/Users/shannonmrush/git/twittaddict/twittaddict/wrong@2x.png8631076544#501"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/shannonmrush/git/twittaddict/twittaddict/wrong@2x.png /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app0#
+
 CDataModelVersionCompile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict.momd /Users/shannonmrush/git/twittaddict/twittaddict/twittaddict.xcdatamodeld
 s314460630.092693
 e314460630.643478
@@ -2815,23 +2924,23 @@ x/Users/shannonmrush/git/twittaddict/twittaddict/twittaddict.xcdatamodeld
 lSLF07#2@109"DataModelVersionCompile build/Debug-iphonesimulator/twittaddict.app/twittaddict.momd twittaddict.xcdatamodeld314460630#314460630#0(0"0(0#0#72"/Users/shannonmrush/git/twittaddict/twittaddict/twittaddict.xcdatamodeld8629651488#425"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/momc -XD_MOMC_TARGET_VERSION=10.6 /Users/shannonmrush/git/twittaddict/twittaddict/twittaddict.xcdatamodeld /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict.momd0#
 
 CGenerateDSYMFile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app.dSYM /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict
-s314892133.786251
-e314892133.970531
+s315076852.135114
+e315076852.308866
 r1
 xGenerateDSYMFile
 x/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app.dSYM
 x/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict
-lSLF07#2@121"GenerateDSYMFile build/Debug-iphonesimulator/twittaddict.app.dSYM build/Debug-iphonesimulator/twittaddict.app/twittaddict314892133#314892133#0(0"0(0#0#103"/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict8614649888#422"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict -o /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app.dSYM0#
+lSLF07#2@121"GenerateDSYMFile build/Debug-iphonesimulator/twittaddict.app.dSYM build/Debug-iphonesimulator/twittaddict.app/twittaddict315076852#315076852#0(0"0(0#0#103"/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict8630086144#422"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict -o /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app.dSYM0#
 
 CLd /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict normal i386
-s314892133.619821
-e314892133.786135
+s315076851.883075
+e315076852.134981
 r1
 xLd
 x/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict
 xnormal
 xi386
-lSLF07#2@108"Link /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict314892133#314892133#0(0"0(0#0#0"8615657632#1085"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -L/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -L/Users/shannonmrush/git/twittaddict/twittaddict/Twitter+OAuth/SAOAuthTwitterEngine -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -filelist /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddict.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -framework CoreData -lOAuth -lxml2 -o /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict0#
+lSLF07#2@108"Link /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict315076851#315076852#0(0"0(0#0#0"8625641056#1085"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -L/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -L/Users/shannonmrush/git/twittaddict/twittaddict/Twitter+OAuth/SAOAuthTwitterEngine -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -filelist /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/Objects-normal/i386/twittaddict.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -framework CoreData -lOAuth -lxml2 -o /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/twittaddict0#
 
 CProcessInfoPlistFile /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app/Info.plist twittaddict-Info.plist
 s314460628.000885
@@ -2882,10 +2991,10 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@33"Precompile twittaddict_Prefix.pch314461815#314461815#0(0"0(0#0#70"/Users/shannonmrush/git/twittaddict/twittaddict/twittaddict_Prefix.pch8631470336#1918"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.2.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -D__IPHONE_OS_VERSION_MIN_REQUIRED=40200 -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-generated-files.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-own-target-headers.hmap -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-all-target-headers.hmap -iquote /Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/twittaddict-project-headers.hmap -F/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator -I/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/include -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources/i386 -I/Users/shannonmrush/git/twittaddict/twittaddict/build/twittaddict.build/Debug-iphonesimulator/twittaddict.build/DerivedSources -c /Users/shannonmrush/git/twittaddict/twittaddict/twittaddict_Prefix.pch -o /var/folders/85/85s5D4jvHbaYCDfZX6xhm++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/twittaddict_Prefix-eifslirewbcbsceojyjahguqvtqx/twittaddict_Prefix.pch.gch0#
 
 CTouch /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app
-s314892133.970632
-e314892133.973575
+s315076852.308965
+e315076852.311974
 r1
 xTouch
 x/Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app
-lSLF07#2@97"Touch /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app314892133#314892133#0(0"0(0#0#0"8601109280#300"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app0#
+lSLF07#2@97"Touch /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app315076852#315076852#0(0"0(0#0#0"8628525504#300"    cd /Users/shannonmrush/git/twittaddict/twittaddict    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/shannonmrush/git/twittaddict/twittaddict/build/Debug-iphonesimulator/twittaddict.app0#
 

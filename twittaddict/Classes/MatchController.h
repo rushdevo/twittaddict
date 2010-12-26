@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SA_OAuthTwitterController.h"  
 #import "MGTwitterEngine.h"
+#import "SRButton.h"
 //#import "BaseController.h"
 
 @class SA_OAuthTwitterEngine; 
@@ -22,20 +23,19 @@
 	NSMutableArray *friendIDs;
 	NSString *username;
 	BOOL retrievedUsername;
-	
+	int score;
 	UILabel *scoreLabel;
 	
 	// match mode 1
-	UIButton *user1Button;
-	UIButton *user2Button;
-	UIButton *user3Button;
+	SRButton *user1Button;
+	SRButton *user2Button;
+	SRButton *user3Button;
 	UILabel *user1Label;
 	UILabel *user2Label;
 	UILabel *user3Label;
-	UILabel *tweetLabel;
+	UITextView *tweetText;
 	NSString *correctUserID;
 	NSMutableArray *selectedUsers;
-	
 }
 
 @property(nonatomic,retain) NSMutableArray *tweets;
@@ -44,16 +44,21 @@
 @property(nonatomic,retain) NSString *username;
 @property(nonatomic,retain) NSString *correctUserID;
 @property(nonatomic,retain) NSMutableArray *selectedUsers;
-@property(nonatomic,retain) IBOutlet UIButton *user1Button;
-@property(nonatomic,retain) IBOutlet UIButton *user2Button;
-@property(nonatomic,retain) IBOutlet UIButton *user3Button;
+@property(nonatomic,retain) IBOutlet SRButton *user1Button;
+@property(nonatomic,retain) IBOutlet SRButton *user2Button;
+@property(nonatomic,retain) IBOutlet SRButton *user3Button;
 @property(nonatomic,retain) IBOutlet UILabel *user1Label;
 @property(nonatomic,retain) IBOutlet UILabel *user2Label;
 @property(nonatomic,retain) IBOutlet UILabel *user3Label;
 @property(nonatomic,retain) IBOutlet UILabel *scoreLabel;
-@property(nonatomic,retain) IBOutlet UILabel *tweetLabel;
+@property(nonatomic,retain) IBOutlet UITextView *tweetText;
 
 -(void)setupMode1;
+-(void)initMode1Components:(NSArray *)userInfo;
+-(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label;
+-(NSString *)getUserIDNotEqualTo:(NSArray *)userIDs;
+-(NSString *)tempUserID;
+-(IBAction)userSelected:(id)sender;
 -(void)setupMode2;
 
 @end

@@ -15,6 +15,11 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		C33F883712C79F940033022D /* SRButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F883612C79F940033022D /* SRButton.m */; };
+		C33F884D12C7A4D50033022D /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F884B12C7A4D50033022D /* correct.png */; };
+		C33F884E12C7A4D50033022D /* correct@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F884C12C7A4D50033022D /* correct@2x.png */; };
+		C33F886C12C7A71F0033022D /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F886B12C7A71F0033022D /* wrong.png */; };
+		C33F886E12C7A7270033022D /* wrong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F886D12C7A7270033022D /* wrong@2x.png */; };
 		C3EDB30F12BE4B6300F452F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */; };
 		C3EDB31012BE4B6300F452F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30812BE4B6300F452F9 /* NSString+SBJSON.m */; };
 		C3EDB31112BE4B6300F452F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30A12BE4B6300F452F9 /* SBJsonBase.m */; };
@@ -58,6 +63,12 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* twittaddict_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = twittaddict_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* twittaddict-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "twittaddict-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C33F883512C79F940033022D /* SRButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRButton.h; sourceTree = "<group>"; };
+		C33F883612C79F940033022D /* SRButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRButton.m; sourceTree = "<group>"; };
+		C33F884B12C7A4D50033022D /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
+		C33F884C12C7A4D50033022D /* correct@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "correct@2x.png"; sourceTree = "<group>"; };
+		C33F886B12C7A71F0033022D /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrong.png; sourceTree = "<group>"; };
+		C33F886D12C7A7270033022D /* wrong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wrong@2x.png"; sourceTree = "<group>"; };
 		C3EDB30412BE4B6300F452F9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		C3EDB30512BE4B6300F452F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -159,6 +170,7 @@
 				C3EDB7C412C3841E00F452F9 /* BaseController.m */,
 				C3EDB35812BE538C00F452F9 /* MatchController.h */,
 				C3EDB35912BE538C00F452F9 /* MatchController.m */,
+				C33F884512C7A12F0033022D /* Custom Objects */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -197,6 +209,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C33F884912C7A4C10033022D /* Graphics */,
 				C3EDB35012BE52D500F452F9 /* XIBs */,
 				2819305F112F816700ECF9B4 /* twittaddict.xcdatamodeld */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -215,6 +228,26 @@
 				C3EDB49A12BE6B7E00F452F9 /* libxml2.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C33F884512C7A12F0033022D /* Custom Objects */ = {
+			isa = PBXGroup;
+			children = (
+				C33F883512C79F940033022D /* SRButton.h */,
+				C33F883612C79F940033022D /* SRButton.m */,
+			);
+			name = "Custom Objects";
+			sourceTree = "<group>";
+		};
+		C33F884912C7A4C10033022D /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				C33F886D12C7A7270033022D /* wrong@2x.png */,
+				C33F886B12C7A71F0033022D /* wrong.png */,
+				C33F884B12C7A4D50033022D /* correct.png */,
+				C33F884C12C7A4D50033022D /* correct@2x.png */,
+			);
+			name = Graphics;
 			sourceTree = "<group>";
 		};
 		C3EDB30312BE4B6300F452F9 /* JSON */ = {
@@ -389,6 +422,10 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				C3EDB35C12BE538C00F452F9 /* MatchController.xib in Resources */,
+				C33F884D12C7A4D50033022D /* correct.png in Resources */,
+				C33F884E12C7A4D50033022D /* correct@2x.png in Resources */,
+				C33F886C12C7A71F0033022D /* wrong.png in Resources */,
+				C33F886E12C7A7270033022D /* wrong@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +464,7 @@
 				C3EDB76C12C2CA8700F452F9 /* MGTwitterSocialGraphParser.m in Sources */,
 				C3EDB76F12C2CABA00F452F9 /* MGTwitterSocialGraphLibXMLParser.m in Sources */,
 				C3EDB7C512C3841E00F452F9 /* BaseController.m in Sources */,
+				C33F883712C79F940033022D /* SRButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

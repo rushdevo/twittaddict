@@ -19,7 +19,7 @@
     
     // Override point for customization after application launch.
 	viewController = [[MatchController alloc] initWithNibName:@"MatchController" bundle:[NSBundle mainBundle]];
-
+	[viewController.view setFrame:[[UIScreen mainScreen]applicationFrame]];
     // Add the view controller's view to the window and display.
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
