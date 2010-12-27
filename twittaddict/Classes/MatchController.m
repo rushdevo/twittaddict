@@ -88,6 +88,7 @@
 		[tweets addObject:tweet];
 		[tweet release];
 	}
+	NSLog(@"TWEETS: %d",[tweets count]);
 	if ([tweets count] > 0 && [friendIDs count]>0) {
 		[self setupMode1];
 	}
@@ -114,17 +115,19 @@
 
 
 -(void)setupMode1 {
-	// select random tweet
-	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
-	tweetText.text = [tweet valueForKey:@"text"];
-	correctUserID = [[NSString alloc]initWithString:[tweet valueForKey:@"user_id"]];
-	[tweets removeObject:tweet];
-	
-	// get user information for correct user and 2 other random users
-	NSString *userID1 = [self getUserIDNotEqualTo:[NSArray arrayWithObject:correctUserID]];
-	NSString *userID2 = [self getUserIDNotEqualTo:[NSArray arrayWithObjects:correctUserID,userID1,nil]];
-	NSString *friendString = [NSString stringWithFormat:@"%@, %@, %@", correctUserID, userID1, userID2];
-	[_engine getBulkUserInformationFor:friendString];
+	if ([tweets count]==0) {
+		[_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:200];
+	} else{
+		NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+		tweetText.text = [tweet valueForKey:@"text"];
+		correctUserID = [[NSString alloc]initWithString:[tweet valueForKey:@"user_id"]];
+		[tweets removeObject:tweet];
+		
+		NSString *userID1 = [self getUserIDNotEqualTo:[NSArray arrayWithObject:correctUserID]];
+		NSString *userID2 = [self getUserIDNotEqualTo:[NSArray arrayWithObjects:correctUserID,userID1,nil]];
+		NSString *friendString = [NSString stringWithFormat:@"%@, %@, %@", correctUserID, userID1, userID2];
+		[_engine getBulkUserInformationFor:friendString];
+	}
 }
 
 -(NSString *)getUserIDNotEqualTo:(NSArray *)userIDs {

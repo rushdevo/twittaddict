@@ -87,8 +87,8 @@
 
 - (NSString *)getPublicTimeline; // statuses/public_timeline
 
-- (NSString *)getFollowedTimelineSinceID:(unsigned long)sinceID startingAtPage:(int)pageNum count:(int)count; // statuses/friends_timeline
-- (NSString *)getFollowedTimelineSinceID:(unsigned long)sinceID withMaximumID:(unsigned long)maxID startingAtPage:(int)pageNum count:(int)count; // statuses/friends_timeline
+- (NSString *)getFollowedTimelineSinceID:(NSString *)sinceID startingAtPage:(int)pageNum count:(int)count; // statuses/friends_timeline
+- (NSString *)getFollowedTimelineSinceID:(NSString *)sinceID withMaximumID:(int)maxID startingAtPage:(int)pageNum count:(int)count; // statuses/friends_timeline
 
 - (NSString *)getUserTimelineFor:(NSString *)username sinceID:(unsigned long)sinceID startingAtPage:(int)pageNum count:(int)count; // statuses/user_timeline & statuses/user_timeline/user
 - (NSString *)getUserTimelineFor:(NSString *)username sinceID:(unsigned long)sinceID withMaximumID:(unsigned long)maxID startingAtPage:(int)pageNum count:(int)count; // statuses/user_timeline & statuses/user_timeline/user

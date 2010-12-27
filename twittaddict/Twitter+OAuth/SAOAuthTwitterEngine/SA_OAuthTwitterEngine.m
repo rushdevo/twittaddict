@@ -255,16 +255,10 @@
                          requestType:(MGTwitterRequestType)requestType 
                         responseType:(MGTwitterResponseType)responseType
 {
-    NSString *fullPath = path;
-
-	// --------------------------------------------------------------------------------
-	// modificaiton from the base clase
-	// the base class appends parameters here
-	// --------------------------------------------------------------------------------
-	//    if (params) {
-	//        fullPath = [self _queryStringWithBase:fullPath parameters:params prefixed:YES];
-	//    }
-	// --------------------------------------------------------------------------------
+	NSString *fullPath = [path stringByAddingPercentEscapesUsingEncoding:NSNonLossyASCIIStringEncoding];
+    if (params && ![method isEqualToString:@"POST"]) {
+        fullPath = [self _queryStringWithBase:fullPath parameters:params prefixed:YES];
+    }
 
     NSString *urlString = [NSString stringWithFormat:@"%@://%@/%@", 
                            (_secureConnection) ? @"https" : @"http",
@@ -274,15 +268,6 @@
         return nil;
     }
 	
-	// --------------------------------------------------------------------------------
-	// modificaiton from the base clase
-	// the base class creates a regular url request
-	// we're going to create an oauth url request
-	// --------------------------------------------------------------------------------
-	//    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:finalURL 
-	//                                                              cachePolicy:NSURLRequestReloadIgnoringCacheData 
-	//                                                          timeoutInterval:URL_REQUEST_TIMEOUT];
-	// --------------------------------------------------------------------------------
 	
 	OAMutableURLRequest *theRequest = [[[OAMutableURLRequest alloc] initWithURL:finalURL
 																	   consumer:self.consumer 

@@ -446,147 +446,6 @@
     return [connection identifier];
 }
 
-
-#pragma mark Request sending methods
-
-#define SET_AUTHORIZATION_IN_HEADER 1
-
-- (NSString *)_sendRequestWithMethod:(NSString *)method 
-                                path:(NSString *)path 
-                     queryParameters:(NSDictionary *)params 
-                                body:(NSString *)body 
-                         requestType:(MGTwitterRequestType)requestType 
-                        responseType:(MGTwitterResponseType)responseType
-{
-    // Construct appropriate URL string.
-    NSString *fullPath = path;
-    if (params) {
-        fullPath = [self _queryStringWithBase:fullPath parameters:params prefixed:YES];
-    }
-
-#if YAJL_AVAILABLE
-	NSString *domain = nil;
-	NSString *connectionType = nil;
-	if (requestType == MGTwitterSearchRequest || requestType == MGTwitterSearchCurrentTrendsRequest)
-	{
-		domain = _searchDomain;
-		connectionType = @"http";
-	}
-	else
-	{
-		domain = _APIDomain;
-		if (_secureConnection)
-		{
-			connectionType = @"https";
-		}
-		else
-		{
-			connectionType = @"http";
-		}
-	}
-#else
-	NSString *domain = _APIDomain;
-	NSString *connectionType = nil;
-	if (_secureConnection)
-	{
-		connectionType = @"https";
-	}
-	else
-	{
-		connectionType = @"http";
-	}
-#endif
-	
-#if SET_AUTHORIZATION_IN_HEADER
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@/%@", 
-                           connectionType,
-                           domain, fullPath];
-#else    
-    NSString *urlString = [NSString stringWithFormat:@"%@://%@:%@@%@/%@", 
-                           connectionType, 
-                           [self _encodeString:_username], [self _encodeString:_password], 
-                           domain, fullPath];
-#endif
-    
-    NSURL *finalURL = [NSURL URLWithString:urlString];
-    if (!finalURL) {
-        return nil;
-    }
-
-#if DEBUG
-    if (YES) {
-		NSLog(@"MGTwitterEngine: finalURL = %@", finalURL);
-	}
-#endif
-
-    // Construct an NSMutableURLRequest for the URL and set appropriate request method.
-    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:finalURL 
-                                                              cachePolicy:NSURLRequestReloadIgnoringCacheData 
-                                                          timeoutInterval:URL_REQUEST_TIMEOUT];
-    if (method) {
-        [theRequest setHTTPMethod:method];
-    }
-    [theRequest setHTTPShouldHandleCookies:NO];
-    
-    // Set headers for client information, for tracking purposes at Twitter.
-    [theRequest setValue:_clientName    forHTTPHeaderField:@"X-Twitter-Client"];
-    [theRequest setValue:_clientVersion forHTTPHeaderField:@"X-Twitter-Client-Version"];
-    [theRequest setValue:_clientURL     forHTTPHeaderField:@"X-Twitter-Client-URL"];
-    
-#if SET_AUTHORIZATION_IN_HEADER
-	if ([self username] && [self password]) {
-		// Set header for HTTP Basic authentication explicitly, to avoid problems with proxies and other intermediaries
-		NSString *authStr = [NSString stringWithFormat:@"%@:%@", [self username], [self password]];
-		NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
-		NSString *authValue = [NSString stringWithFormat:@"Basic %@", [authData base64EncodingWithLineLength:80]];
-		[theRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
-	}
-#endif
-
-    // Set the request body if this is a POST request.
-    BOOL isPOST = (method && [method isEqualToString:HTTP_POST_METHOD]);
-    if (isPOST) {
-        // Set request body, if specified (hopefully so), with 'source' parameter if appropriate.
-        NSString *finalBody = @"";
-		if (body) {
-			finalBody = [finalBody stringByAppendingString:body];
-		}
-        if (_clientSourceToken) {
-            finalBody = [finalBody stringByAppendingString:[NSString stringWithFormat:@"%@source=%@", 
-                                                            (body) ? @"&" : @"?" , 
-                                                            _clientSourceToken]];
-        }
-        
-        if (finalBody) {
-            [theRequest setHTTPBody:[finalBody dataUsingEncoding:NSUTF8StringEncoding]];
-#if DEBUG
-			if (YES) {
-				NSLog(@"MGTwitterEngine: finalBody = %@", finalBody);
-			}
-#endif
-        }
-    }
-    
-    
-    // Create a connection using this request, with the default timeout and caching policy, 
-    // and appropriate Twitter request and response types for parsing and error reporting.
-    MGTwitterHTTPURLConnection *connection;
-    connection = [[MGTwitterHTTPURLConnection alloc] initWithRequest:theRequest 
-                                                            delegate:self 
-                                                         requestType:requestType 
-                                                        responseType:responseType];
-    
-    if (!connection) {
-        return nil;
-    } else {
-        [_connections setObject:connection forKey:[connection identifier]];
-        [connection release];
-    }
-    
-    return [connection identifier];
-}
-
-
 #pragma mark Parsing methods
 
 #if YAJL_AVAILABLE
@@ -951,22 +810,21 @@
 
 #pragma mark -
 
-
-- (NSString *)getFollowedTimelineSinceID:(unsigned long)sinceID startingAtPage:(int)page count:(int)count
+- (NSString *)getFollowedTimelineSinceID:(NSString *)sinceID startingAtPage:(int)page count:(int)count
 {
     return [self getFollowedTimelineSinceID:sinceID withMaximumID:0 startingAtPage:page count:count];
 }
 
-- (NSString *)getFollowedTimelineSinceID:(unsigned long)sinceID withMaximumID:(unsigned long)maxID startingAtPage:(int)page count:(int)count
+- (NSString *)getFollowedTimelineSinceID:(NSString *)sinceID withMaximumID:(int)maxID startingAtPage:(int)page count:(int)count
 {
 	NSString *path = [NSString stringWithFormat:@"statuses/friends_timeline.%@", API_FORMAT];
-
+	
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:0];
     if (sinceID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%u", sinceID] forKey:@"since_id"];
+        [params setObject:[NSString stringWithFormat:@"%llu", sinceID] forKey:@"since_id"];
     }
     if (maxID > 0) {
-        [params setObject:[NSString stringWithFormat:@"%u", maxID] forKey:@"max_id"];
+        [params setObject:[NSString stringWithFormat:@"%llu", maxID] forKey:@"max_id"];
     }
     if (page > 0) {
         [params setObject:[NSString stringWithFormat:@"%d", page] forKey:@"page"];
