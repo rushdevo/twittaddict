@@ -7,7 +7,12 @@
 	<key>NSManagedObjectModel_VersionHashes</key>
 	<dict>
 		<key>twittaddict</key>
-		<dict/>
+		<dict>
+			<key>Score</key>
+			<data>
+			SXlFnjfts8aTCAs6ym2016GGwNvPYe7GTslZrWgbsaw=
+			</data>
+		</dict>
 	</dict>
 </dict>
 </plist>

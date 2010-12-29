@@ -10,13 +10,10 @@
 
 
 @interface BaseController : UIViewController {
-	NSMutableData *responseData;
+	
+
 }
 
--(void) noConnectionAlert;
--(void) errorAlert:(NSArray *)errors;
--(NSURL *) constructURL:(NSString *)path;
--(void) asynchRequest:(NSString *)path withMethod:(NSString *)method withContentType:(NSString *)contentType withData:(NSString *)data;
--(void) handleAsynchResponse:(NSDictionary *)data;
+- (void) deleteAllObjects: (NSString *) entityDescription;
 
 @end

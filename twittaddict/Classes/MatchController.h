@@ -10,7 +10,6 @@
 #import "SA_OAuthTwitterController.h"  
 #import "MGTwitterEngine.h"
 #import "SRButton.h"
-//#import "BaseController.h"
 
 @class SA_OAuthTwitterEngine; 
 
@@ -21,10 +20,12 @@
 	NSMutableArray *tweets;
 	NSMutableArray *follows;
 	NSMutableArray *friendIDs;
-	NSString *username;
-	BOOL retrievedUsername;
+	NSString *authID;
+	BOOL retrievedAuthID;
 	int score;
+	int secondsRemaining;
 	UILabel *scoreLabel;
+	UILabel *timerLabel;
 	
 	// match mode 1
 	SRButton *user1Button;
@@ -41,7 +42,7 @@
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *follows;
 @property(nonatomic,retain) NSMutableArray *friendIDs;
-@property(nonatomic,retain) NSString *username;
+@property(nonatomic,retain) NSString *authID;
 @property(nonatomic,retain) NSString *correctUserID;
 @property(nonatomic,retain) NSMutableArray *selectedUsers;
 @property(nonatomic,retain) IBOutlet SRButton *user1Button;
@@ -51,6 +52,7 @@
 @property(nonatomic,retain) IBOutlet UILabel *user2Label;
 @property(nonatomic,retain) IBOutlet UILabel *user3Label;
 @property(nonatomic,retain) IBOutlet UILabel *scoreLabel;
+@property(nonatomic,retain) IBOutlet UILabel *timerLabel;
 @property(nonatomic,retain) IBOutlet UITextView *tweetText;
 
 -(void)setupMode1;
@@ -58,7 +60,9 @@
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label;
 -(NSString *)getUserIDNotEqualTo:(NSArray *)userIDs;
 -(NSString *)tempUserID;
--(IBAction)userSelected:(id)sender;
 -(void)setupMode2;
+-(IBAction)userSelected:(id)sender;
+-(void)countdown;
+-(void)saveScore;
 
 @end
