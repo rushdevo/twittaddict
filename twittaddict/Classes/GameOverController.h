@@ -9,17 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 
-@interface GameOverController : BaseController {
+@interface GameOverController : BaseController <UITableViewDelegate> {
 	UILabel *scoreLabel;
 	UITextView *messageText;
 	NSDictionary *lastScore;
+	NSArray *highScores;
+	UITableView *highScoreTable;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *scoreLabel;
 @property (nonatomic, retain) IBOutlet UITextView *messageText;
 @property (nonatomic, retain) NSDictionary *lastScore;
+@property (nonatomic, retain) NSArray *highScores;
+@property (nonatomic, retain) IBOutlet UITableView *highScoreTable;
+
 
 -(IBAction)playAgain;
 -(NSDictionary *)lastScore;
+-(NSArray *)highScores;
 
 @end

@@ -14,9 +14,12 @@
 @synthesize scoreLabel;
 @synthesize messageText;
 @synthesize lastScore;
+@synthesize highScores;
+@synthesize highScoreTable;
 
 - (void)viewDidLoad {
 	lastScore = [self lastScore];
+	highScores = [[NSArray alloc]initWithArray:[self highScores]];
 	scoreLabel.text = [[lastScore valueForKey:@"score"]stringValue];
     [super viewDidLoad];
 }
@@ -42,6 +45,48 @@
 	[request release];
 }
 
+-(NSArray *)highScores {
+	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Score" inManagedObjectContext:context];
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	[request setEntity:entityDesc];
+	NSPredicate *pred = [NSPredicate predicateWithFormat:@"(gameMode = %@)", @"Match"];
+	NSSortDescriptor *scoreSort = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+	[request setSortDescriptors:[NSArray arrayWithObject:scoreSort]];
+	[request setFetchLimit:5];	
+	[request setPredicate:pred];
+	NSError *error;
+	NSArray *objects = [context executeFetchRequest:request error:&error];
+	return objects;
+	[request release];
+}
+
+#pragma mark -
+#pragma mark Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [highScores count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *CellIdentifier = @"Cell";
+	
+	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	}
+	NSDictionary *highScore = [highScores objectAtIndex:[indexPath row]];
+	cell.textLabel.text = [NSString stringWithFormat:@"%d. %@",[indexPath row]+1,[[highScore valueForKey:@"score"]stringValue]];
+	return cell;
+}
+
+
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -60,6 +105,8 @@
 	[scoreLabel release];
 	[messageText release];
 	[lastScore release];
+	[highScores release];
+	[highScoreTable release];
     [super dealloc];
 }
 

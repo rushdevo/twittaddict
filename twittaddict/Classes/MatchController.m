@@ -48,7 +48,7 @@
 	}
 	
 	score = 0;
-	secondsRemaining = 60;
+	secondsRemaining = 10;
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
 	friendIDs = [[NSMutableArray alloc]init];
