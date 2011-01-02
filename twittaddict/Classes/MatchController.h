@@ -19,7 +19,7 @@
 	
 	NSMutableArray *tweets;
 	NSMutableArray *follows;
-	NSMutableArray *friendIDs;
+	NSMutableArray *friends;
 	NSString *authID;
 	BOOL retrievedAuthID;
 	int score;
@@ -37,11 +37,12 @@
 	UITextView *tweetText;
 	NSString *correctUserID;
 	NSMutableArray *selectedUsers;
+	UIImageView *position2Image;
 }
 
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *follows;
-@property(nonatomic,retain) NSMutableArray *friendIDs;
+@property(nonatomic,retain) NSMutableArray *friends;
 @property(nonatomic,retain) NSString *authID;
 @property(nonatomic,retain) NSString *correctUserID;
 @property(nonatomic,retain) NSMutableArray *selectedUsers;
@@ -54,15 +55,18 @@
 @property(nonatomic,retain) IBOutlet UILabel *scoreLabel;
 @property(nonatomic,retain) IBOutlet UILabel *timerLabel;
 @property(nonatomic,retain) IBOutlet UITextView *tweetText;
+@property(nonatomic,retain) IBOutlet UIImageView *position2Image;
 
+-(void)setupTimer;
 -(void)setupMode1;
--(void)initMode1Components:(NSArray *)userInfo;
+-(void)initMode1Components:(NSDictionary *)tweet;
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label;
--(NSString *)getUserIDNotEqualTo:(NSArray *)userIDs;
--(NSString *)tempUserID;
 -(void)setupMode2;
 -(IBAction)userSelected:(id)sender;
--(void)countdown;
+-(void) startTimer;
+-(void) startTimerThread;
+-(void)countdown:(NSTimer *)timer;
+-(void)presentGameOver;
 -(void)saveScore;
 
 @end

@@ -19,7 +19,7 @@
 @synthesize tweets;
 @synthesize follows;
 @synthesize authID;
-@synthesize friendIDs;
+@synthesize friends;
 @synthesize scoreLabel;
 @synthesize timerLabel;
 @synthesize user1Button;
@@ -31,6 +31,7 @@
 @synthesize tweetText;
 @synthesize selectedUsers;
 @synthesize correctUserID;
+@synthesize position2Image;
 
 
 - (void)viewDidAppear: (BOOL)animated {
@@ -48,15 +49,14 @@
 	}
 	
 	score = 0;
-	secondsRemaining = 10;
+	secondsRemaining = 5;
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
-	friendIDs = [[NSMutableArray alloc]init];
+	friends = [[NSMutableArray alloc]init];
 	retrievedAuthID = NO;
 	correctUserID = [[NSString alloc]init];
 	selectedUsers = [[NSMutableArray alloc]init];
 	[_engine checkUserCredentials];
-	[NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countdown) userInfo:nil repeats:YES];
 }
 
 
@@ -89,13 +89,13 @@
 			NSMutableDictionary *tweet = [[NSMutableDictionary alloc]init];
 			[tweet setObject:[status objectForKey:@"id"] forKey:@"tweet_id"];
 			[tweet setObject:[status objectForKey:@"text"] forKey:@"text"];
-			[tweet setObject:[[status objectForKey:@"user"]objectForKey:@"id"] forKey:@"user_id"];
+			[tweet setObject:[status objectForKey:@"user"] forKey:@"user"];
 			[tweets addObject:tweet];
 			[tweet release];
 		}
 	}
-	NSLog(@"TWEETS: %d",[tweets count]);
-	if ([tweets count] > 0 && [friendIDs count]>0) {
+	if ([tweets count] > 0 && [friends count]>0) {
+		[self startTimer];
 		[self setupMode1];
 	}
 }
@@ -107,52 +107,89 @@
 		[_engine getFriendIDsFor:[[userInfo objectAtIndex:0]objectForKey:@"screen_name"]];
 		[_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:200];
 	} else {
-		[self initMode1Components:userInfo];
+		[friends setArray:userInfo];
+		if ([tweets count] > 0 && [friends count] > 0) {
+			[self startTimer];
+			[self setupMode1];
+		}
 	}
 }
 
 - (void)socialGraphInfoReceived:(NSArray *)socialGraphInfo forRequest:(NSString *)connectionIdentifier {
-	[friendIDs setArray:[[socialGraphInfo objectAtIndex:0]objectForKey:@"ids"]];
-	if ([tweets count] > 0 && [friendIDs count]>0) {
-		[self setupMode1];
+	NSMutableArray *friendIDs = [NSMutableArray arrayWithArray:[[socialGraphInfo objectAtIndex:0]objectForKey:@"ids"]];
+	[friendIDs shuffle];
+	NSMutableArray *friendStringIDs = [[NSMutableArray alloc]init];
+	if ([friendIDs count] > 100) {
+		friendIDs = [NSMutableArray arrayWithArray:[friendIDs subarrayWithRange:NSMakeRange(0, 99)]];
+	} 
+	for (NSString *friendID in friendIDs) {
+		[friendStringIDs addObject:friendID];
 	}
+	NSMutableString *friendString = [[NSMutableString alloc]init];
+	for (NSString *friendID in friendStringIDs) {
+		[friendString appendString:[NSString stringWithFormat:@"%@,", friendID]];
+	}
+	[friendStringIDs release];
+	[_engine getBulkUserInformationFor:friendString];
+	[friendString release];
 }
 
 #pragma mark Game Setup
 
+-(void) startTimer {
+	NSThread* timerThread = [[NSThread alloc] initWithTarget:self selector:@selector(startTimerThread) object:nil]; //Create a new thread
+	[timerThread start]; //start the thread
+}
+
+//the thread starts by sending this message
+-(void) startTimerThread {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
+	[[NSTimer scheduledTimerWithTimeInterval: 1.0
+									  target: self
+									selector: @selector(countdown:)
+									userInfo: nil
+									 repeats: YES] retain];
+	
+	[runLoop run];
+	[pool release];
+}
+
+- (void)countdown:(NSTimer *)timer {
+	if (secondsRemaining > 0) {
+		timerLabel.text = [NSString stringWithFormat:@"%d", secondsRemaining];
+		secondsRemaining -= 1;
+	} else {
+		[self saveScore];
+		[self performSelectorOnMainThread:@selector(presentGameOver) withObject:nil waitUntilDone:NO];
+	}
+}
+
+-(void)presentGameOver {
+	GameOverController *gameOver = [[GameOverController alloc] initWithNibName:@"GameOverController" bundle:[NSBundle mainBundle]];
+	[self presentModalViewController:gameOver animated:YES];
+	[gameOver release];
+}
+
 -(void)setupMode1 {
 	if ([tweets count]==0) {
 		[_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:200];
-	} else{
-		NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
-		tweetText.text = [tweet valueForKey:@"text"];
-		correctUserID = [[NSString alloc]initWithString:[tweet valueForKey:@"user_id"]];
-		[tweets removeObject:tweet];
-		
-		NSString *userID1 = [self getUserIDNotEqualTo:[NSArray arrayWithObject:correctUserID]];
-		NSString *userID2 = [self getUserIDNotEqualTo:[NSArray arrayWithObjects:correctUserID,userID1,nil]];
-		NSString *friendString = [NSString stringWithFormat:@"%@, %@, %@", correctUserID, userID1, userID2];
-		[_engine getBulkUserInformationFor:friendString];
-	}
-}
-
--(NSString *)getUserIDNotEqualTo:(NSArray *)userIDs {
-	NSString *tempID = [self tempUserID];
-	if (![userIDs containsObject:tempID]) {
-		return tempID;
 	} else {
-		[self getUserIDNotEqualTo:userIDs];
+		NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+		[tweets removeObject:tweet];
+		[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
 	}
-}
-
--(NSString *)tempUserID {
-	return [friendIDs objectAtIndex:arc4random()%[friendIDs count]];
 }				
 
--(void)initMode1Components:(NSArray *)userInfo {
-	[self initUser:[userInfo objectAtIndex:0] withButton:user1Button withLabel:user1Label];
-	[self initUser:[userInfo objectAtIndex:1] withButton:user2Button withLabel:user2Label];
-	[self initUser:[userInfo objectAtIndex:2] withButton:user3Button withLabel:user3Label];
+-(void)initMode1Components:(NSDictionary *)tweet {
+	tweetText.text = [tweet valueForKey:@"text"];
+	correctUserID = [[NSString alloc]initWithString:[[tweet objectForKey:@"user"]valueForKey:@"id"]];
+	[friends shuffle];
+	NSMutableArray *users = [[NSMutableArray alloc]initWithObjects:[tweet objectForKey:@"user"],[friends objectAtIndex:0],[friends objectAtIndex:1], nil];
+	[users shuffle];
+	[self initUser:[users objectAtIndex:0] withButton:user1Button withLabel:user1Label];
+	[self initUser:[users objectAtIndex:1] withButton:user2Button withLabel:user2Label];
+	[self initUser:[users objectAtIndex:2] withButton:user3Button withLabel:user3Label];
 }
 
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label {
@@ -170,6 +207,7 @@
 # pragma mark Game Play
 
 -(IBAction)userSelected:(id)sender {
+	[self.view bringSubviewToFront:position2Image];
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		score += 10;
@@ -177,19 +215,7 @@
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
 	}
-	[self setupMode1];
-}
-
--(void)countdown {
-	if (secondsRemaining > 0) {
-		timerLabel.text = [NSString stringWithFormat:@"%d", secondsRemaining];
-		secondsRemaining -= 1;
-	} else {
-		[self saveScore];
-		GameOverController *gameOver = [[GameOverController alloc] initWithNibName:@"GameOverController" bundle:[NSBundle mainBundle]];
-		[self presentModalViewController:gameOver animated:YES];
-		[gameOver release];
-	}
+	[NSThread detachNewThreadSelector:@selector(setupMode1) toTarget:self withObject:nil];
 }
 
 -(void)saveScore {
@@ -226,7 +252,7 @@
 	[tweets release];
 	[follows release];
 	[authID release];
-	[friendIDs release];
+	[friends release];
 	[_engine release];
 	[selectedUsers release];
 	[scoreLabel release];
@@ -239,6 +265,7 @@
 	[user3Label release];
 	[tweetText release];
 	[correctUserID release];
+	[position2Image release];
     [super dealloc];
 }
 
