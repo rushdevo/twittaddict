@@ -31,7 +31,8 @@
 @synthesize tweetText;
 @synthesize selectedUsers;
 @synthesize correctUserID;
-@synthesize position2Image;
+@synthesize loadingActivity;
+@synthesize loadingImage;
 
 
 - (void)viewDidAppear: (BOOL)animated {
@@ -49,7 +50,7 @@
 	}
 	
 	score = 0;
-	secondsRemaining = 5;
+	secondsRemaining = 60;
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
 	friends = [[NSMutableArray alloc]init];
@@ -138,10 +139,9 @@
 
 -(void) startTimer {
 	NSThread* timerThread = [[NSThread alloc] initWithTarget:self selector:@selector(startTimerThread) object:nil]; //Create a new thread
-	[timerThread start]; //start the thread
+	[timerThread start]; 
 }
 
-//the thread starts by sending this message
 -(void) startTimerThread {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
@@ -179,6 +179,8 @@
 		[tweets removeObject:tweet];
 		[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
 	}
+	loadingActivity.hidden = YES;
+	loadingImage.hidden = YES;
 }				
 
 -(void)initMode1Components:(NSDictionary *)tweet {
@@ -206,8 +208,8 @@
 
 # pragma mark Game Play
 
+
 -(IBAction)userSelected:(id)sender {
-	[self.view bringSubviewToFront:position2Image];
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		score += 10;
@@ -215,8 +217,19 @@
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
 	}
-	[NSThread detachNewThreadSelector:@selector(setupMode1) toTarget:self withObject:nil];
+	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
+	[gameThread start];
 }
+
+-(void) startGameThread {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
+	[self setupMode1];
+	[runLoop run];
+	[pool release];
+}
+
+
 
 -(void)saveScore {
 	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -247,7 +260,6 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 - (void)dealloc {
 	[tweets release];
 	[follows release];
@@ -265,7 +277,8 @@
 	[user3Label release];
 	[tweetText release];
 	[correctUserID release];
-	[position2Image release];
+	[loadingActivity release];
+	[loadingImage release];
     [super dealloc];
 }
 

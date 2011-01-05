@@ -26,6 +26,8 @@
 	int secondsRemaining;
 	UILabel *scoreLabel;
 	UILabel *timerLabel;
+	UIActivityIndicatorView *loadingActivity;
+	UIImageView *loadingImage;
 	
 	// match mode 1
 	SRButton *user1Button;
@@ -37,7 +39,6 @@
 	UITextView *tweetText;
 	NSString *correctUserID;
 	NSMutableArray *selectedUsers;
-	UIImageView *position2Image;
 }
 
 @property(nonatomic,retain) NSMutableArray *tweets;
@@ -55,7 +56,8 @@
 @property(nonatomic,retain) IBOutlet UILabel *scoreLabel;
 @property(nonatomic,retain) IBOutlet UILabel *timerLabel;
 @property(nonatomic,retain) IBOutlet UITextView *tweetText;
-@property(nonatomic,retain) IBOutlet UIImageView *position2Image;
+@property(nonatomic,retain) IBOutlet UIActivityIndicatorView *loadingActivity;
+@property(nonatomic,retain) IBOutlet UIImageView *loadingImage;
 
 -(void)setupTimer;
 -(void)setupMode1;
@@ -67,6 +69,7 @@
 -(void) startTimerThread;
 -(void)countdown:(NSTimer *)timer;
 -(void)presentGameOver;
+-(void) startGameThread;
 -(void)saveScore;
 
 @end
