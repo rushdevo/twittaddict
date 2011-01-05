@@ -8,6 +8,7 @@
 
 #import "GameOverController.h"
 #import "twittaddictAppDelegate.h"
+#import "MatchController.h"
 
 @implementation GameOverController
 
@@ -25,7 +26,9 @@
 }
 
 -(IBAction)playAgain {
-	
+	MatchController *match = [[MatchController alloc] initWithNibName:@"MatchController" bundle:[NSBundle mainBundle]];
+	[self presentModalViewController:match animated:YES];
+	[match release];
 }
 
 -(NSDictionary *)lastScore {

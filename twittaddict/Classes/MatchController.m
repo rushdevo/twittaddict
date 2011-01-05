@@ -229,8 +229,6 @@
 	[pool release];
 }
 
-
-
 -(void)saveScore {
 	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	NSManagedObjectContext *context = [appDelegate managedObjectContext];
@@ -242,7 +240,6 @@
 	[scoreObject setValue:[NSDate date] forKey:@"timestamp"];
 	NSError *error;
 	[context save:&error];
-	
 }
 
 # pragma mark memory management
