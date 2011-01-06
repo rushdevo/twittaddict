@@ -30,6 +30,7 @@
 	UIImageView *loadingImage;
 	
 	// match mode 1
+	UIImageView *background1Image;
 	SRButton *user1Button;
 	SRButton *user2Button;
 	SRButton *user3Button;
@@ -39,6 +40,15 @@
 	UITextView *tweetText;
 	NSString *correctUserID;
 	NSMutableArray *selectedUsers;
+	
+	//match mode 2
+	UIImageView *background2Image;
+	SRButton *tweet1Button;
+	SRButton *tweet2Button;
+	SRButton *tweet3Button;
+	UIImageView *userImage;
+	UILabel *userLabel;
+	NSString *correctTweetID;
 }
 
 @property(nonatomic,retain) NSMutableArray *tweets;
@@ -47,6 +57,7 @@
 @property(nonatomic,retain) NSString *authID;
 @property(nonatomic,retain) NSString *correctUserID;
 @property(nonatomic,retain) NSMutableArray *selectedUsers;
+@property(nonatomic,retain) IBOutlet UIImageView *background1Image;
 @property(nonatomic,retain) IBOutlet SRButton *user1Button;
 @property(nonatomic,retain) IBOutlet SRButton *user2Button;
 @property(nonatomic,retain) IBOutlet SRButton *user3Button;
@@ -58,13 +69,28 @@
 @property(nonatomic,retain) IBOutlet UITextView *tweetText;
 @property(nonatomic,retain) IBOutlet UIActivityIndicatorView *loadingActivity;
 @property(nonatomic,retain) IBOutlet UIImageView *loadingImage;
+@property(nonatomic,retain) IBOutlet UIImageView *background2Image;
+@property(nonatomic,retain) IBOutlet SRButton *tweet1Button;
+@property(nonatomic,retain) IBOutlet SRButton *tweet2Button;
+@property(nonatomic,retain) IBOutlet SRButton *tweet3Button;
+@property(nonatomic,retain) IBOutlet UIImageView *userImage;
+@property(nonatomic,retain) IBOutlet UILabel *userLabel;
+@property(nonatomic,retain) NSString *correctTweetID;
 
--(void)setupTimer;
+-(void)setupRandomMode;
+-(void)hideMode1Components;
+-(void)showMode1Components;
+-(void)hideMode2Components;
+-(void)showMode2Components;
 -(void)setupMode1;
 -(void)initMode1Components:(NSDictionary *)tweet;
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label;
 -(void)setupMode2;
+-(void)initMode2Components:(NSMutableArray *)tweetChoices;
+-(void)initTweet:(NSDictionary *)tweet withButton:(SRButton *)button;
 -(IBAction)userSelected:(id)sender;
+-(IBAction)tweetSelected:(id)sender;
+-(void)increaseScore;
 -(void) startTimer;
 -(void) startTimerThread;
 -(void)countdown:(NSTimer *)timer;

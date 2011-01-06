@@ -84,6 +84,9 @@
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
 	NSDictionary *highScore = [highScores objectAtIndex:[indexPath row]];
+	if (highScore==lastScore) {
+		cell.textLabel.textColor = [UIColor redColor];
+	}
 	cell.textLabel.text = [NSString stringWithFormat:@"%d. %@",[indexPath row]+1,[[highScore valueForKey:@"score"]stringValue]];
 	return cell;
 }

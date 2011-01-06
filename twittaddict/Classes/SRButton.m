@@ -12,5 +12,6 @@
 @implementation SRButton
 
 @synthesize userID;
+@synthesize tweetID;
 
 @end

@@ -22,6 +22,7 @@
 @synthesize friends;
 @synthesize scoreLabel;
 @synthesize timerLabel;
+@synthesize background1Image;
 @synthesize user1Button;
 @synthesize user2Button;
 @synthesize user3Button;
@@ -33,6 +34,13 @@
 @synthesize correctUserID;
 @synthesize loadingActivity;
 @synthesize loadingImage;
+@synthesize background2Image;
+@synthesize tweet1Button;
+@synthesize tweet2Button;
+@synthesize tweet3Button;
+@synthesize userImage;
+@synthesize userLabel;
+@synthesize correctTweetID;
 
 
 - (void)viewDidAppear: (BOOL)animated {
@@ -97,7 +105,7 @@
 	}
 	if ([tweets count] > 0 && [friends count]>0) {
 		[self startTimer];
-		[self setupMode1];
+		[self setupRandomMode];
 	}
 }
 
@@ -111,7 +119,7 @@
 		[friends setArray:userInfo];
 		if ([tweets count] > 0 && [friends count] > 0) {
 			[self startTimer];
-			[self setupMode1];
+			[self setupRandomMode];
 		}
 	}
 }
@@ -171,16 +179,21 @@
 	[gameOver release];
 }
 
--(void)setupMode1 {
-	if ([tweets count]==0) {
-		[_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:200];
-	} else {
-		NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
-		[tweets removeObject:tweet];
-		[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
-	}
+-(void)setupRandomMode {
 	loadingActivity.hidden = YES;
 	loadingImage.hidden = YES;
+	int rand = (arc4random() % 2 ? 1 : 0);
+	if (rand==0) {
+		[self setupMode1];
+	} else {
+		[self setupMode2];
+	}
+}
+
+-(void)setupMode1 {
+	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	[tweets removeObject:tweet];
+	[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
 }				
 
 -(void)initMode1Components:(NSDictionary *)tweet {
@@ -192,6 +205,30 @@
 	[self initUser:[users objectAtIndex:0] withButton:user1Button withLabel:user1Label];
 	[self initUser:[users objectAtIndex:1] withButton:user2Button withLabel:user2Label];
 	[self initUser:[users objectAtIndex:2] withButton:user3Button withLabel:user3Label];
+	[self hideMode2Components];
+	[self showMode1Components];
+}
+
+-(void)hideMode1Components {
+	background1Image.hidden = YES;
+	tweetText.hidden = YES;
+	user1Label.hidden = YES;
+	user1Button.hidden = YES;
+	user2Label.hidden = YES;
+	user2Button.hidden = YES;
+	user3Label.hidden = YES;
+	user3Button.hidden = YES;
+}
+
+-(void)showMode1Components {
+	background1Image.hidden = NO;
+	tweetText.hidden = NO;
+	user1Label.hidden = NO;
+	user1Button.hidden = NO;
+	user2Label.hidden = NO;
+	user2Button.hidden = NO;
+	user3Label.hidden = NO;
+	user3Button.hidden = NO;
 }
 
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label {
@@ -201,9 +238,53 @@
 	label.text = [user objectForKey:@"screen_name"];
 }
 
+-(void)hideMode2Components {
+	background2Image.hidden = YES;
+	tweet1Button.hidden = YES;
+	tweet2Button.hidden = YES;
+	tweet3Button.hidden = YES;
+	userImage.hidden = YES;
+	userLabel.hidden = YES;
+}
+
+-(void)showMode2Components {
+	background2Image.hidden = NO;
+	tweet1Button.hidden = NO;
+	tweet2Button.hidden = NO;
+	tweet3Button.hidden = NO;
+	userImage.hidden = NO;
+	userLabel.hidden = NO;
+}
 
 -(void)setupMode2 {
-	
+	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	[tweets removeObject:tweet];
+	NSDictionary *tweet2 = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	[tweets removeObject:tweet2];
+	NSDictionary *tweet3 = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	[tweets removeObject:tweet3];
+	NSMutableArray *tweetChoices = [NSMutableArray arrayWithObjects:tweet,tweet2,tweet3,nil];
+	[self performSelectorOnMainThread:@selector(initMode2Components:) withObject:tweetChoices waitUntilDone:NO];
+}
+
+-(void)initMode2Components:(NSMutableArray *)tweetChoices {
+	correctTweetID = [[NSString alloc]initWithString:[[tweetChoices objectAtIndex:0]objectForKey:@"tweet_id"]];
+	NSDictionary *user = [[tweetChoices objectAtIndex:0]objectForKey:@"user"];
+	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
+	userImage.image = image;
+	userLabel.text = [user objectForKey:@"screen_name"];
+	[tweetChoices shuffle];
+	[self initTweet:[tweetChoices objectAtIndex:0] withButton:tweet1Button];
+	[self initTweet:[tweetChoices objectAtIndex:1] withButton:tweet2Button];
+	[self initTweet:[tweetChoices objectAtIndex:2] withButton:tweet3Button];
+	[self hideMode1Components];
+	[self showMode2Components];
+}
+	 
+-(void)initTweet:(NSDictionary *)tweet withButton:(SRButton *)button {
+	[button setImage:nil forState:UIControlStateNormal];
+	[button setTitle:[tweet objectForKey:@"text"] forState:UIControlStateNormal];
+	button.tweetID = [tweet objectForKey:@"tweet_id"];
 }
 
 # pragma mark Game Play
@@ -212,8 +293,7 @@
 -(IBAction)userSelected:(id)sender {
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
-		score += 10;
-		scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+		[self increaseScore];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
 	}
@@ -221,10 +301,27 @@
 	[gameThread start];
 }
 
+-(IBAction)tweetSelected:(id)sender {
+	[sender setTitle:@"" forState:UIControlStateNormal];
+	if ([[sender tweetID] isEqualToString:correctTweetID]) {
+		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
+		[self increaseScore];
+	} else {
+		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
+	}
+	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
+	[gameThread start];
+}
+		 
+-(void)increaseScore {
+	score += 10;
+	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+}
+
 -(void) startGameThread {
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
-	[self setupMode1];
+	[self setupRandomMode];
 	[runLoop run];
 	[pool release];
 }
@@ -266,6 +363,7 @@
 	[selectedUsers release];
 	[scoreLabel release];
 	[timerLabel release];
+	[background1Image release];
 	[user1Button release];
 	[user2Button release];
 	[user3Button release];
@@ -276,6 +374,13 @@
 	[correctUserID release];
 	[loadingActivity release];
 	[loadingImage release];
+	[background2Image release];
+	[tweet1Button release];
+	[tweet2Button release];
+	[tweet3Button release];
+	[userImage release];
+	[userLabel release];
+	[correctTweetID release];
     [super dealloc];
 }
 
