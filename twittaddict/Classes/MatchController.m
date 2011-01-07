@@ -44,7 +44,6 @@
 
 
 - (void)viewDidAppear: (BOOL)animated {
-	
 	if(!_engine){
 		_engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
 		_engine.consumerKey    = kOAuthConsumerKey;
@@ -90,6 +89,17 @@
 
 - (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {
 	NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
+	if ([error code]==-1009) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Connect" message:nil delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	} else {
+		[self viewDidAppear:FALSE];		
+	}
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	[self viewDidAppear:FALSE];
 }
 
 - (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)connectionIdentifier {
