@@ -44,6 +44,15 @@
 
 
 - (void)viewDidAppear: (BOOL)animated {
+	score = 0;
+	secondsRemaining = 60;
+	tweets = [[NSMutableArray alloc]init];
+	follows = [[NSMutableArray alloc]init];
+	friends = [[NSMutableArray alloc]init];
+	retrievedAuthID = NO;
+	correctUserID = [[NSString alloc]init];
+	selectedUsers = [[NSMutableArray alloc]init];
+	
 	if(!_engine){
 		_engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
 		_engine.consumerKey    = kOAuthConsumerKey;
@@ -54,17 +63,9 @@
 	
 	if (controller){
 		[self presentModalViewController: controller animated: YES];
+	} else {
+		[_engine checkUserCredentials];
 	}
-	
-	score = 0;
-	secondsRemaining = 60;
-	tweets = [[NSMutableArray alloc]init];
-	follows = [[NSMutableArray alloc]init];
-	friends = [[NSMutableArray alloc]init];
-	retrievedAuthID = NO;
-	correctUserID = [[NSString alloc]init];
-	selectedUsers = [[NSMutableArray alloc]init];
-	[_engine checkUserCredentials];
 }
 
 
@@ -75,6 +76,7 @@
 	
 	[defaults setObject: data forKey: @"authData"];
 	[defaults synchronize];
+	//[_engine performSelectorOnMainThread:@selector(checkUserCredentials) withObject:nil waitUntilDone:NO];
 }
 
 - (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
@@ -185,6 +187,7 @@
 
 -(void)presentGameOver {
 	GameOverController *gameOver = [[GameOverController alloc] initWithNibName:@"GameOverController" bundle:[NSBundle mainBundle]];
+	gameOver.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:gameOver animated:YES];
 	[gameOver release];
 }
@@ -295,6 +298,7 @@
 	[button setImage:nil forState:UIControlStateNormal];
 	[button setTitle:[tweet objectForKey:@"text"] forState:UIControlStateNormal];
 	button.tweetID = [tweet objectForKey:@"tweet_id"];
+	button.userID = [[tweet objectForKey:@"user"]objectForKey:@"id"];
 }
 
 # pragma mark Game Play
@@ -326,6 +330,50 @@
 -(void)increaseScore {
 	score += 10;
 	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+}
+
+-(void)saveFriendStat:(NSString *)userID withValue:(BOOL)correct {
+//	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+//	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FriendStat" inManagedObjectContext:context];
+//	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+//	[request setEntity:entityDesc];
+//	NSPredicate *pred = [NSPredicate predicateWithFormat:@"(userID = %@)", userID];
+//	[request setPredicate:pred];
+//	NSError *error;
+//	NSArray *stats = [context executeFetchRequest:request error:&error];
+//	[request release];
+//	if ([stats count]>0) {
+//		// update record
+//		NSDictionary *stat = [stats objectAtIndex:0];
+//		[stat setValue:[stat objectForKey:@"attempts"]+1 forKey:@"attempts"];
+//		if (correct) {
+//			[stat setValue:[stat objectForKey:@"correct"]+1 forKey:@"correct"];
+//		}
+//		[stat setValue:[self percentCorrect:[stat objectForKey:@"correct"] withAttempts:[stat objectForKey:@"attempts"]] forKey:@"percentCorrect"];
+//		NSError *error;
+//		[context save:&error];
+//	} else {
+//		//create record
+//		NSManagedObject *statObject = [NSEntityDescription
+//										insertNewObjectForEntityForName:@"FriendStat" 
+//										inManagedObjectContext:context];
+//		[statObject setValue:userID forKey:@"userID"];
+//		[statObject setValue:1 forKey:@"attempts"];
+//		if (correct) {
+//			[statObject setValue:1 forKey:@"correct"];
+//		} else {
+//			[statObject setValue:0 forKey:@"correct"];
+//		}
+//		[statObject setValue:[self percentCorrect:[statObject objectForKey:@"correct"] withAttempts:[statObject objectForKey:@"attempts"]] forKey:@"percentCorrect"];
+//		NSError *error;
+//		[context save:&error];
+//	}
+}
+
+-(NSDecimal *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts {
+	NSDecimalNumberHandler *roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundDown scale:2];
+	return [correct decimalNumberByDividingBy:attempts withBehavior:roundingBehavior];
 }
 
 -(void) startGameThread {

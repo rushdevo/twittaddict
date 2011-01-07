@@ -23,9 +23,9 @@
 @property (nonatomic, retain) NSArray *highScores;
 @property (nonatomic, retain) IBOutlet UITableView *highScoreTable;
 
-
 -(IBAction)playAgain;
 -(NSDictionary *)lastScore;
 -(NSArray *)highScores;
+-(IBAction)showStats;
 
 @end

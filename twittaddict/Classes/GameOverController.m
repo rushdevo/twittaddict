@@ -9,6 +9,7 @@
 #import "GameOverController.h"
 #import "twittaddictAppDelegate.h"
 #import "MatchController.h"
+#import "FriendStatsController.h"
 
 @implementation GameOverController
 
@@ -27,6 +28,7 @@
 
 -(IBAction)playAgain {
 	MatchController *match = [[MatchController alloc] initWithNibName:@"MatchController" bundle:[NSBundle mainBundle]];
+	match.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:match animated:YES];
 	[match release];
 }
@@ -63,6 +65,13 @@
 	NSArray *objects = [context executeFetchRequest:request error:&error];
 	return objects;
 	[request release];
+}
+
+-(IBAction)showStats {
+	FriendStatsController *statsView = [[FriendStatsController alloc] initWithNibName:@"FriendStatsController" bundle:[NSBundle mainBundle]];
+	statsView.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+	[self presentModalViewController:statsView animated:YES];
+	[statsView release];
 }
 
 #pragma mark -

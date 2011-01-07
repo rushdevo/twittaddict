@@ -97,5 +97,7 @@
 -(void)presentGameOver;
 -(void) startGameThread;
 -(void)saveScore;
+-(NSDecimal *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
+-(void)verifyUser;
 
 @end
