@@ -10,18 +10,19 @@
 #import "SA_OAuthTwitterController.h"  
 #import "MGTwitterEngine.h"
 #import "SRButton.h"
+#import "BaseController.h"
 
 @class SA_OAuthTwitterEngine; 
 
-@interface MatchController : UIViewController <SA_OAuthTwitterControllerDelegate> {
+@interface MatchController : BaseController <SA_OAuthTwitterControllerDelegate> {
 	SA_OAuthTwitterEngine    *_engine; 
 	MGTwitterEngine *twitterEngine;
 	
 	NSMutableArray *tweets;
 	NSMutableArray *follows;
 	NSMutableArray *friends;
-	NSString *authID;
-	BOOL retrievedAuthID;
+	NSDictionary *currentUser;
+	BOOL retrievedCurrentUser;
 	int score;
 	int secondsRemaining;
 	UILabel *scoreLabel;
@@ -54,7 +55,7 @@
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *follows;
 @property(nonatomic,retain) NSMutableArray *friends;
-@property(nonatomic,retain) NSString *authID;
+@property(nonatomic,retain) NSDictionary *currentUser;
 @property(nonatomic,retain) NSString *correctUserID;
 @property(nonatomic,retain) NSMutableArray *selectedUsers;
 @property(nonatomic,retain) IBOutlet UIImageView *background1Image;
@@ -88,6 +89,7 @@
 -(void)setupMode2;
 -(void)initMode2Components:(NSMutableArray *)tweetChoices;
 -(void)initTweet:(NSDictionary *)tweet withButton:(SRButton *)button;
+-(void)initButton:(SRButton *)button withUser:(NSDictionary *)user;
 -(IBAction)userSelected:(id)sender;
 -(IBAction)tweetSelected:(id)sender;
 -(void)increaseScore;
@@ -99,6 +101,5 @@
 -(void) startGameThread;
 -(void)saveScore;
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
--(void)saveFriendStat:(NSString *)userID withValue:(BOOL)correct;
-
+-(void)saveFriendStat:(SRButton *)button withValue:(BOOL)correct;
 @end

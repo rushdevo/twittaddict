@@ -32,6 +32,8 @@
 		C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F908912D6B53D0033022D /* FriendStatsController.xib */; };
 		C33F90AD12D6C4410033022D /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F90AB12D6C4410033022D /* gameover.png */; };
 		C33F90AE12D6C4410033022D /* gameover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F90AC12D6C4410033022D /* gameover@2x.png */; };
+		C33F930912D8D6690033022D /* statCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F930812D8D6690033022D /* statCell.m */; };
+		C33F931212D8DC530033022D /* statCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F931112D8DC530033022D /* statCell.xib */; };
 		C3EDB30F12BE4B6300F452F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */; };
 		C3EDB31012BE4B6300F452F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30812BE4B6300F452F9 /* NSString+SBJSON.m */; };
 		C3EDB31112BE4B6300F452F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30A12BE4B6300F452F9 /* SBJsonBase.m */; };
@@ -95,6 +97,9 @@
 		C33F908912D6B53D0033022D /* FriendStatsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FriendStatsController.xib; path = Classes/FriendStatsController.xib; sourceTree = "<group>"; };
 		C33F90AB12D6C4410033022D /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameover.png; sourceTree = "<group>"; };
 		C33F90AC12D6C4410033022D /* gameover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameover@2x.png"; sourceTree = "<group>"; };
+		C33F930712D8D6690033022D /* statCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statCell.h; sourceTree = "<group>"; };
+		C33F930812D8D6690033022D /* statCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = statCell.m; sourceTree = "<group>"; };
+		C33F931112D8DC530033022D /* statCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = statCell.xib; sourceTree = "<group>"; };
 		C3EDB30412BE4B6300F452F9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		C3EDB30512BE4B6300F452F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -200,6 +205,7 @@
 				C33F8AB512C90B550033022D /* GameOverController.m */,
 				C33F908712D6B53D0033022D /* FriendStatsController.h */,
 				C33F908812D6B53D0033022D /* FriendStatsController.m */,
+				C33F930612D8D6370033022D /* Custom Cells */,
 				C33F884512C7A12F0033022D /* Custom Objects */,
 			);
 			path = Classes;
@@ -288,6 +294,15 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
+		C33F930612D8D6370033022D /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C33F930712D8D6690033022D /* statCell.h */,
+				C33F930812D8D6690033022D /* statCell.m */,
+			);
+			name = "Custom Cells";
+			sourceTree = "<group>";
+		};
 		C3EDB30312BE4B6300F452F9 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +327,7 @@
 				C33F8AB612C90B550033022D /* GameOverController.xib */,
 				C3EDB35A12BE538C00F452F9 /* MatchController.xib */,
 				C33F908912D6B53D0033022D /* FriendStatsController.xib */,
+				C33F931112D8DC530033022D /* statCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -476,6 +492,7 @@
 				C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */,
 				C33F90AD12D6C4410033022D /* gameover.png in Resources */,
 				C33F90AE12D6C4410033022D /* gameover@2x.png in Resources */,
+				C33F931212D8DC530033022D /* statCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +534,7 @@
 				C33F883712C79F940033022D /* SRButton.m in Sources */,
 				C33F8AB712C90B550033022D /* GameOverController.m in Sources */,
 				C33F908A12D6B53D0033022D /* FriendStatsController.m in Sources */,
+				C33F930912D8D6690033022D /* statCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

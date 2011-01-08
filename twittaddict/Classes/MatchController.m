@@ -18,7 +18,7 @@
 
 @synthesize tweets;
 @synthesize follows;
-@synthesize authID;
+@synthesize currentUser;
 @synthesize friends;
 @synthesize scoreLabel;
 @synthesize timerLabel;
@@ -49,7 +49,7 @@
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
 	friends = [[NSMutableArray alloc]init];
-	retrievedAuthID = NO;
+	retrievedCurrentUser = NO;
 	correctUserID = [[NSString alloc]init];
 	selectedUsers = [[NSMutableArray alloc]init];
 	
@@ -106,7 +106,7 @@
 
 - (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)connectionIdentifier {
 	for(NSDictionary *status in statuses) {
-		if (![[[status objectForKey:@"user"]objectForKey:@"id"] isEqualToString:authID]) {
+		if (![[[status objectForKey:@"user"]objectForKey:@"id"] isEqualToString:[currentUser objectForKey:@"id"]]) {
 			NSMutableDictionary *tweet = [[NSMutableDictionary alloc]init];
 			[tweet setObject:[status objectForKey:@"id"] forKey:@"tweet_id"];
 			[tweet setObject:[status objectForKey:@"text"] forKey:@"text"];
@@ -121,9 +121,9 @@
 }
 
 - (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier {
-	if (!retrievedAuthID) {
-		authID = [[NSString alloc]initWithString:[[userInfo objectAtIndex:0]objectForKey:@"id"]];
-		retrievedAuthID = YES;
+	if (!retrievedCurrentUser) {
+		currentUser = [[NSDictionary alloc]initWithDictionary:[userInfo objectAtIndex:0]];
+		retrievedCurrentUser = YES;
 		[_engine getFriendIDsFor:[[userInfo objectAtIndex:0]objectForKey:@"screen_name"]];
 		[_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:200];
 	} else {
@@ -192,6 +192,7 @@
 
 -(void)presentGameOver {
 	GameOverController *gameOver = [[GameOverController alloc] initWithNibName:@"GameOverController" bundle:[NSBundle mainBundle]];
+	gameOver.matchView = self;
 	gameOver.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:gameOver animated:YES];
 	[gameOver release];
@@ -250,8 +251,8 @@
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label {
 	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
 	[button setImage:image forState:UIControlStateNormal];
-	button.userID = [user objectForKey:@"id"];
 	label.text = [user objectForKey:@"screen_name"];
+	[self initButton:button withUser:user];
 }
 
 -(void)hideMode2Components {
@@ -301,8 +302,15 @@
 	[button setImage:nil forState:UIControlStateNormal];
 	[button setTitle:[tweet objectForKey:@"text"] forState:UIControlStateNormal];
 	button.tweetID = [tweet objectForKey:@"tweet_id"];
-	button.userID = [[tweet objectForKey:@"user"]objectForKey:@"id"];
+	[self initButton:button withUser:[tweet objectForKey:@"user"]];
 }
+
+-(void)initButton:(SRButton *)button withUser:(NSDictionary *)user {	
+	button.userID = [user objectForKey:@"id"];
+	button.screenName = [user objectForKey:@"screen_name"];
+	button.profileImageURL = [user objectForKey:@"profile_image_url"];
+}
+					   
 
 # pragma mark Game Play
 
@@ -311,10 +319,10 @@
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
-		[self saveFriendStat:[sender userID] withValue:YES];
+		[self saveFriendStat:sender withValue:YES];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
-		[self saveFriendStat:[sender userID] withValue:NO];
+		[self saveFriendStat:sender withValue:NO];
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
@@ -325,10 +333,10 @@
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
-		[self saveFriendStat:[sender userID] withValue:YES];
+		[self saveFriendStat:sender withValue:YES];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
-		[self saveFriendStat:[sender userID] withValue:NO];
+		[self saveFriendStat:sender withValue:NO];
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
@@ -339,33 +347,37 @@
 	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
 }
 
--(void)saveFriendStat:(NSString *)userID withValue:(BOOL)correct {
+-(void)saveFriendStat:(SRButton *)button withValue:(BOOL)correct {
 	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	NSManagedObjectContext *context = [appDelegate managedObjectContext];
 	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FriendStat" inManagedObjectContext:context];
 	NSFetchRequest *request = [[NSFetchRequest alloc] init];
 	[request setEntity:entityDesc];
-	NSPredicate *pred = [NSPredicate predicateWithFormat:@"(userID = %@)", userID];
+	NSPredicate *pred = [NSPredicate predicateWithFormat:@"(userID = %@)", [button userID]];
 	[request setPredicate:pred];
 	NSError *error;
 	NSArray *stats = [context executeFetchRequest:request error:&error];
 	[request release];
 	if ([stats count]>0) {
-		// update record
 		NSDictionary *stat = [stats objectAtIndex:0];
 		[stat setValue:[[stat valueForKey:@"attempts"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"attempts"];
 		if (correct) {
 			[stat setValue:[[stat valueForKey:@"correct"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"correct"];
 		}
 		[stat setValue:[self percentCorrect:[stat valueForKey:@"correct"] withAttempts:[stat valueForKey:@"attempts"]] forKey:@"percentCorrect"];
+		if (![[stat valueForKey:@"screenName"] isEqualToString:[button screenName]]) {
+			[stat setValue:[button screenName] forKey:@"screenName"];
+		}
+		if (![[stat valueForKey:@"profileImageURL"] isEqualToString:[button profileImageURL]]) {
+			[stat setValue:[button profileImageURL] forKey:@"profileImageURL"];
+		}
 		NSError *error;
 		[context save:&error];
 	} else {
-		//create record
 		NSManagedObject *statObject = [NSEntityDescription
 										insertNewObjectForEntityForName:@"FriendStat" 
 										inManagedObjectContext:context];
-		[statObject setValue:userID forKey:@"userID"];
+		[statObject setValue:[button userID] forKey:@"userID"];
 		[statObject setValue:[NSDecimalNumber one] forKey:@"attempts"];
 		if (correct) {
 			[statObject setValue:[NSDecimalNumber one] forKey:@"correct"];
@@ -373,6 +385,8 @@
 			[statObject setValue:[NSDecimalNumber zero] forKey:@"correct"];
 		}
 		[statObject setValue:[self percentCorrect:[statObject valueForKey:@"correct"] withAttempts:[statObject valueForKey:@"attempts"]] forKey:@"percentCorrect"];
+		[statObject setValue:[button screenName] forKey:@"screenName"];
+		[statObject setValue:[button profileImageURL] forKey:@"profileImageURL"];
 		NSError *error;
 		[context save:&error];
 	}
@@ -422,7 +436,7 @@
 - (void)dealloc {
 	[tweets release];
 	[follows release];
-	[authID release];
+	[currentUser release];
 	[friends release];
 	[_engine release];
 	[selectedUsers release];

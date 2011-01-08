@@ -18,6 +18,7 @@
 @synthesize lastScore;
 @synthesize highScores;
 @synthesize highScoreTable;
+@synthesize matchView;
 
 - (void)viewDidLoad {
 	lastScore = [self lastScore];
@@ -70,6 +71,7 @@
 -(IBAction)showStats {
 	FriendStatsController *statsView = [[FriendStatsController alloc] initWithNibName:@"FriendStatsController" bundle:[NSBundle mainBundle]];
 	statsView.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+	statsView.currentUser = self.matchView.currentUser;
 	[self presentModalViewController:statsView animated:YES];
 	[statsView release];
 }
@@ -120,6 +122,7 @@
 	[lastScore release];
 	[highScores release];
 	[highScoreTable release];
+	[matchView release];
     [super dealloc];
 }
 

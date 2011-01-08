@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
+#import "MatchController.h"
 
 @interface GameOverController : BaseController <UITableViewDelegate> {
 	UILabel *scoreLabel;
@@ -15,6 +16,7 @@
 	NSDictionary *lastScore;
 	NSArray *highScores;
 	UITableView *highScoreTable;
+	MatchController *matchView;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *scoreLabel;
@@ -22,6 +24,7 @@
 @property (nonatomic, retain) NSDictionary *lastScore;
 @property (nonatomic, retain) NSArray *highScores;
 @property (nonatomic, retain) IBOutlet UITableView *highScoreTable;
+@property (nonatomic, retain) MatchController *matchView;
 
 -(IBAction)playAgain;
 -(NSDictionary *)lastScore;

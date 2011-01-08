@@ -13,5 +13,7 @@
 
 @synthesize userID;
 @synthesize tweetID;
+@synthesize screenName;
+@synthesize profileImageURL;
 
 @end

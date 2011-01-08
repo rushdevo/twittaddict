@@ -11,10 +11,14 @@
 
 @interface SRButton : UIButton {
 	NSString *userID;
+	NSString *screenName;
+	NSString *profileImageURL;
 	NSString *tweetID;
 }
 
 @property (nonatomic, retain) NSString *userID;
+@property (nonatomic, retain) NSString *screenName;
+@property (nonatomic, retain) NSString *profileImageURL;
 @property (nonatomic, retain) NSString *tweetID;
 
 @end
