@@ -91,13 +91,14 @@
 -(IBAction)userSelected:(id)sender;
 -(IBAction)tweetSelected:(id)sender;
 -(void)increaseScore;
+-(void)startGame;
 -(void) startTimer;
 -(void) startTimerThread;
 -(void)countdown:(NSTimer *)timer;
 -(void)presentGameOver;
 -(void) startGameThread;
 -(void)saveScore;
--(NSDecimal *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
--(void)verifyUser;
+-(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
+-(void)saveFriendStat:(NSString *)userID withValue:(BOOL)correct;
 
 @end

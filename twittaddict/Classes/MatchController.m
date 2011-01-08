@@ -116,8 +116,7 @@
 		}
 	}
 	if ([tweets count] > 0 && [friends count]>0) {
-		[self startTimer];
-		[self setupRandomMode];
+		[self startGame];
 	}
 }
 
@@ -130,8 +129,7 @@
 	} else {
 		[friends setArray:userInfo];
 		if ([tweets count] > 0 && [friends count] > 0) {
-			[self startTimer];
-			[self setupRandomMode];
+			[self startGame];
 		}
 	}
 }
@@ -156,6 +154,13 @@
 }
 
 #pragma mark Game Setup
+
+-(void)startGame {
+	loadingActivity.hidden = YES;
+	loadingImage.hidden = YES;
+	[self startTimer];
+	[self setupRandomMode];
+}
 
 -(void) startTimer {
 	NSThread* timerThread = [[NSThread alloc] initWithTarget:self selector:@selector(startTimerThread) object:nil]; //Create a new thread
@@ -193,8 +198,6 @@
 }
 
 -(void)setupRandomMode {
-	loadingActivity.hidden = YES;
-	loadingImage.hidden = YES;
 	int rand = (arc4random() % 2 ? 1 : 0);
 	if (rand==0) {
 		[self setupMode1];
@@ -308,8 +311,10 @@
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
+		[self saveFriendStat:[sender userID] withValue:YES];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
+		[self saveFriendStat:[sender userID] withValue:NO];
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
@@ -320,8 +325,10 @@
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
+		[self saveFriendStat:[sender userID] withValue:YES];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
+		[self saveFriendStat:[sender userID] withValue:NO];
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
@@ -333,46 +340,46 @@
 }
 
 -(void)saveFriendStat:(NSString *)userID withValue:(BOOL)correct {
-//	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//	NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FriendStat" inManagedObjectContext:context];
-//	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//	[request setEntity:entityDesc];
-//	NSPredicate *pred = [NSPredicate predicateWithFormat:@"(userID = %@)", userID];
-//	[request setPredicate:pred];
-//	NSError *error;
-//	NSArray *stats = [context executeFetchRequest:request error:&error];
-//	[request release];
-//	if ([stats count]>0) {
-//		// update record
-//		NSDictionary *stat = [stats objectAtIndex:0];
-//		[stat setValue:[stat objectForKey:@"attempts"]+1 forKey:@"attempts"];
-//		if (correct) {
-//			[stat setValue:[stat objectForKey:@"correct"]+1 forKey:@"correct"];
-//		}
-//		[stat setValue:[self percentCorrect:[stat objectForKey:@"correct"] withAttempts:[stat objectForKey:@"attempts"]] forKey:@"percentCorrect"];
-//		NSError *error;
-//		[context save:&error];
-//	} else {
-//		//create record
-//		NSManagedObject *statObject = [NSEntityDescription
-//										insertNewObjectForEntityForName:@"FriendStat" 
-//										inManagedObjectContext:context];
-//		[statObject setValue:userID forKey:@"userID"];
-//		[statObject setValue:1 forKey:@"attempts"];
-//		if (correct) {
-//			[statObject setValue:1 forKey:@"correct"];
-//		} else {
-//			[statObject setValue:0 forKey:@"correct"];
-//		}
-//		[statObject setValue:[self percentCorrect:[statObject objectForKey:@"correct"] withAttempts:[statObject objectForKey:@"attempts"]] forKey:@"percentCorrect"];
-//		NSError *error;
-//		[context save:&error];
-//	}
+	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FriendStat" inManagedObjectContext:context];
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	[request setEntity:entityDesc];
+	NSPredicate *pred = [NSPredicate predicateWithFormat:@"(userID = %@)", userID];
+	[request setPredicate:pred];
+	NSError *error;
+	NSArray *stats = [context executeFetchRequest:request error:&error];
+	[request release];
+	if ([stats count]>0) {
+		// update record
+		NSDictionary *stat = [stats objectAtIndex:0];
+		[stat setValue:[[stat valueForKey:@"attempts"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"attempts"];
+		if (correct) {
+			[stat setValue:[[stat valueForKey:@"correct"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"correct"];
+		}
+		[stat setValue:[self percentCorrect:[stat valueForKey:@"correct"] withAttempts:[stat valueForKey:@"attempts"]] forKey:@"percentCorrect"];
+		NSError *error;
+		[context save:&error];
+	} else {
+		//create record
+		NSManagedObject *statObject = [NSEntityDescription
+										insertNewObjectForEntityForName:@"FriendStat" 
+										inManagedObjectContext:context];
+		[statObject setValue:userID forKey:@"userID"];
+		[statObject setValue:[NSDecimalNumber one] forKey:@"attempts"];
+		if (correct) {
+			[statObject setValue:[NSDecimalNumber one] forKey:@"correct"];
+		} else {
+			[statObject setValue:[NSDecimalNumber zero] forKey:@"correct"];
+		}
+		[statObject setValue:[self percentCorrect:[statObject valueForKey:@"correct"] withAttempts:[statObject valueForKey:@"attempts"]] forKey:@"percentCorrect"];
+		NSError *error;
+		[context save:&error];
+	}
 }
 
--(NSDecimal *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts {
-	NSDecimalNumberHandler *roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundDown scale:2];
+-(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts {
+	NSDecimalNumberHandler *roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundUp scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
 	return [correct decimalNumberByDividingBy:attempts withBehavior:roundingBehavior];
 }
 

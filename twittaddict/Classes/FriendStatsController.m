@@ -14,18 +14,18 @@
 
 
 - (void)viewDidAppear: (BOOL)animated {
-//	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-//	NSManagedObjectContext *context = [appDelegate managedObjectContext];
-//	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FriendStat" inManagedObjectContext:context];
-//	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//	[request setEntity:entityDesc];
-//	NSSortDescriptor *statSort = [[NSSortDescriptor alloc] initWithKey:@"percentCorrect" ascending:NO];
-//	[request setSortDescriptors:[NSArray arrayWithObject:statSort]];
-//	[request setFetchLimit:5];	
-//	NSError *error;
-//	NSArray *stats = [context executeFetchRequest:request error:&error];
-//	[request release];
-//    [super viewDidLoad];
+	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FriendStat" inManagedObjectContext:context];
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	[request setEntity:entityDesc];
+	NSSortDescriptor *statSort = [[NSSortDescriptor alloc] initWithKey:@"percentCorrect" ascending:NO];
+	[request setSortDescriptors:[NSArray arrayWithObject:statSort]];
+	[request setFetchLimit:5];	
+	NSError *error;
+	NSArray *stats = [context executeFetchRequest:request error:&error];
+	[request release];
+    [super viewDidAppear:animated];
 }
 
 
