@@ -380,7 +380,7 @@
 
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts {
 	NSDecimalNumberHandler *roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundUp scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
-	return [correct decimalNumberByDividingBy:attempts withBehavior:roundingBehavior];
+	return [[correct decimalNumberByDividingBy:attempts withBehavior:roundingBehavior] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
 }
 
 -(void) startGameThread {
