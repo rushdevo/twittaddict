@@ -14,6 +14,5 @@
 
 }
 
-- (void) deleteAllObjects: (NSString *) entityDescription;
 
 @end

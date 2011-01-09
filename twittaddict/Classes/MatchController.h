@@ -29,6 +29,7 @@
 	UILabel *timerLabel;
 	UIActivityIndicatorView *loadingActivity;
 	UIImageView *loadingImage;
+	BOOL scoreSaved;
 	
 	// match mode 1
 	UIImageView *background1Image;

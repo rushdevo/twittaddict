@@ -42,9 +42,9 @@
 @synthesize userLabel;
 @synthesize correctTweetID;
 
-
 - (void)viewDidAppear: (BOOL)animated {
 	score = 0;
+	scoreSaved = NO;
 	secondsRemaining = 60;
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
@@ -164,7 +164,7 @@
 }
 
 -(void) startTimer {
-	NSThread* timerThread = [[NSThread alloc] initWithTarget:self selector:@selector(startTimerThread) object:nil]; //Create a new thread
+	NSThread *timerThread = [[NSThread alloc] initWithTarget:self selector:@selector(startTimerThread) object:nil]; //Create a new thread
 	[timerThread start]; 
 }
 
@@ -185,7 +185,7 @@
 	if (secondsRemaining > 0) {
 		timerLabel.text = [NSString stringWithFormat:@"%d", secondsRemaining];
 		secondsRemaining -= 1;
-	} else {
+	} else if (!scoreSaved) {
 		[self saveScore];
 		[self performSelectorOnMainThread:@selector(presentGameOver) withObject:nil waitUntilDone:NO];
 	}
@@ -417,6 +417,7 @@
 	[scoreObject setValue:[NSDate date] forKey:@"timestamp"];
 	NSError *error;
 	[context save:&error];
+	scoreSaved = YES;
 }
 
 # pragma mark memory management
