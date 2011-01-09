@@ -101,7 +101,7 @@
 		cell.textLabel.textColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0];
 	}
 	cell.textLabel.text = [NSString stringWithFormat:@"%d. %@",[indexPath row]+1,[[highScore valueForKey:@"score"]stringValue]];
-	cell.textLabel.font = [UIFont fontWithName:@"Marker Felt" size:18.0f];
+	cell.textLabel.font = [UIFont fontWithName:@"Marker Felt" size:20.0f];
 	return cell;
 }
 

@@ -311,7 +311,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont" id="141974503">
+						<object class="NSFont" key="IBUIFont" id="375429084">
 							<string key="NSName">ArialMT</string>
 							<double key="NSSize">14</double>
 							<int key="NSfFlags">16</int>
@@ -320,12 +320,9 @@
 						<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 						<int key="IBUILineBreakMode">0</int>
 						<reference key="IBUIHighlightedTitleColor" ref="771741444"/>
-						<object class="NSColor" key="IBUINormalTitleColor" id="45261804">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MC41AA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace">
-								<int key="NSID">2</int>
-							</object>
+						<object class="NSColor" key="IBUINormalTitleColor" id="161375230">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4zMzMzMzMzMzMzIDAuMzMzMzMzMzMzMyAwLjMzMzMzMzMzMzMAA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
 					</object>
@@ -339,12 +336,12 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="141974503"/>
+						<reference key="IBUIFont" ref="375429084"/>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 						<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 						<int key="IBUILineBreakMode">0</int>
 						<reference key="IBUIHighlightedTitleColor" ref="771741444"/>
-						<reference key="IBUINormalTitleColor" ref="45261804"/>
+						<reference key="IBUINormalTitleColor" ref="161375230"/>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
 					</object>
 					<object class="IBUIButton" id="502429047">
@@ -357,12 +354,12 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="141974503"/>
+						<reference key="IBUIFont" ref="375429084"/>
 						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 						<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 						<int key="IBUILineBreakMode">0</int>
 						<reference key="IBUIHighlightedTitleColor" ref="771741444"/>
-						<reference key="IBUINormalTitleColor" ref="45261804"/>
+						<reference key="IBUINormalTitleColor" ref="161375230"/>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
 					</object>
 					<object class="IBUIImageView" id="317625262">
