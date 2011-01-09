@@ -52,6 +52,7 @@
 	retrievedCurrentUser = NO;
 	correctUserID = [[NSString alloc]init];
 	selectedUsers = [[NSMutableArray alloc]init];
+	tweetText.font = [UIFont fontWithName:@"Arial" size:14.0f];
 	
 	if(!_engine){
 		_engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];

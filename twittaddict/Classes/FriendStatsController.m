@@ -19,6 +19,7 @@
 
 -(void)viewDidLoad {
 	bestStats = [[NSMutableArray alloc]init];
+	statsLabel.text = [NSString stringWithFormat:@"Friends %@ knows best...", [currentUser objectForKey:@"screen_name"]];
 	[super viewDidLoad];
 }
 

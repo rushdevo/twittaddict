@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10H574</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">132</string>
@@ -59,7 +59,7 @@
 							<object class="IBUILabel" id="719192258">
 								<reference key="NSNextResponder" ref="628548661"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{68, 15}, {190, 21}}</string>
+								<string key="NSFrame">{{68, 15}, {152, 23}}</string>
 								<reference key="NSSuperview" ref="628548661"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -67,9 +67,14 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<object class="NSColor" key="IBUITextColor" id="1015199996">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAAA</bytes>
+								<object class="NSFont" key="IBUIFont" id="78338532">
+									<string key="NSName">Futura-Medium</string>
+									<double key="NSSize">16</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<object class="NSColor" key="IBUITextColor" id="350523820">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
 								</object>
 								<object class="NSColor" key="IBUIHighlightedColor" id="1024647141">
 									<int key="NSColorSpace">3</int>
@@ -81,7 +86,7 @@
 							<object class="IBUILabel" id="1046622096">
 								<reference key="NSNextResponder" ref="628548661"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{216, 15}, {42, 21}}</string>
+								<string key="NSFrame">{{228, 15}, {42, 23}}</string>
 								<reference key="NSSuperview" ref="628548661"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -89,7 +94,8 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<reference key="IBUITextColor" ref="1015199996"/>
+								<reference key="IBUIFont" ref="78338532"/>
+								<reference key="IBUITextColor" ref="350523820"/>
 								<reference key="IBUIHighlightedColor" ref="1024647141"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
@@ -222,7 +228,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABDhQAAwggAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABDWAAAwggAAA</bytes>
 					</object>
 				</object>
 			</object>

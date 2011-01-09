@@ -24,14 +24,8 @@
 		C33F8AB812C90B560033022D /* GameOverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F8AB612C90B550033022D /* GameOverController.xib */; };
 		C33F8C7F12CAD89C0033022D /* match_1_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8C7E12CAD89C0033022D /* match_1_bg.png */; };
 		C33F8ED712CFFBFE0033022D /* match_1_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8ED612CFFBFE0033022D /* match_1_bg@2x.png */; };
-		C33F8F0112D40A010033022D /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8F0012D40A010033022D /* loading.png */; };
-		C33F8F4912D4175C0033022D /* loading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8F4812D4175C0033022D /* loading@2x.png */; };
-		C33F8F5F12D423340033022D /* match_2_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8F5D12D423340033022D /* match_2_bg.png */; };
-		C33F8F6012D423340033022D /* match_2_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8F5E12D423340033022D /* match_2_bg@2x.png */; };
 		C33F908A12D6B53D0033022D /* FriendStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F908812D6B53D0033022D /* FriendStatsController.m */; };
 		C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F908912D6B53D0033022D /* FriendStatsController.xib */; };
-		C33F90AD12D6C4410033022D /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F90AB12D6C4410033022D /* gameover.png */; };
-		C33F90AE12D6C4410033022D /* gameover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F90AC12D6C4410033022D /* gameover@2x.png */; };
 		C33F930912D8D6690033022D /* statCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F930812D8D6690033022D /* statCell.m */; };
 		C33F931212D8DC530033022D /* statCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F931112D8DC530033022D /* statCell.xib */; };
 		C3EDB30F12BE4B6300F452F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */; };
@@ -62,6 +56,12 @@
 		C3EDB76C12C2CA8700F452F9 /* MGTwitterSocialGraphParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB76B12C2CA8700F452F9 /* MGTwitterSocialGraphParser.m */; };
 		C3EDB76F12C2CABA00F452F9 /* MGTwitterSocialGraphLibXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB76E12C2CABA00F452F9 /* MGTwitterSocialGraphLibXMLParser.m */; };
 		C3EDB7C512C3841E00F452F9 /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB7C412C3841E00F452F9 /* BaseController.m */; };
+		C3F552D012DA031900B14912 /* match_2_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F552CE12DA031900B14912 /* match_2_bg.png */; };
+		C3F552D112DA031900B14912 /* match_2_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F552CF12DA031900B14912 /* match_2_bg@2x.png */; };
+		C3F552D912DA074C00B14912 /* gameover.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F552D712DA074C00B14912 /* gameover.png */; };
+		C3F552DA12DA074C00B14912 /* gameover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F552D812DA074C00B14912 /* gameover@2x.png */; };
+		C3F552EA12DA12B700B14912 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F552E812DA12B700B14912 /* loading.png */; };
+		C3F552EB12DA12B700B14912 /* loading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3F552E912DA12B700B14912 /* loading@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,15 +88,9 @@
 		C33F8AB612C90B550033022D /* GameOverController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GameOverController.xib; path = Classes/GameOverController.xib; sourceTree = "<group>"; };
 		C33F8C7E12CAD89C0033022D /* match_1_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = match_1_bg.png; sourceTree = "<group>"; };
 		C33F8ED612CFFBFE0033022D /* match_1_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_1_bg@2x.png"; sourceTree = "<group>"; };
-		C33F8F0012D40A010033022D /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
-		C33F8F4812D4175C0033022D /* loading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading@2x.png"; sourceTree = "<group>"; };
-		C33F8F5D12D423340033022D /* match_2_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = match_2_bg.png; sourceTree = "<group>"; };
-		C33F8F5E12D423340033022D /* match_2_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_2_bg@2x.png"; sourceTree = "<group>"; };
 		C33F908712D6B53D0033022D /* FriendStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendStatsController.h; sourceTree = "<group>"; };
 		C33F908812D6B53D0033022D /* FriendStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendStatsController.m; sourceTree = "<group>"; };
 		C33F908912D6B53D0033022D /* FriendStatsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FriendStatsController.xib; path = Classes/FriendStatsController.xib; sourceTree = "<group>"; };
-		C33F90AB12D6C4410033022D /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameover.png; sourceTree = "<group>"; };
-		C33F90AC12D6C4410033022D /* gameover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameover@2x.png"; sourceTree = "<group>"; };
 		C33F930712D8D6690033022D /* statCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statCell.h; sourceTree = "<group>"; };
 		C33F930812D8D6690033022D /* statCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = statCell.m; sourceTree = "<group>"; };
 		C33F931112D8DC530033022D /* statCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = statCell.xib; sourceTree = "<group>"; };
@@ -173,6 +167,12 @@
 		C3EDB76E12C2CABA00F452F9 /* MGTwitterSocialGraphLibXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTwitterSocialGraphLibXMLParser.m; sourceTree = "<group>"; };
 		C3EDB7C312C3841E00F452F9 /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
 		C3EDB7C412C3841E00F452F9 /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
+		C3F552CE12DA031900B14912 /* match_2_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = match_2_bg.png; sourceTree = "<group>"; };
+		C3F552CF12DA031900B14912 /* match_2_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_2_bg@2x.png"; sourceTree = "<group>"; };
+		C3F552D712DA074C00B14912 /* gameover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameover.png; sourceTree = "<group>"; };
+		C3F552D812DA074C00B14912 /* gameover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gameover@2x.png"; sourceTree = "<group>"; };
+		C3F552E812DA12B700B14912 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
+		C3F552E912DA12B700B14912 /* loading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,12 +278,12 @@
 		C33F884912C7A4C10033022D /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				C33F90AB12D6C4410033022D /* gameover.png */,
-				C33F90AC12D6C4410033022D /* gameover@2x.png */,
-				C33F8F5D12D423340033022D /* match_2_bg.png */,
-				C33F8F5E12D423340033022D /* match_2_bg@2x.png */,
-				C33F8F4812D4175C0033022D /* loading@2x.png */,
-				C33F8F0012D40A010033022D /* loading.png */,
+				C3F552E812DA12B700B14912 /* loading.png */,
+				C3F552E912DA12B700B14912 /* loading@2x.png */,
+				C3F552D712DA074C00B14912 /* gameover.png */,
+				C3F552D812DA074C00B14912 /* gameover@2x.png */,
+				C3F552CE12DA031900B14912 /* match_2_bg.png */,
+				C3F552CF12DA031900B14912 /* match_2_bg@2x.png */,
 				C33F8ED612CFFBFE0033022D /* match_1_bg@2x.png */,
 				C33F8C7E12CAD89C0033022D /* match_1_bg.png */,
 				C33F886D12C7A7270033022D /* wrong@2x.png */,
@@ -485,14 +485,14 @@
 				C33F8AB812C90B560033022D /* GameOverController.xib in Resources */,
 				C33F8C7F12CAD89C0033022D /* match_1_bg.png in Resources */,
 				C33F8ED712CFFBFE0033022D /* match_1_bg@2x.png in Resources */,
-				C33F8F0112D40A010033022D /* loading.png in Resources */,
-				C33F8F4912D4175C0033022D /* loading@2x.png in Resources */,
-				C33F8F5F12D423340033022D /* match_2_bg.png in Resources */,
-				C33F8F6012D423340033022D /* match_2_bg@2x.png in Resources */,
 				C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */,
-				C33F90AD12D6C4410033022D /* gameover.png in Resources */,
-				C33F90AE12D6C4410033022D /* gameover@2x.png in Resources */,
 				C33F931212D8DC530033022D /* statCell.xib in Resources */,
+				C3F552D012DA031900B14912 /* match_2_bg.png in Resources */,
+				C3F552D112DA031900B14912 /* match_2_bg@2x.png in Resources */,
+				C3F552D912DA074C00B14912 /* gameover.png in Resources */,
+				C3F552DA12DA074C00B14912 /* gameover@2x.png in Resources */,
+				C3F552EA12DA12B700B14912 /* loading.png in Resources */,
+				C3F552EB12DA12B700B14912 /* loading@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

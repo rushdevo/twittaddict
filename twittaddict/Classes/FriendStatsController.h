@@ -21,4 +21,6 @@
 @property(nonatomic,retain) IBOutlet UILabel *statsLabel;
 @property(nonatomic,retain) IBOutlet UITableView *statsTable;
 
+-(void)loadBestStats;
+
 @end
