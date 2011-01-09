@@ -17,13 +17,22 @@
 @synthesize statsLabel;
 @synthesize statsTable;
 
+-(void)viewDidLoad {
+	bestStats = [[NSMutableArray alloc]init];
+	[super viewDidLoad];
+}
 
-- (void)viewDidLoad {
-	bestStats = [[NSArray alloc]initWithArray:[self bestStats]];
-    [super viewDidLoad];
+-(void)viewDidAppear:(BOOL)animated {
+	[self loadBestStats];
+    [super viewDidAppear:animated];
 }
 
 #pragma mark custom methods
+
+-(void)loadBestStats {
+	[bestStats setArray:[self bestStats]];
+	[statsTable reloadData];
+}
 
 -(NSArray *)bestStats {
 	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];

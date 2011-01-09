@@ -11,13 +11,13 @@
 
 @interface FriendStatsController : BaseController {
 	NSDictionary *currentUser;
-	NSArray *bestStats;
+	NSMutableArray *bestStats;
 	UILabel *statsLabel;
 	UITableView *statsTable;
 }
 
 @property(nonatomic,retain) NSDictionary *currentUser;
-@property(nonatomic,retain) NSArray *bestStats;
+@property(nonatomic,retain) NSMutableArray *bestStats;
 @property(nonatomic,retain) IBOutlet UILabel *statsLabel;
 @property(nonatomic,retain) IBOutlet UITableView *statsTable;
 
