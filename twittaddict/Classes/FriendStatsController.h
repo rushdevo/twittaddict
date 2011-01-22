@@ -21,4 +21,6 @@
 @property(nonatomic,retain) IBOutlet UIImageView *bffImage;
 @property(nonatomic,retain) IBOutlet UILabel *bffLabel;
 
+-(void)loadBFF;
+
 @end
