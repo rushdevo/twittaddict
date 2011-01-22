@@ -103,4 +103,8 @@
 -(void)saveScore;
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
 -(void)saveFriendStat:(SRButton *)button withValue:(BOOL)correct;
+-(void)disableUserButtons;
+-(void)enableUserButtons;
+-(void)disableTweetButtons;
+-(void)enableTweetButtons;
 @end

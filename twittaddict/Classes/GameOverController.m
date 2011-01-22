@@ -47,8 +47,9 @@
 	[request setPredicate:pred];
 	NSError *error;
 	NSArray *objects = [context executeFetchRequest:request error:&error];
-	return [objects objectAtIndex:0];
 	[request release];
+	[dateSort release];
+	return [objects objectAtIndex:0];
 }
 
 -(NSArray *)highScores {
@@ -64,8 +65,9 @@
 	[request setPredicate:pred];
 	NSError *error;
 	NSArray *objects = [context executeFetchRequest:request error:&error];
-	return objects;
 	[request release];
+	[scoreSort release];
+	return objects;
 }
 
 -(IBAction)showStats {

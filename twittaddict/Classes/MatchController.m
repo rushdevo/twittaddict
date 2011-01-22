@@ -77,7 +77,6 @@
 	
 	[defaults setObject: data forKey: @"authData"];
 	[defaults synchronize];
-	//[_engine performSelectorOnMainThread:@selector(checkUserCredentials) withObject:nil waitUntilDone:NO];
 }
 
 - (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
@@ -94,6 +93,10 @@
 	NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
 	if ([error code]==-1009) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Connect" message:nil delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	} else if ([error code]==400) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"We're Sorry!" message:@"Twitter is experiencing problems.  Please try again later!" delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
 		[alert show];
 		[alert release];
 	} else {
@@ -166,6 +169,7 @@
 -(void) startTimer {
 	NSThread *timerThread = [[NSThread alloc] initWithTarget:self selector:@selector(startTimerThread) object:nil]; //Create a new thread
 	[timerThread start]; 
+	[timerThread release];
 }
 
 -(void) startTimerThread {
@@ -209,6 +213,7 @@
 }
 
 -(void)setupMode1 {
+	[self enableUserButtons];
 	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
 	[tweets removeObject:tweet];
 	[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
@@ -275,6 +280,7 @@
 }
 
 -(void)setupMode2 {
+	[self enableTweetButtons];
 	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
 	[tweets removeObject:tweet];
 	NSDictionary *tweet2 = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
@@ -317,6 +323,7 @@
 
 
 -(IBAction)userSelected:(id)sender {
+	[self disableUserButtons];
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
@@ -327,9 +334,23 @@
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
+	[gameThread release];
+}
+
+-(void)disableUserButtons {
+	user1Button.enabled = NO;
+	user2Button.enabled = NO;
+	user3Button.enabled = NO;
+}
+
+-(void)enableUserButtons {
+	user1Button.enabled = YES;
+	user2Button.enabled = YES;
+	user3Button.enabled = YES;
 }
 
 -(IBAction)tweetSelected:(id)sender {
+	[self disableTweetButtons];
 	[sender setTitle:@"" forState:UIControlStateNormal];
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
@@ -341,6 +362,18 @@
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
+}
+
+-(void)disableTweetButtons {
+	tweet1Button.enabled = NO;
+	tweet2Button.enabled = NO;
+	tweet3Button.enabled = NO;
+}
+
+-(void)enableTweetButtons {
+	tweet1Button.enabled = YES;
+	tweet2Button.enabled = YES;
+	tweet3Button.enabled = YES;
 }
 		 
 -(void)increaseScore {

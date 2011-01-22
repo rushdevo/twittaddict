@@ -26,7 +26,6 @@
 		C33F8ED712CFFBFE0033022D /* match_1_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8ED612CFFBFE0033022D /* match_1_bg@2x.png */; };
 		C33F908A12D6B53D0033022D /* FriendStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F908812D6B53D0033022D /* FriendStatsController.m */; };
 		C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F908912D6B53D0033022D /* FriendStatsController.xib */; };
-		C33F930912D8D6690033022D /* statCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F930812D8D6690033022D /* statCell.m */; };
 		C33F931212D8DC530033022D /* statCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F931112D8DC530033022D /* statCell.xib */; };
 		C3EDB30F12BE4B6300F452F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */; };
 		C3EDB31012BE4B6300F452F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30812BE4B6300F452F9 /* NSString+SBJSON.m */; };
@@ -84,6 +83,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* twittaddict_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = twittaddict_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* twittaddict-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "twittaddict-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C31DA21812DE8B8900A45ADE /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		C33F883512C79F940033022D /* SRButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRButton.h; sourceTree = "<group>"; };
 		C33F883612C79F940033022D /* SRButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRButton.m; sourceTree = "<group>"; };
 		C33F884B12C7A4D50033022D /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
@@ -98,8 +98,6 @@
 		C33F908712D6B53D0033022D /* FriendStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendStatsController.h; sourceTree = "<group>"; };
 		C33F908812D6B53D0033022D /* FriendStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendStatsController.m; sourceTree = "<group>"; };
 		C33F908912D6B53D0033022D /* FriendStatsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FriendStatsController.xib; path = Classes/FriendStatsController.xib; sourceTree = "<group>"; };
-		C33F930712D8D6690033022D /* statCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statCell.h; sourceTree = "<group>"; };
-		C33F930812D8D6690033022D /* statCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = statCell.m; sourceTree = "<group>"; };
 		C33F931112D8DC530033022D /* statCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = statCell.xib; sourceTree = "<group>"; };
 		C3EDB30412BE4B6300F452F9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		C3EDB30512BE4B6300F452F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 				C33F8AB512C90B550033022D /* GameOverController.m */,
 				C33F908712D6B53D0033022D /* FriendStatsController.h */,
 				C33F908812D6B53D0033022D /* FriendStatsController.m */,
-				C33F930612D8D6370033022D /* Custom Cells */,
 				C33F884512C7A12F0033022D /* Custom Objects */,
 			);
 			path = Classes;
@@ -241,6 +238,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				C31DA21812DE8B8900A45ADE /* Entitlements.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -313,15 +311,6 @@
 				C33F884C12C7A4D50033022D /* correct@2x.png */,
 			);
 			name = Graphics;
-			sourceTree = "<group>";
-		};
-		C33F930612D8D6370033022D /* Custom Cells */ = {
-			isa = PBXGroup;
-			children = (
-				C33F930712D8D6690033022D /* statCell.h */,
-				C33F930812D8D6690033022D /* statCell.m */,
-			);
-			name = "Custom Cells";
 			sourceTree = "<group>";
 		};
 		C3EDB30312BE4B6300F452F9 /* JSON */ = {
@@ -562,7 +551,6 @@
 				C33F883712C79F940033022D /* SRButton.m in Sources */,
 				C33F8AB712C90B550033022D /* GameOverController.m in Sources */,
 				C33F908A12D6B53D0033022D /* FriendStatsController.m in Sources */,
-				C33F930912D8D6690033022D /* statCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +561,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "~/git/twittaddict/twittaddict/Entitlements.plist";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -591,6 +580,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "~/git/twittaddict/twittaddict/Entitlements.plist";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = twittaddict_Prefix.pch;
@@ -632,6 +622,42 @@
 			};
 			name = Release;
 		};
+		C31DA21412DE8B1A00A45ADE /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shannon Rush";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CA076003-D217-4250-A5F6-CE44D4D67CDE";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Ad Hoc";
+		};
+		C31DA21512DE8B1A00A45ADE /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = "~/git/twittaddict/twittaddict/Entitlements.plist";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = twittaddict_Prefix.pch;
+				INFOPLIST_FILE = "twittaddict-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Twitter+OAuth/SAOAuthTwitterEngine\"",
+				);
+				PRODUCT_NAME = twittaddict;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -640,6 +666,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				C31DA21512DE8B1A00A45ADE /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -649,6 +676,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				C31DA21412DE8B1A00A45ADE /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
