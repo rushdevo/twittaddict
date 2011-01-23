@@ -94,6 +94,7 @@
 -(IBAction)userSelected:(id)sender;
 -(IBAction)tweetSelected:(id)sender;
 -(void)increaseScore;
+-(void)decreaseScore;
 -(void)startGame;
 -(void) startTimer;
 -(void) startTimerThread;

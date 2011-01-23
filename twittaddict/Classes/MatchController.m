@@ -330,6 +330,7 @@
 		[self saveFriendStat:sender withValue:YES];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
+		[self decreaseScore];
 		[self saveFriendStat:sender withValue:NO];
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
@@ -358,6 +359,7 @@
 		[self saveFriendStat:sender withValue:YES];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
+		[self decreaseScore];
 		[self saveFriendStat:sender withValue:NO];
 	}
 	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
@@ -378,6 +380,11 @@
 		 
 -(void)increaseScore {
 	score += 10;
+	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+}
+
+-(void)decreaseScore {
+	score -= 5;
 	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
 }
 
