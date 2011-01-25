@@ -18,6 +18,7 @@
 	SA_OAuthTwitterEngine    *_engine; 
 	MGTwitterEngine *twitterEngine;
 	
+	NSMutableDictionary *instructionFlags;
 	NSMutableArray *tweets;
 	NSMutableArray *follows;
 	NSMutableArray *friends;
@@ -32,6 +33,7 @@
 	BOOL scoreSaved;
 	
 	// match mode 1
+	UIView *mode1InstructionView;
 	UIImageView *background1Image;
 	SRButton *user1Button;
 	SRButton *user2Button;
@@ -44,6 +46,7 @@
 	NSMutableArray *selectedUsers;
 	
 	//match mode 2
+	UIView *mode2InstructionView;
 	UIImageView *background2Image;
 	SRButton *tweet1Button;
 	SRButton *tweet2Button;
@@ -53,6 +56,7 @@
 	NSString *correctTweetID;
 }
 
+@property(nonatomic,retain) NSMutableDictionary *instructionFlags;
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *follows;
 @property(nonatomic,retain) NSMutableArray *friends;
@@ -71,6 +75,8 @@
 @property(nonatomic,retain) IBOutlet UITextView *tweetText;
 @property(nonatomic,retain) IBOutlet UIActivityIndicatorView *loadingActivity;
 @property(nonatomic,retain) IBOutlet UIImageView *loadingImage;
+@property(nonatomic,retain) IBOutlet UIView *mode1InstructionView;
+@property(nonatomic,retain) IBOutlet UIView *mode2InstructionView;
 @property(nonatomic,retain) IBOutlet UIImageView *background2Image;
 @property(nonatomic,retain) IBOutlet SRButton *tweet1Button;
 @property(nonatomic,retain) IBOutlet SRButton *tweet2Button;
@@ -108,4 +114,6 @@
 -(void)enableUserButtons;
 -(void)disableTweetButtons;
 -(void)enableTweetButtons;
+-(NSMutableDictionary *)initInstructionFlags;
+-(void)increaseInstructionView:(NSString *)mode;
 @end

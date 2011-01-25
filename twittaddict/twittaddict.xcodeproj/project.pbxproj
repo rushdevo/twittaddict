@@ -26,7 +26,6 @@
 		C33F8ED712CFFBFE0033022D /* match_1_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8ED612CFFBFE0033022D /* match_1_bg@2x.png */; };
 		C33F908A12D6B53D0033022D /* FriendStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F908812D6B53D0033022D /* FriendStatsController.m */; };
 		C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F908912D6B53D0033022D /* FriendStatsController.xib */; };
-		C33F931212D8DC530033022D /* statCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F931112D8DC530033022D /* statCell.xib */; };
 		C3EDB30F12BE4B6300F452F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */; };
 		C3EDB31012BE4B6300F452F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30812BE4B6300F452F9 /* NSString+SBJSON.m */; };
 		C3EDB31112BE4B6300F452F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30A12BE4B6300F452F9 /* SBJsonBase.m */; };
@@ -98,7 +97,6 @@
 		C33F908712D6B53D0033022D /* FriendStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendStatsController.h; sourceTree = "<group>"; };
 		C33F908812D6B53D0033022D /* FriendStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendStatsController.m; sourceTree = "<group>"; };
 		C33F908912D6B53D0033022D /* FriendStatsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FriendStatsController.xib; path = Classes/FriendStatsController.xib; sourceTree = "<group>"; };
-		C33F931112D8DC530033022D /* statCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = statCell.xib; sourceTree = "<group>"; };
 		C3EDB30412BE4B6300F452F9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		C3EDB30512BE4B6300F452F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -337,7 +335,6 @@
 				C33F8AB612C90B550033022D /* GameOverController.xib */,
 				C3EDB35A12BE538C00F452F9 /* MatchController.xib */,
 				C33F908912D6B53D0033022D /* FriendStatsController.xib */,
-				C33F931112D8DC530033022D /* statCell.xib */,
 			);
 			name = XIBs;
 			sourceTree = "<group>";
@@ -496,7 +493,6 @@
 				C33F8C7F12CAD89C0033022D /* match_1_bg.png in Resources */,
 				C33F8ED712CFFBFE0033022D /* match_1_bg@2x.png in Resources */,
 				C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */,
-				C33F931212D8DC530033022D /* statCell.xib in Resources */,
 				C3F552D012DA031900B14912 /* match_2_bg.png in Resources */,
 				C3F552D112DA031900B14912 /* match_2_bg@2x.png in Resources */,
 				C3F552D912DA074C00B14912 /* gameover.png in Resources */,

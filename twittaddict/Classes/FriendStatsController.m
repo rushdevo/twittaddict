@@ -53,6 +53,7 @@
 		bffImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[bff valueForKey:@"profileImageURL"]]]];
 		bffLabel.text = [bff valueForKey:@"screenName"];
 		[request release];
+		[statSort release];
 	}
 }
 
