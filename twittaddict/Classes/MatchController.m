@@ -16,7 +16,6 @@
 
 @implementation MatchController
 
-@synthesize instructionFlags;
 @synthesize tweets;
 @synthesize follows;
 @synthesize currentUser;
@@ -35,6 +34,7 @@
 @synthesize correctUserID;
 @synthesize loadingActivity;
 @synthesize loadingImage;
+@synthesize gameThread;
 @synthesize background2Image;
 @synthesize tweet1Button;
 @synthesize tweet2Button;
@@ -42,14 +42,15 @@
 @synthesize userImage;
 @synthesize userLabel;
 @synthesize correctTweetID;
-@synthesize mode1InstructionView;
-@synthesize mode2InstructionView;
+@synthesize mode1InstructionImage;
+@synthesize mode2InstructionImage;
 
 - (void)viewDidAppear: (BOOL)animated {
-	instructionFlags = [[NSMutableDictionary alloc]initWithDictionary:[self initInstructionFlags]];
 	score = 0;
 	scoreSaved = NO;
 	secondsRemaining = 60;
+	instructMode1 = 0;
+	instructMode2 = 0;
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
 	friends = [[NSMutableArray alloc]init];
@@ -163,30 +164,6 @@
 
 #pragma mark Game Setup
 
--(NSMutableDictionary *)initInstructionFlags {
-	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	NSManagedObjectContext *context = [appDelegate managedObjectContext];
-	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"User" inManagedObjectContext:context];
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	[request setEntity:entityDesc];
-	NSError *error;
-	NSArray *flagsArray = [context executeFetchRequest:request error:&error];
-	[request release];
-	if ([flagsArray count]>0) {
-		NSManagedObject *flags = [flagsArray objectAtIndex:0];
-		return [NSDictionary dictionaryWithObjectsAndKeys:[flags valueForKey:@"matchMode1Instructions"],@"mode1Instructions",[flags valueForKey:@"matchMode2Instructions"],@"mode2Instructions",nil];
-	} else {
-		NSManagedObject *flags = [NSEntityDescription
-										insertNewObjectForEntityForName:@"User" 
-										inManagedObjectContext:context];
-		[flags setValue:[NSDecimalNumber zero] forKey:@"matchMode1Instructions"];
-		[flags setValue:[NSDecimalNumber zero] forKey:@"matchMode2Instructions"];
-		NSError *error;
-		[context save:&error];
-		return [NSMutableDictionary dictionaryWithObjectsAndKeys:[flags valueForKey:@"matchMode1Instructions"],@"mode1Instructions",[flags valueForKey:@"matchMode2Instructions"],@"mode2Instructions",nil];
-	}
-}
-
 -(void)startGame {
 	loadingActivity.hidden = YES;
 	loadingImage.hidden = YES;
@@ -232,8 +209,6 @@
 }
 
 -(void)setupRandomMode {
-	mode1InstructionView.hidden = YES;
-	mode2InstructionView.hidden = YES;
 	int rand = (arc4random() % 2 ? 1 : 0);
 	if (rand==0) {
 		[self setupMode1];
@@ -247,28 +222,19 @@
 	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
 	[tweets removeObject:tweet];
 	[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
-	if ([[instructionFlags valueForKey:@"mode1Instructions"]compare:[NSDecimalNumber decimalNumberWithString:@"4.0"]]==NSOrderedAscending) {
-		mode1InstructionView.hidden = NO;
+	if (instructMode1 < 3) {
+		background1Image.hidden = YES;
+		mode1InstructionImage.hidden = NO;
 		[self increaseInstructionView:@"mode1"];
 	}
 }
 
 -(void)increaseInstructionView:(NSString *)mode {
-	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-	NSManagedObjectContext *context = [appDelegate managedObjectContext];
-	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"User" inManagedObjectContext:context];
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	[request setEntity:entityDesc];
-	NSError *error;
-	NSArray *flags = [[context executeFetchRequest:request error:&error]objectAtIndex:0];
 	if ([mode isEqualToString:@"mode1"]) {
-		[flags setValue:[[flags valueForKey:@"matchMode1Instructions"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"matchMode1Instructions"];
-		[instructionFlags setValue:[[flags valueForKey:@"matchMode1Instructions"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"mode1Instructions"];
+		instructMode1 += 1;
 	} else if ([mode isEqualToString:@"mode2"]) {
-		[flags setValue:[[flags valueForKey:@"matchMode2Instructions"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"matchMode2Instructions"];
-		[instructionFlags setValue:[[flags valueForKey:@"matchMode2Instructions"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"mode2Instructions"];
+		instructMode2 += 1;
 	}
-	[context save:&error];
 }
 
 -(void)initMode1Components:(NSDictionary *)tweet {
@@ -286,6 +252,7 @@
 
 -(void)hideMode1Components {
 	background1Image.hidden = YES;
+	mode1InstructionImage.hidden = YES;
 	tweetText.hidden = YES;
 	user1Label.hidden = YES;
 	user1Button.hidden = YES;
@@ -315,6 +282,7 @@
 
 -(void)hideMode2Components {
 	background2Image.hidden = YES;
+	mode2InstructionImage.hidden = YES;
 	tweet1Button.hidden = YES;
 	tweet2Button.hidden = YES;
 	tweet3Button.hidden = YES;
@@ -341,8 +309,9 @@
 	[tweets removeObject:tweet3];
 	NSMutableArray *tweetChoices = [NSMutableArray arrayWithObjects:tweet,tweet2,tweet3,nil];
 	[self performSelectorOnMainThread:@selector(initMode2Components:) withObject:tweetChoices waitUntilDone:NO];
-	if ([[instructionFlags valueForKey:@"mode2Instructions"]compare:[NSDecimalNumber decimalNumberWithString:@"4.0"]]==NSOrderedAscending) {
-		mode2InstructionView.hidden = NO;
+	if (instructMode2 < 3) {
+		background2Image.hidden = YES;
+		mode2InstructionImage.hidden = NO;
 		[self increaseInstructionView:@"mode2"];
 	}
 }
@@ -389,7 +358,7 @@
 		[self decreaseScore];
 		[self saveFriendStat:sender withValue:NO];
 	}
-	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
+	gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
 	[gameThread release];
 }
@@ -418,8 +387,10 @@
 		[self decreaseScore];
 		[self saveFriendStat:sender withValue:NO];
 	}
-	NSThread *gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
+	gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
+	[gameThread release];
+
 }
 
 -(void)disableTweetButtons {
@@ -532,7 +503,6 @@
 }
 
 - (void)dealloc {
-	[instructionFlags release];
 	[tweets release];
 	[follows release];
 	[currentUser release];
@@ -552,6 +522,7 @@
 	[correctUserID release];
 	[loadingActivity release];
 	[loadingImage release];
+	[gameThread release];
 	[background2Image release];
 	[tweet1Button release];
 	[tweet2Button release];
@@ -559,8 +530,8 @@
 	[userImage release];
 	[userLabel release];
 	[correctTweetID release];
-	[mode1InstructionView release];
-	[mode2InstructionView release];
+	[mode1InstructionImage release];
+	[mode2InstructionImage release];
     [super dealloc];
 }
 

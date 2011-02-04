@@ -26,6 +26,10 @@
 		C33F8ED712CFFBFE0033022D /* match_1_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C33F8ED612CFFBFE0033022D /* match_1_bg@2x.png */; };
 		C33F908A12D6B53D0033022D /* FriendStatsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F908812D6B53D0033022D /* FriendStatsController.m */; };
 		C33F908B12D6B53D0033022D /* FriendStatsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33F908912D6B53D0033022D /* FriendStatsController.xib */; };
+		C3EB9CFD12FB840900ED6966 /* match_1_instruction_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C3EB9CFB12FB840900ED6966 /* match_1_instruction_bg.png */; };
+		C3EB9CFE12FB840900ED6966 /* match_1_instruction_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3EB9CFC12FB840900ED6966 /* match_1_instruction_bg@2x.png */; };
+		C3EB9D2712FB865900ED6966 /* match_2_instruction_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C3EB9D2512FB865900ED6966 /* match_2_instruction_bg.png */; };
+		C3EB9D2812FB865900ED6966 /* match_2_instruction_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3EB9D2612FB865900ED6966 /* match_2_instruction_bg@2x.png */; };
 		C3EDB30F12BE4B6300F452F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */; };
 		C3EDB31012BE4B6300F452F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30812BE4B6300F452F9 /* NSString+SBJSON.m */; };
 		C3EDB31112BE4B6300F452F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30A12BE4B6300F452F9 /* SBJsonBase.m */; };
@@ -97,6 +101,10 @@
 		C33F908712D6B53D0033022D /* FriendStatsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendStatsController.h; sourceTree = "<group>"; };
 		C33F908812D6B53D0033022D /* FriendStatsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendStatsController.m; sourceTree = "<group>"; };
 		C33F908912D6B53D0033022D /* FriendStatsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FriendStatsController.xib; path = Classes/FriendStatsController.xib; sourceTree = "<group>"; };
+		C3EB9CFB12FB840900ED6966 /* match_1_instruction_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = match_1_instruction_bg.png; sourceTree = "<group>"; };
+		C3EB9CFC12FB840900ED6966 /* match_1_instruction_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_1_instruction_bg@2x.png"; sourceTree = "<group>"; };
+		C3EB9D2512FB865900ED6966 /* match_2_instruction_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = match_2_instruction_bg.png; sourceTree = "<group>"; };
+		C3EB9D2612FB865900ED6966 /* match_2_instruction_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_2_instruction_bg@2x.png"; sourceTree = "<group>"; };
 		C3EDB30412BE4B6300F452F9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		C3EDB30512BE4B6300F452F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -295,6 +303,10 @@
 		C33F884912C7A4C10033022D /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				C3EB9D2512FB865900ED6966 /* match_2_instruction_bg.png */,
+				C3EB9D2612FB865900ED6966 /* match_2_instruction_bg@2x.png */,
+				C3EB9CFB12FB840900ED6966 /* match_1_instruction_bg.png */,
+				C3EB9CFC12FB840900ED6966 /* match_1_instruction_bg@2x.png */,
 				C3F552E812DA12B700B14912 /* loading.png */,
 				C3F552E912DA12B700B14912 /* loading@2x.png */,
 				C3F552D712DA074C00B14912 /* gameover.png */,
@@ -506,6 +518,10 @@
 				C3F5530012DA3C0D00B14912 /* Icon.png in Resources */,
 				C3F5530112DA3C0D00B14912 /* Icon@2x.png in Resources */,
 				C3F5530212DA3C0D00B14912 /* iTunesArtwork in Resources */,
+				C3EB9CFD12FB840900ED6966 /* match_1_instruction_bg.png in Resources */,
+				C3EB9CFE12FB840900ED6966 /* match_1_instruction_bg@2x.png in Resources */,
+				C3EB9D2712FB865900ED6966 /* match_2_instruction_bg.png in Resources */,
+				C3EB9D2812FB865900ED6966 /* match_2_instruction_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
