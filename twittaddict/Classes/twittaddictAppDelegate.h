@@ -27,6 +27,9 @@
 
 - (NSURL *)applicationDocumentsDirectory;
 - (void)saveContext;
+-(BOOL)isGameCenterAvailable;
+-(void)loadGame;
+
 
 @end
 

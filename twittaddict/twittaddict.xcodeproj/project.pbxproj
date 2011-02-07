@@ -30,6 +30,7 @@
 		C3EB9CFE12FB840900ED6966 /* match_1_instruction_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3EB9CFC12FB840900ED6966 /* match_1_instruction_bg@2x.png */; };
 		C3EB9D2712FB865900ED6966 /* match_2_instruction_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C3EB9D2512FB865900ED6966 /* match_2_instruction_bg.png */; };
 		C3EB9D2812FB865900ED6966 /* match_2_instruction_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3EB9D2612FB865900ED6966 /* match_2_instruction_bg@2x.png */; };
+		C3EB9D6012FDC85E00ED6966 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EB9D5F12FDC85E00ED6966 /* GameKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C3EDB30F12BE4B6300F452F9 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */; };
 		C3EDB31012BE4B6300F452F9 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30812BE4B6300F452F9 /* NSString+SBJSON.m */; };
 		C3EDB31112BE4B6300F452F9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C3EDB30A12BE4B6300F452F9 /* SBJsonBase.m */; };
@@ -105,6 +106,7 @@
 		C3EB9CFC12FB840900ED6966 /* match_1_instruction_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_1_instruction_bg@2x.png"; sourceTree = "<group>"; };
 		C3EB9D2512FB865900ED6966 /* match_2_instruction_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = match_2_instruction_bg.png; sourceTree = "<group>"; };
 		C3EB9D2612FB865900ED6966 /* match_2_instruction_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "match_2_instruction_bg@2x.png"; sourceTree = "<group>"; };
+		C3EB9D5F12FDC85E00ED6966 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		C3EDB30412BE4B6300F452F9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		C3EDB30512BE4B6300F452F9 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		C3EDB30612BE4B6300F452F9 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
 				C3EDB48912BE6B5F00F452F9 /* libOAuth.a in Frameworks */,
 				C3EDB49B12BE6B7E00F452F9 /* libxml2.dylib in Frameworks */,
+				C3EB9D6012FDC85E00ED6966 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +285,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3EB9D5F12FDC85E00ED6966 /* GameKit.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
@@ -573,7 +577,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = "~/git/twittaddict/twittaddict/Entitlements.plist";
+				CODE_SIGN_ENTITLEMENTS = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -610,12 +614,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -639,14 +645,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shannon Rush";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CA076003-D217-4250-A5F6-CE44D4D67CDE";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

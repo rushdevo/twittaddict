@@ -5,6 +5,7 @@
 
 #import "twittaddictAppDelegate.h"
 #import "MatchController.h"
+#import <GameKit/GameKit.h>
 
 @implementation twittaddictAppDelegate
 
@@ -15,17 +16,38 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	if ([self isGameCenterAvailable]) {
+		[self loadGame];
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Center Required" message:@"twittaddict requires Game Center to run properly" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
+	return YES;
+}
+
+-(void)loadGame {
 	viewController = [[MatchController alloc] initWithNibName:@"MatchController" bundle:[NSBundle mainBundle]];
 	[viewController.view setFrame:[[UIScreen mainScreen]applicationFrame]];
-    // Add the view controller's view to the window and display.
-    [window addSubview:viewController.view];
-    [window makeKeyAndVisible];
-	
-    return YES;
+	[window addSubview:viewController.view];
+	[window makeKeyAndVisible];
 }
+
+#pragma mark game center
+
+-(BOOL)isGameCenterAvailable {
+	// Check for presence of GKLocalPlayer API.
+    Class gcClass = (NSClassFromString(@"GKLocalPlayer"));
+	// The device must be running running iOS 4.1 or later.
+    NSString *reqSysVer = @"4.1";
+    NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+    BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
+	return (gcClass && osVersionSupported);
+}
+
+
+#pragma mark -
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

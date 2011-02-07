@@ -95,6 +95,8 @@
 -(void)showMode2Components;
 -(void)setupMode1;
 -(void)initMode1Components:(NSDictionary *)tweet;
+-(NSDictionary *)randomUser;
+-(NSDictionary *)nonCurrentUser;
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label;
 -(void)setupMode2;
 -(void)initMode2Components:(NSMutableArray *)tweetChoices;

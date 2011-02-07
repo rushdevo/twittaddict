@@ -9,7 +9,6 @@
 #import "BaseController.h"
 #import "twittaddictAppDelegate.h"
 
-
 @implementation BaseController
 
 - (void)viewDidLoad {
@@ -20,24 +19,23 @@
     [super dealloc];
 }
 
+@end
+
 @interface NSMutableArray (Shuffling)
-	- (void)shuffle;
+- (void)shuffle;
 @end
 
 
 @implementation NSMutableArray (Shuffling)
 
-	- (void)shuffle
-	{
-		NSUInteger count = [self count];
-		for (NSUInteger i = 0; i < count; ++i) {
-			int nElements = count - i;
-			int n = (random() % nElements) + i;
-			[self exchangeObjectAtIndex:i withObjectAtIndex:n];
-		}
+- (void)shuffle
+{
+	NSUInteger count = [self count];
+	for (NSUInteger i = 0; i < count; ++i) {
+		int nElements = count - i;
+		int n = (random() % nElements) + i;
+		[self exchangeObjectAtIndex:i withObjectAtIndex:n];
 	}
-
-@end
-
+}
 
 @end

@@ -10,6 +10,7 @@
 #import "SA_OAuthTwitterEngine.h" 
 #import "twittaddictAppDelegate.h"
 #import "GameOverController.h"
+#import <GameKit/GameKit.h>
 
 #define kOAuthConsumerKey @"fzhClftPYrGwJGpo86xeGw"         
 #define kOAuthConsumerSecret @"Np92rlHsIy4IV4FO7ELPw6IwM16QzTNAUeZkdrrsOUA"       
@@ -45,6 +46,15 @@
 @synthesize mode1InstructionImage;
 @synthesize mode2InstructionImage;
 
+-(void)viewWillAppear:(BOOL)animated {
+	[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
+		if (error != nil) {
+			NSLog(@"not authenticated");
+		}
+	}];
+}
+
+
 - (void)viewDidAppear: (BOOL)animated {
 	score = 0;
 	scoreSaved = NO;
@@ -56,6 +66,7 @@
 	friends = [[NSMutableArray alloc]init];
 	retrievedCurrentUser = NO;
 	correctUserID = [[NSString alloc]init];
+	correctTweetID = [[NSString alloc]init];
 	selectedUsers = [[NSMutableArray alloc]init];
 	tweetText.font = [UIFont fontWithName:@"Arial" size:14.0f];
 	
@@ -239,15 +250,32 @@
 
 -(void)initMode1Components:(NSDictionary *)tweet {
 	tweetText.text = [tweet valueForKey:@"text"];
+	[correctUserID release];
 	correctUserID = [[NSString alloc]initWithString:[[tweet objectForKey:@"user"]valueForKey:@"id"]];
 	[friends shuffle];
-	NSMutableArray *users = [[NSMutableArray alloc]initWithObjects:[tweet objectForKey:@"user"],[friends objectAtIndex:0],[friends objectAtIndex:1], nil];
+	NSMutableArray *users = [[NSMutableArray alloc]initWithObjects:[tweet objectForKey:@"user"], nil];
+	while ([users count]<3) {
+		[users addObject:[self nonCurrentUser]];
+	}
 	[users shuffle];
 	[self initUser:[users objectAtIndex:0] withButton:user1Button withLabel:user1Label];
 	[self initUser:[users objectAtIndex:1] withButton:user2Button withLabel:user2Label];
 	[self initUser:[users objectAtIndex:2] withButton:user3Button withLabel:user3Label];
 	[self hideMode2Components];
 	[self showMode1Components];
+}
+
+-(NSDictionary *)nonCurrentUser {
+	return [self randomUser];
+}
+
+-(NSDictionary *)randomUser {
+	NSDictionary *user = [friends objectAtIndex:arc4random()%[friends count]];
+	if ([user valueForKey:@"id"]!=correctUserID) {
+		return user;
+	} else {
+		[self randomUser];
+	}
 }
 
 -(void)hideMode1Components {
@@ -317,6 +345,7 @@
 }
 
 -(void)initMode2Components:(NSMutableArray *)tweetChoices {
+	[correctTweetID release];
 	correctTweetID = [[NSString alloc]initWithString:[[tweetChoices objectAtIndex:0]objectForKey:@"tweet_id"]];
 	NSDictionary *user = [[tweetChoices objectAtIndex:0]objectForKey:@"user"];
 	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
