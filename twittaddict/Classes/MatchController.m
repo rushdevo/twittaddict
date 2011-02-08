@@ -65,8 +65,8 @@
 	follows = [[NSMutableArray alloc]init];
 	friends = [[NSMutableArray alloc]init];
 	retrievedCurrentUser = NO;
-	correctUserID = [[NSString alloc]init];
-	correctTweetID = [[NSString alloc]init];
+	correctUserID = [[NSMutableString alloc]init];
+	correctTweetID = [[NSMutableString alloc]init];
 	selectedUsers = [[NSMutableArray alloc]init];
 	tweetText.font = [UIFont fontWithName:@"Arial" size:14.0f];
 	
@@ -250,8 +250,7 @@
 
 -(void)initMode1Components:(NSDictionary *)tweet {
 	tweetText.text = [tweet valueForKey:@"text"];
-	[correctUserID release];
-	correctUserID = [[NSString alloc]initWithString:[[tweet objectForKey:@"user"]valueForKey:@"id"]];
+	[correctUserID setString:[[tweet objectForKey:@"user"]valueForKey:@"id"]];
 	[friends shuffle];
 	NSMutableArray *users = [[NSMutableArray alloc]initWithObjects:[tweet objectForKey:@"user"], nil];
 	while ([users count]<3) {
@@ -271,7 +270,7 @@
 
 -(NSDictionary *)randomUser {
 	NSDictionary *user = [friends objectAtIndex:arc4random()%[friends count]];
-	if ([user valueForKey:@"id"]!=correctUserID) {
+	if (![[user valueForKey:@"id"] isEqualToString:correctUserID]) {
 		return user;
 	} else {
 		[self randomUser];
@@ -345,8 +344,7 @@
 }
 
 -(void)initMode2Components:(NSMutableArray *)tweetChoices {
-	[correctTweetID release];
-	correctTweetID = [[NSString alloc]initWithString:[[tweetChoices objectAtIndex:0]objectForKey:@"tweet_id"]];
+	[correctTweetID setString:[[tweetChoices objectAtIndex:0]objectForKey:@"tweet_id"]];
 	NSDictionary *user = [[tweetChoices objectAtIndex:0]objectForKey:@"user"];
 	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
 	userImage.image = image;
@@ -513,7 +511,20 @@
 	[scoreObject setValue:[NSDate date] forKey:@"timestamp"];
 	NSError *error;
 	[context save:&error];
+	[self reportScore:score forCategory:@"twittaddict1"];
 	scoreSaved = YES;
+}
+
+# pragma mark GameKit
+
+- (void) reportScore:(int)newScore forCategory: (NSString*)category {
+	GKScore *scoreReporter = [[[GKScore alloc] initWithCategory:category] autorelease];
+	scoreReporter.value = newScore;
+	[scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
+		if (error != nil) {
+			NSLog(@"report error %d",[error code]);
+        }
+    }];
 }
 
 # pragma mark memory management

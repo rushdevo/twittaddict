@@ -45,7 +45,7 @@
 	UILabel *user2Label;
 	UILabel *user3Label;
 	UITextView *tweetText;
-	NSString *correctUserID;
+	NSMutableString *correctUserID;
 	NSMutableArray *selectedUsers;
 	
 	//match mode 2
@@ -56,14 +56,14 @@
 	SRButton *tweet3Button;
 	UIImageView *userImage;
 	UILabel *userLabel;
-	NSString *correctTweetID;
+	NSMutableString *correctTweetID;
 }
 
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *follows;
 @property(nonatomic,retain) NSMutableArray *friends;
 @property(nonatomic,retain) NSDictionary *currentUser;
-@property(nonatomic,retain) NSString *correctUserID;
+@property(nonatomic,retain) NSMutableString *correctUserID;
 @property(nonatomic,retain) NSMutableArray *selectedUsers;
 @property(nonatomic,retain) IBOutlet UIImageView *background1Image;
 @property(nonatomic,retain) IBOutlet SRButton *user1Button;
@@ -86,7 +86,7 @@
 @property(nonatomic,retain) IBOutlet SRButton *tweet3Button;
 @property(nonatomic,retain) IBOutlet UIImageView *userImage;
 @property(nonatomic,retain) IBOutlet UILabel *userLabel;
-@property(nonatomic,retain) NSString *correctTweetID;
+@property(nonatomic,retain) NSMutableString *correctTweetID;
 
 -(void)setupRandomMode;
 -(void)hideMode1Components;
@@ -113,6 +113,7 @@
 -(void)presentGameOver;
 -(void) startGameThread;
 -(void)saveScore;
+- (void)reportScore:(int)newScore forCategory:(NSString*) category;
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
 -(void)saveFriendStat:(SRButton *)button withValue:(BOOL)correct;
 -(void)disableUserButtons;
