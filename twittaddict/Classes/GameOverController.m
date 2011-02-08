@@ -78,6 +78,20 @@
 	[statsView release];
 }
 
+-(IBAction)showLeaderboard {
+	GKLeaderboardViewController *leaderboardController = [[GKLeaderboardViewController alloc] init];
+	if (leaderboardController != nil) {
+        leaderboardController.leaderboardDelegate = self;
+		leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
+		leaderboardController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentModalViewController: leaderboardController animated: YES];
+    }
+}
+
+- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma mark Table view data source
 

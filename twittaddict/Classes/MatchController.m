@@ -252,10 +252,7 @@
 	tweetText.text = [tweet valueForKey:@"text"];
 	[correctUserID setString:[[tweet objectForKey:@"user"]valueForKey:@"id"]];
 	[friends shuffle];
-	NSMutableArray *users = [[NSMutableArray alloc]initWithObjects:[tweet objectForKey:@"user"], nil];
-	while ([users count]<3) {
-		[users addObject:[self nonCurrentUser]];
-	}
+	NSMutableArray *users = [self userChoices:[tweet objectForKey:@"user"]];
 	[users shuffle];
 	[self initUser:[users objectAtIndex:0] withButton:user1Button withLabel:user1Label];
 	[self initUser:[users objectAtIndex:1] withButton:user2Button withLabel:user2Label];
@@ -264,17 +261,15 @@
 	[self showMode1Components];
 }
 
--(NSDictionary *)nonCurrentUser {
-	return [self randomUser];
-}
-
--(NSDictionary *)randomUser {
-	NSDictionary *user = [friends objectAtIndex:arc4random()%[friends count]];
-	if (![[user valueForKey:@"id"] isEqualToString:correctUserID]) {
-		return user;
-	} else {
-		[self randomUser];
+-(NSMutableArray *)userChoices:(NSDictionary *)correctUser {
+	NSMutableArray *userChoices = [NSMutableArray arrayWithObject:correctUser];
+	while ([userChoices count]<3) {
+		NSDictionary *user = [friends objectAtIndex:arc4random()%[friends count]];
+		if (![userChoices containsObject:user] && ![[user valueForKey:@"id"] isEqualToString:correctUserID]) {
+			[userChoices addObject:user];
+		}
 	}
+	return userChoices;
 }
 
 -(void)hideMode1Components {

@@ -121,4 +121,6 @@
 -(void)disableTweetButtons;
 -(void)enableTweetButtons;
 -(void)increaseInstructionView:(NSString *)mode;
+-(NSMutableArray *)userChoices:(NSDictionary *)correctUser;
+
 @end

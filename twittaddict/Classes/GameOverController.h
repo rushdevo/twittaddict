@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 #import "MatchController.h"
+#import <GameKit/GameKit.h>
 
-@interface GameOverController : BaseController <UITableViewDelegate> {
+@interface GameOverController : BaseController <UITableViewDelegate, GKLeaderboardViewControllerDelegate> {
 	UILabel *scoreLabel;
 	UITextView *messageText;
 	NSDictionary *lastScore;
@@ -30,5 +31,6 @@
 -(NSDictionary *)lastScore;
 -(NSArray *)highScores;
 -(IBAction)showStats;
+-(IBAction)showLeaderboard;
 
 @end
