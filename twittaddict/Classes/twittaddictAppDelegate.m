@@ -12,19 +12,61 @@
 @synthesize window;
 @synthesize viewController;
 
+#pragma mark accessors
+
++(BOOL)gameCenter {
+	return gameCenter;
+}
+
++(void)setGameCenter:(BOOL)hasGameCenter {
+	gameCenter = hasGameCenter;
+}
+
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	if ([self isGameCenterAvailable]) {
-		[self loadGame];
+		if (![[GKLocalPlayer localPlayer]isAuthenticated]) {
+			[self registerForAuthenticationNotification];
+			[self authenticatePlayer];
+		} else {
+			[self loadGame]; // player is authenticated
+		}
 	} else {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Center Required" message:@"twittaddict requires Game Center to run properly" delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		gameCenter = NO;
+		[self loadGame];
 	}
 	return YES;
+}
+
+
+-(void)authenticatePlayer {
+	[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
+		if (error != nil) {
+			if ([error code]==2) { // user canceled game center
+				gameCenter = NO;
+				[self loadGame];
+			}
+		} 
+	}];
+}
+
+- (void) registerForAuthenticationNotification {	
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc addObserver: self
+		selector:@selector(authenticationChanged)
+		name:GKPlayerAuthenticationDidChangeNotificationName
+	    object:nil];
+}
+
+- (void) authenticationChanged {
+	NSLog(@"AUTH CHANGED");
+	if ([[GKLocalPlayer localPlayer]isAuthenticated]) {
+		gameCenter = YES;
+		[self loadGame];
+	}
 }
 
 -(void)loadGame {

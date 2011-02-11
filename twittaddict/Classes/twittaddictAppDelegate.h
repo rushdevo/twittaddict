@@ -8,6 +8,8 @@
 
 @class MatchController;
 
+BOOL gameCenter;
+
 @interface twittaddictAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     MatchController *viewController;
@@ -25,11 +27,15 @@
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-- (NSURL *)applicationDocumentsDirectory;
-- (void)saveContext;
++(BOOL)gameCenter;
++(void)setGameCenter:(BOOL)hasGameCenter;
+-(NSURL *)applicationDocumentsDirectory;
+-(void)saveContext;
 -(BOOL)isGameCenterAvailable;
 -(void)loadGame;
-
+-(void)authenticatePlayer;
+-(void)registerForAuthenticationNotification;
+-(void)authenticationChanged;
 
 @end
 

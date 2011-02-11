@@ -126,16 +126,16 @@
 						<float key="IBUISectionHeaderHeight">22</float>
 						<float key="IBUISectionFooterHeight">22</float>
 					</object>
-					<object class="IBUIButton" id="729457433">
+					<object class="IBUIButton" id="74899771">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{213, 215}, {87, 55}}</string>
+						<int key="NSvFlags">-2147483356</int>
+						<string key="NSFrame">{{212, 213.5}, {88, 58}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont" id="336113743">
+						<object class="NSFont" key="IBUIFont" id="111697192">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -145,9 +145,13 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleShadowColor" id="569563647">
+						<object class="NSColor" key="IBUINormalTitleShadowColor" id="429522444">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">show_leaderboard.png</string>
 						</object>
 					</object>
 					<object class="IBUIButton" id="353386935">
@@ -159,13 +163,13 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="336113743"/>
+						<reference key="IBUIFont" ref="111697192"/>
 						<reference key="IBUIHighlightedTitleColor" ref="1052888806"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
-						<reference key="IBUINormalTitleShadowColor" ref="569563647"/>
+						<reference key="IBUINormalTitleShadowColor" ref="429522444"/>
 					</object>
 					<object class="IBUILabel" id="181695363">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -307,11 +311,19 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">showLeaderboard</string>
-						<reference key="source" ref="729457433"/>
+						<reference key="source" ref="74899771"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">leaderboardButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="74899771"/>
+					</object>
+					<int key="connectionID">26</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -336,7 +348,7 @@
 							<reference ref="181695363"/>
 							<reference ref="21662460"/>
 							<reference ref="524916036"/>
-							<reference ref="729457433"/>
+							<reference ref="74899771"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -393,7 +405,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
-						<reference key="object" ref="729457433"/>
+						<reference key="object" ref="74899771"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -471,7 +483,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">26</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -531,12 +543,14 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>highScoreTable</string>
+							<string>leaderboardButton</string>
 							<string>messageText</string>
 							<string>scoreLabel</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UITableView</string>
+							<string>UIButton</string>
 							<string>UITextView</string>
 							<string>UILabel</string>
 						</object>
@@ -546,6 +560,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>highScoreTable</string>
+							<string>leaderboardButton</string>
 							<string>messageText</string>
 							<string>scoreLabel</string>
 						</object>
@@ -554,6 +569,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">highScoreTable</string>
 								<string key="candidateClassName">UITableView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">leaderboardButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">messageText</string>
@@ -829,8 +848,17 @@
 		<string key="IBDocument.LastKnownRelativeProjectPath">../twittaddict.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">gameover.png</string>
-			<string key="NS.object.0">{320, 460}</string>
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>gameover.png</string>
+				<string>show_leaderboard.png</string>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{320, 460}</string>
+				<string>{88, 58}</string>
+			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">132</string>
 	</data>

@@ -18,6 +18,7 @@
 	NSArray *highScores;
 	UITableView *highScoreTable;
 	MatchController *matchView;
+	IBOutlet UIButton *leaderboardButton;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *scoreLabel;

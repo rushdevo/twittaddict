@@ -18,6 +18,7 @@
 @implementation MatchController
 
 @synthesize tweets;
+@synthesize backupTweets;
 @synthesize follows;
 @synthesize currentUser;
 @synthesize friends;
@@ -45,15 +46,6 @@
 @synthesize correctTweetID;
 @synthesize mode1InstructionImage;
 @synthesize mode2InstructionImage;
-
--(void)viewWillAppear:(BOOL)animated {
-	[[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
-		if (error != nil) {
-			NSLog(@"not authenticated");
-		}
-	}];
-}
-
 
 - (void)viewDidAppear: (BOOL)animated {
 	score = 0;
@@ -135,6 +127,7 @@
 			[tweet release];
 		}
 	}
+	backupTweets = [[NSMutableArray alloc]initWithArray:tweets];
 	if ([tweets count] > 0 && [friends count]>0) {
 		[self startGame];
 	}
@@ -230,7 +223,7 @@
 
 -(void)setupMode1 {
 	[self enableUserButtons];
-	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	NSDictionary *tweet = [self randomTweet];
 	[tweets removeObject:tweet];
 	[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
 	if (instructMode1 < 3) {
@@ -238,6 +231,13 @@
 		mode1InstructionImage.hidden = NO;
 		[self increaseInstructionView:@"mode1"];
 	}
+}
+
+-(NSDictionary *)randomTweet {
+	if ([tweets count]==0) {
+		[tweets setArray:backupTweets];
+	}
+	return [tweets objectAtIndex:arc4random()%[tweets count]];
 }
 
 -(void)increaseInstructionView:(NSString *)mode {
@@ -323,19 +323,28 @@
 
 -(void)setupMode2 {
 	[self enableTweetButtons];
-	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
-	[tweets removeObject:tweet];
-	NSDictionary *tweet2 = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
-	[tweets removeObject:tweet2];
-	NSDictionary *tweet3 = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
-	[tweets removeObject:tweet3];
-	NSMutableArray *tweetChoices = [NSMutableArray arrayWithObjects:tweet,tweet2,tweet3,nil];
-	[self performSelectorOnMainThread:@selector(initMode2Components:) withObject:tweetChoices waitUntilDone:NO];
+	NSMutableArray *choices = [self tweetChoices];
+	[self performSelectorOnMainThread:@selector(initMode2Components:) withObject:choices waitUntilDone:NO];
 	if (instructMode2 < 3) {
 		background2Image.hidden = YES;
 		mode2InstructionImage.hidden = NO;
 		[self increaseInstructionView:@"mode2"];
 	}
+}
+
+-(NSMutableArray *)tweetChoices {
+	NSDictionary *correctChoice = [self randomTweet];
+	NSString *userID = [[correctChoice objectForKey:@"user"]objectForKey:@"id"];
+	NSMutableArray *choices = [NSMutableArray arrayWithObject:correctChoice];
+	[tweets removeObject:correctChoice];
+	while ([choices count]<3) {	
+		NSDictionary *choice = [self randomTweet];
+		if (![[[choice objectForKey:@"user"]objectForKey:@"id"]isEqualToString:userID]) {
+			[choices addObject:choice];
+			[tweets removeObject:choice];
+		} 
+	}
+	return choices;
 }
 
 -(void)initMode2Components:(NSMutableArray *)tweetChoices {
@@ -506,7 +515,9 @@
 	[scoreObject setValue:[NSDate date] forKey:@"timestamp"];
 	NSError *error;
 	[context save:&error];
-	[self reportScore:score forCategory:@"twittaddict1"];
+	if ([twittaddictAppDelegate gameCenter]) {
+		[self reportScore:score forCategory:@"twittaddict1"];
+	}
 	scoreSaved = YES;
 }
 
@@ -533,12 +544,14 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+	self.backupTweets = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
 	[tweets release];
+	[backupTweets release];
 	[follows release];
 	[currentUser release];
 	[friends release];

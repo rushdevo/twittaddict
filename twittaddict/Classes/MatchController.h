@@ -19,6 +19,7 @@
 	MGTwitterEngine *twitterEngine;
 	
 	NSMutableArray *tweets;
+	NSMutableArray *backupTweets;
 	NSMutableArray *follows;
 	NSMutableArray *friends;
 	NSDictionary *currentUser;
@@ -60,6 +61,7 @@
 }
 
 @property(nonatomic,retain) NSMutableArray *tweets;
+@property(nonatomic,retain) NSMutableArray *backupTweets;
 @property(nonatomic,retain) NSMutableArray *follows;
 @property(nonatomic,retain) NSMutableArray *friends;
 @property(nonatomic,retain) NSDictionary *currentUser;
@@ -122,5 +124,6 @@
 -(void)enableTweetButtons;
 -(void)increaseInstructionView:(NSString *)mode;
 -(NSMutableArray *)userChoices:(NSDictionary *)correctUser;
-
+-(NSMutableArray *)tweetChoices;
+-(NSDictionary *)randomTweet;
 @end

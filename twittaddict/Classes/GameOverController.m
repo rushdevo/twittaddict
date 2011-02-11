@@ -24,6 +24,9 @@
 	lastScore = [self lastScore];
 	highScores = [[NSArray alloc]initWithArray:[self highScores]];
 	scoreLabel.text = [[lastScore valueForKey:@"score"]stringValue];
+	if ([twittaddictAppDelegate gameCenter]) {
+		leaderboardButton.hidden = NO;
+	}
     [super viewDidLoad];
 }
 
