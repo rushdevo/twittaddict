@@ -11,7 +11,7 @@
 #import "MatchController.h"
 #import <GameKit/GameKit.h>
 
-@interface GameOverController : BaseController <UITableViewDelegate, GKLeaderboardViewControllerDelegate> {
+@interface GameOverController : BaseController <UITableViewDelegate, GKLeaderboardViewControllerDelegate, GKAchievementViewControllerDelegate> {
 	UILabel *scoreLabel;
 	UITextView *messageText;
 	NSDictionary *lastScore;
@@ -33,5 +33,6 @@
 -(NSArray *)highScores;
 -(IBAction)showStats;
 -(IBAction)showLeaderboard;
+-(IBAction)showAchievements;
 
 @end

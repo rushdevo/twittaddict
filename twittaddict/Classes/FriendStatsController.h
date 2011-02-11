@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseController.h"
 
-@interface FriendStatsController : BaseController {
+@interface FriendStatsController : BaseController  {
 	NSDictionary *currentUser;
 	UILabel *statsLabel;
 	UIImageView *bffImage;

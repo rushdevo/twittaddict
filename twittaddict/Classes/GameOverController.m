@@ -81,6 +81,8 @@
 	[statsView release];
 }
 
+#pragma mark GameKit
+
 -(IBAction)showLeaderboard {
 	GKLeaderboardViewController *leaderboardController = [[GKLeaderboardViewController alloc] init];
 	if (leaderboardController != nil) {
@@ -92,6 +94,20 @@
 }
 
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+-(IBAction)showAchievements {
+	GKAchievementViewController *achievements = [[GKAchievementViewController alloc] init];
+    if (achievements != nil) {
+        achievements.achievementDelegate = self;
+		achievements.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentModalViewController: achievements animated: YES];
+    }
+    [achievements release];
+}
+
+- (void)achievementViewControllerDidFinish:(GKAchievementViewController *)viewController {
     [self dismissModalViewControllerAnimated:YES];
 }
 

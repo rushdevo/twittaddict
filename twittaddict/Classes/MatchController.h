@@ -18,6 +18,8 @@
 	SA_OAuthTwitterEngine    *_engine; 
 	MGTwitterEngine *twitterEngine;
 	
+	NSMutableArray *playerAchievements;
+	BOOL newAchievements;
 	NSMutableArray *tweets;
 	NSMutableArray *backupTweets;
 	NSMutableArray *follows;
@@ -25,6 +27,7 @@
 	NSDictionary *currentUser;
 	BOOL retrievedCurrentUser;
 	int score;
+	int correctInARow;
 	int secondsRemaining;
 	UILabel *scoreLabel;
 	UILabel *timerLabel;
@@ -60,6 +63,7 @@
 	NSMutableString *correctTweetID;
 }
 
+@property(nonatomic,retain) NSMutableArray *playerAchievements;
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *backupTweets;
 @property(nonatomic,retain) NSMutableArray *follows;
@@ -97,8 +101,6 @@
 -(void)showMode2Components;
 -(void)setupMode1;
 -(void)initMode1Components:(NSDictionary *)tweet;
--(NSDictionary *)randomUser;
--(NSDictionary *)nonCurrentUser;
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label;
 -(void)setupMode2;
 -(void)initMode2Components:(NSMutableArray *)tweetChoices;
@@ -126,4 +128,8 @@
 -(NSMutableArray *)userChoices:(NSDictionary *)correctUser;
 -(NSMutableArray *)tweetChoices;
 -(NSDictionary *)randomTweet;
+-(void)loadAchievements;
+-(void)inARowAchievement;
+- (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
+
 @end

@@ -17,6 +17,7 @@
 
 @implementation MatchController
 
+@synthesize playerAchievements;
 @synthesize tweets;
 @synthesize backupTweets;
 @synthesize follows;
@@ -48,7 +49,12 @@
 @synthesize mode2InstructionImage;
 
 - (void)viewDidAppear: (BOOL)animated {
+	if ([twittaddictAppDelegate gameCenter]) {
+		[self loadAchievements];
+	}
+	newAchievements = NO;
 	score = 0;
+	correctInARow = 0;
 	scoreSaved = NO;
 	secondsRemaining = 60;
 	instructMode1 = 0;
@@ -439,11 +445,16 @@
 -(void)increaseScore {
 	score += 10;
 	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+	correctInARow += 1;
+	if (correctInARow % 5 == 0) {
+		[self inARowAchievement];
+	}
 }
 
 -(void)decreaseScore {
 	score -= 5;
 	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
+	correctInARow = 0;
 }
 
 -(void)saveFriendStat:(SRButton *)button withValue:(BOOL)correct {
@@ -533,6 +544,43 @@
     }];
 }
 
+- (void)loadAchievements {    
+	[GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
+		if (achievements != nil) {
+			playerAchievements = [[NSMutableArray alloc]init];
+			for (GKAchievement* achievement in achievements) {
+				[playerAchievements addObject:achievement.identifier];
+			}
+		}
+	}];
+}
+
+- (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent {
+    GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
+	if (achievement) {
+		achievement.percentComplete = percent;
+		[achievement reportAchievementWithCompletionHandler:^(NSError *error) {
+			 if (error != nil) {
+				 // Retain the achievement object and try again later (not shown)
+			 }
+		 }];
+    }
+}
+
+-(void)inARowAchievement {
+	switch (correctInARow) {
+		case 5:
+			if (![playerAchievements containsObject:@"five_achievement"]) {
+				[self reportAchievementIdentifier:@"five_achievement" percentComplete:100.0];
+				[playerAchievements addObject:@"five_achievement"];
+				newAchievements = YES;
+			}
+			break;
+		default:
+			break;
+	}
+}
+
 # pragma mark memory management
 
 - (void)didReceiveMemoryWarning {
@@ -545,11 +593,13 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
 	self.backupTweets = nil;
+	self.playerAchievements = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
+	[playerAchievements release];
 	[tweets release];
 	[backupTweets release];
 	[follows release];
