@@ -55,6 +55,7 @@
 	newAchievements = NO;
 	score = 0;
 	correctInARow = 0;
+	attempted = 0;
 	scoreSaved = NO;
 	secondsRemaining = 60;
 	instructMode1 = 0;
@@ -386,6 +387,7 @@
 
 -(IBAction)userSelected:(id)sender {
 	[self disableUserButtons];
+	attempted += 1;
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
@@ -414,6 +416,7 @@
 
 -(IBAction)tweetSelected:(id)sender {
 	[self disableTweetButtons];
+	attempted += 1;
 	[sender setTitle:@"" forState:UIControlStateNormal];
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
@@ -427,7 +430,6 @@
 	gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
 	[gameThread release];
-
 }
 
 -(void)disableTweetButtons {
@@ -446,7 +448,7 @@
 	score += 10;
 	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
 	correctInARow += 1;
-	if (correctInARow % 5 == 0) {
+	if (correctInARow % 5 == 0 && [twittaddictAppDelegate gameCenter]) {
 		[self inARowAchievement];
 	}
 }
@@ -528,6 +530,9 @@
 	[context save:&error];
 	if ([twittaddictAppDelegate gameCenter]) {
 		[self reportScore:score forCategory:@"twittaddict1"];
+		if (![playerAchievements containsObject:@"all_achievement"] && attempted==correctInARow) {
+			[self awardAchievement:@"all_achievement"];
+		}
 	}
 	scoreSaved = YES;
 }
@@ -570,14 +575,33 @@
 -(void)inARowAchievement {
 	switch (correctInARow) {
 		case 5:
-			if (![playerAchievements containsObject:@"five_achievement"]) {
-				[self reportAchievementIdentifier:@"five_achievement" percentComplete:100.0];
-				[playerAchievements addObject:@"five_achievement"];
-				newAchievements = YES;
-			}
+			[self awardAchievement:@"five_achievement"];
+			break;
+		case 10:
+			[self awardAchievement:@"ten_achievement"];
+			break;
+		case 15:
+			[self awardAchievement:@"fifteen_achievement"];
+			break;
+		case 20:
+			[self awardAchievement:@"twenty_achievement"];
+			break;
+		case 25:
+			[self awardAchievement:@"twentyfive_achievement"];
+			break;
+		case 30:
+			[self awardAchievement:@"thirty_achievement"];
 			break;
 		default:
 			break;
+	}
+}
+
+-(void)awardAchievement:(NSString *)achievementID {
+	if (![playerAchievements containsObject:achievementID]) {
+		[self reportAchievementIdentifier:achievementID percentComplete:100.0];
+		[playerAchievements addObject:achievementID];
+		newAchievements = YES;
 	}
 }
 

@@ -28,6 +28,7 @@
 	BOOL retrievedCurrentUser;
 	int score;
 	int correctInARow;
+	int attempted;
 	int secondsRemaining;
 	UILabel *scoreLabel;
 	UILabel *timerLabel;
@@ -131,5 +132,6 @@
 -(void)loadAchievements;
 -(void)inARowAchievement;
 - (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
+-(void)awardAchievement:(NSString *)achievementID;
 
 @end
