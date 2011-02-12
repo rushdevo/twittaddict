@@ -136,7 +136,7 @@
 	}
 	backupTweets = [[NSMutableArray alloc]initWithArray:tweets];
 	if ([tweets count] > 0 && [friends count]>0) {
-		[self startGame];
+		[self hideLoading];
 	}
 }
 
@@ -149,7 +149,7 @@
 	} else {
 		[friends setArray:userInfo];
 		if ([tweets count] > 0 && [friends count] > 0) {
-			[self startGame];
+			[self hideLoading];
 		}
 	}
 }
@@ -175,8 +175,14 @@
 
 #pragma mark Game Setup
 
--(void)startGame {
+-(void)hideLoading {
 	loadingActivity.hidden = YES;
+	playButton.hidden = NO;
+}
+
+-(IBAction)startGame {
+	loadingActivity.hidden = YES;
+	playButton.hidden = YES;
 	loadingImage.hidden = YES;
 	[self startTimer];
 	[self setupRandomMode];

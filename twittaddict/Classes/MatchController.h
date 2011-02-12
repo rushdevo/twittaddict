@@ -18,6 +18,7 @@
 	SA_OAuthTwitterEngine    *_engine; 
 	MGTwitterEngine *twitterEngine;
 	
+	IBOutlet UIButton *playButton;
 	NSMutableArray *playerAchievements;
 	BOOL newAchievements;
 	NSMutableArray *tweets;
@@ -96,6 +97,7 @@
 @property(nonatomic,retain) IBOutlet UILabel *userLabel;
 @property(nonatomic,retain) NSMutableString *correctTweetID;
 
+-(void)hideLoading;
 -(void)setupRandomMode;
 -(void)hideMode1Components;
 -(void)showMode1Components;
@@ -112,7 +114,7 @@
 -(IBAction)tweetSelected:(id)sender;
 -(void)increaseScore;
 -(void)decreaseScore;
--(void)startGame;
+-(IBAction)startGame;
 -(void) startTimer;
 -(void) startTimerThread;
 -(void)countdown:(NSTimer *)timer;

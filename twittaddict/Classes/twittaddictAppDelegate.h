@@ -13,9 +13,7 @@ BOOL gameCenter;
 @interface twittaddictAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     MatchController *viewController;
-	BOOL gameStarted;
-	BOOL authenticating;
-	BOOL userCanceled;
+	//BOOL gameCenterCanceled;
 	
 @private
     NSManagedObjectContext *managedObjectContext_;
@@ -37,8 +35,6 @@ BOOL gameCenter;
 -(BOOL)isGameCenterAvailable;
 -(void)loadGame;
 -(void)authenticatePlayer;
--(void)registerForAuthenticationNotification;
--(void)authenticationChanged;
 -(void)checkLocalPlayer;
 
 

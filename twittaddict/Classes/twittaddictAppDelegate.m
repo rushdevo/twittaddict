@@ -27,27 +27,17 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	authenticating = NO;
-	gameStarted = NO;
-	userCanceled = NO;
 	[self checkLocalPlayer];
 	return YES;
 }
 
 -(void)checkLocalPlayer {
 	if ([self isGameCenterAvailable]) {
-		if (![[GKLocalPlayer localPlayer]isAuthenticated]) {
-			[self registerForAuthenticationNotification];
-			[self authenticatePlayer];
-		} else {
-			NSLog(@"game started from player authenticated");
-			[self loadGame]; // player is authenticated
-		}
+		[self authenticatePlayer];
 	} else {
 		gameCenter = NO;
-		NSLog(@"game started from no game center");
-		[self loadGame];
 	}
+	[self loadGame];
 }
 
 
@@ -56,33 +46,14 @@
 		if (error != nil) {
 			if ([error code]==2) { // user canceled game center
 				gameCenter = NO;
-				userCanceled = YES;
-				NSLog(@"game started from auth player");
-				[self loadGame];
 			} 
-		} 
+		} else {
+			gameCenter = YES;
+		}
 	}];
 }
 
-- (void) registerForAuthenticationNotification {	
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc addObserver: self
-		selector:@selector(authenticationChanged)
-		name:GKPlayerAuthenticationDidChangeNotificationName
-	    object:nil];
-}
-
-- (void) authenticationChanged {
-	NSLog(@"AUTH CHANGED");
-	if ([[GKLocalPlayer localPlayer]isAuthenticated] && !gameStarted && !authenticating) {
-		gameCenter = YES;
-		NSLog(@"game started from auth changed");
-		[self loadGame];
-	}
-}
-
 -(void)loadGame {
-	gameStarted = YES;
 	viewController = [[MatchController alloc] initWithNibName:@"MatchController" bundle:[NSBundle mainBundle]];
 	[viewController.view setFrame:[[UIScreen mainScreen]applicationFrame]];
 	[window addSubview:viewController.view];
@@ -122,14 +93,6 @@
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-	NSLog(@"applicationWillEnterForeground");
-	if (!userCanceled) {
-		gameStarted = NO;
-		authenticating = YES;
-		[self checkLocalPlayer];
-	} else {
-		[self loadGame];
-	}
 }
 
 
@@ -147,7 +110,6 @@
 
 
 - (void)saveContext {
-    
     NSError *error = nil;
 	NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {

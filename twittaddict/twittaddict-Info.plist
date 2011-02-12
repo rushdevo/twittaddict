@@ -39,5 +39,7 @@
 	<array>
 		<string>gamekit</string>
 	</array>
+	<key>UIApplicationExitsOnSuspend</key>
+	<true/>
 </dict>
 </plist>
