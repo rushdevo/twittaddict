@@ -14,7 +14,6 @@
 @implementation GameOverController
 
 @synthesize scoreLabel;
-@synthesize messageText;
 @synthesize lastScore;
 @synthesize highScores;
 @synthesize highScoreTable;
@@ -26,6 +25,10 @@
 	scoreLabel.text = [[lastScore valueForKey:@"score"]stringValue];
 	if ([twittaddictAppDelegate gameCenter]) {
 		leaderboardButton.hidden = NO;
+		achievementButton.hidden = NO;
+	}
+	if (self.matchView.newAchievements) {
+		newAchievementButton.hidden = NO;
 	}
     [super viewDidLoad];
 }
@@ -156,7 +159,6 @@
 
 - (void)dealloc {
 	[scoreLabel release];
-	[messageText release];
 	[lastScore release];
 	[highScores release];
 	[highScoreTable release];

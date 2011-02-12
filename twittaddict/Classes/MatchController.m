@@ -17,6 +17,7 @@
 
 @implementation MatchController
 
+@synthesize newAchievements;
 @synthesize playerAchievements;
 @synthesize tweets;
 @synthesize backupTweets;
@@ -83,7 +84,6 @@
 		[_engine checkUserCredentials];
 	}
 }
-
 
 //=============================================================================================================================
 #pragma mark SA_OAuthTwitterEngineDelegate
@@ -623,6 +623,7 @@
 }
 
 - (void)dealloc {
+	[newAchievements release];
 	[playerAchievements release];
 	[tweets release];
 	[backupTweets release];

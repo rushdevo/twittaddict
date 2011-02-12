@@ -17,6 +17,7 @@
 @synthesize bffLabel;
 
 -(void)viewDidLoad {
+	self.wantsFullScreenLayout = YES;
 	statsLabel.text = [NSString stringWithFormat:@"%@'s Twitter BFF is...", [currentUser objectForKey:@"screen_name"]];
 	[self loadBFF];
 	[super viewDidLoad];

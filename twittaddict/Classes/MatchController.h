@@ -64,6 +64,7 @@
 	NSMutableString *correctTweetID;
 }
 
+@property BOOL newAchievements;
 @property(nonatomic,retain) NSMutableArray *playerAchievements;
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *backupTweets;
@@ -133,5 +134,6 @@
 -(void)inARowAchievement;
 - (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
 -(void)awardAchievement:(NSString *)achievementID;
+
 
 @end

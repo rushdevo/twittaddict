@@ -27,18 +27,27 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	authenticating = NO;
+	gameStarted = NO;
+	userCanceled = NO;
+	[self checkLocalPlayer];
+	return YES;
+}
+
+-(void)checkLocalPlayer {
 	if ([self isGameCenterAvailable]) {
 		if (![[GKLocalPlayer localPlayer]isAuthenticated]) {
 			[self registerForAuthenticationNotification];
 			[self authenticatePlayer];
 		} else {
+			NSLog(@"game started from player authenticated");
 			[self loadGame]; // player is authenticated
 		}
 	} else {
 		gameCenter = NO;
+		NSLog(@"game started from no game center");
 		[self loadGame];
 	}
-	return YES;
 }
 
 
@@ -47,8 +56,10 @@
 		if (error != nil) {
 			if ([error code]==2) { // user canceled game center
 				gameCenter = NO;
+				userCanceled = YES;
+				NSLog(@"game started from auth player");
 				[self loadGame];
-			}
+			} 
 		} 
 	}];
 }
@@ -63,13 +74,15 @@
 
 - (void) authenticationChanged {
 	NSLog(@"AUTH CHANGED");
-	if ([[GKLocalPlayer localPlayer]isAuthenticated]) {
+	if ([[GKLocalPlayer localPlayer]isAuthenticated] && !gameStarted && !authenticating) {
 		gameCenter = YES;
+		NSLog(@"game started from auth changed");
 		[self loadGame];
 	}
 }
 
 -(void)loadGame {
+	gameStarted = YES;
 	viewController = [[MatchController alloc] initWithNibName:@"MatchController" bundle:[NSBundle mainBundle]];
 	[viewController.view setFrame:[[UIScreen mainScreen]applicationFrame]];
 	[window addSubview:viewController.view];
@@ -109,16 +122,19 @@
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    /*
-     Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
-     */
+	NSLog(@"applicationWillEnterForeground");
+	if (!userCanceled) {
+		gameStarted = NO;
+		authenticating = YES;
+		[self checkLocalPlayer];
+	} else {
+		[self loadGame];
+	}
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+	
 }
 
 
@@ -142,7 +158,6 @@
              abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
              */
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
         } 
     }
 }    
