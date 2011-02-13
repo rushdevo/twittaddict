@@ -50,9 +50,11 @@
 		[request setFetchLimit:1];	
 		NSError *error;
 		NSArray *friends = [context executeFetchRequest:request error:&error];
-		NSManagedObject *bff = [friends objectAtIndex:0];
-		bffImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[bff valueForKey:@"profileImageURL"]]]];
-		bffLabel.text = [bff valueForKey:@"screenName"];
+		if ([friends count]>0) {
+			NSManagedObject *bff = [friends objectAtIndex:0];
+			bffImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[bff valueForKey:@"profileImageURL"]]]];
+			bffLabel.text = [bff valueForKey:@"screenName"];
+		}
 		[request release];
 		[statSort release];
 	}

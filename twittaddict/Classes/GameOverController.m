@@ -20,15 +20,16 @@
 @synthesize matchView;
 
 - (void)viewDidLoad {
+	self.wantsFullScreenLayout = YES;
 	lastScore = [self lastScore];
 	highScores = [[NSArray alloc]initWithArray:[self highScores]];
 	scoreLabel.text = [[lastScore valueForKey:@"score"]stringValue];
 	if ([twittaddictAppDelegate gameCenter]) {
 		leaderboardButton.hidden = NO;
 		achievementButton.hidden = NO;
-	}
-	if (self.matchView.newAchievements) {
-		newAchievementButton.hidden = NO;
+		if (self.matchView.newAchievements) {
+			newAchievementButton.hidden = NO;
+		}
 	}
     [super viewDidLoad];
 }

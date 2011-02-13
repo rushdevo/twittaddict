@@ -13,7 +13,6 @@ BOOL gameCenter;
 @interface twittaddictAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     MatchController *viewController;
-	//BOOL gameCenterCanceled;
 	
 @private
     NSManagedObjectContext *managedObjectContext_;
