@@ -397,11 +397,11 @@
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
-		[self saveFriendStat:sender withValue:YES];
+		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"yes",@"correct",nil]];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
 		[self decreaseScore];
-		[self saveFriendStat:sender withValue:NO];
+		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"no",@"correct",nil]];
 	}
 	gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
@@ -427,11 +427,11 @@
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
 		[self increaseScore];
-		[self saveFriendStat:sender withValue:YES];
+		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"yes",@"correct",nil]];
 	} else {
 		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
 		[self decreaseScore];
-		[self saveFriendStat:sender withValue:NO];
+		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"no",@"correct",nil]];
 	}
 	gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
 	[gameThread start];
@@ -465,7 +465,9 @@
 	correctInARow = 0;
 }
 
--(void)saveFriendStat:(SRButton *)button withValue:(BOOL)correct {
+-(void)saveFriendStat:(NSDictionary *)data {
+	SRButton *button = [data objectForKey:@"button"];
+	NSString *correct = [data objectForKey:@"correct"];
 	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	NSManagedObjectContext *context = [appDelegate managedObjectContext];
 	NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"FriendStat" inManagedObjectContext:context];
@@ -479,7 +481,7 @@
 	if ([stats count]>0) {
 		NSDictionary *stat = [stats objectAtIndex:0];
 		[stat setValue:[[stat valueForKey:@"attempts"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"attempts"];
-		if (correct) {
+		if ([correct isEqualToString:@"yes"]) {
 			[stat setValue:[[stat valueForKey:@"correct"]decimalNumberByAdding:[NSDecimalNumber one]] forKey:@"correct"];
 		}
 		[stat setValue:[self percentCorrect:[stat valueForKey:@"correct"] withAttempts:[stat valueForKey:@"attempts"]] forKey:@"percentCorrect"];
@@ -497,7 +499,7 @@
 										inManagedObjectContext:context];
 		[statObject setValue:[button userID] forKey:@"userID"];
 		[statObject setValue:[NSDecimalNumber one] forKey:@"attempts"];
-		if (correct) {
+		if ([correct isEqualToString:@"yes"]) {
 			[statObject setValue:[NSDecimalNumber one] forKey:@"correct"];
 		} else {
 			[statObject setValue:[NSDecimalNumber zero] forKey:@"correct"];
@@ -509,6 +511,8 @@
 		[context save:&error];
 	}
 }
+
+
 
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts {
 	NSDecimalNumberHandler *roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundUp scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];

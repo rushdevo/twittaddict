@@ -123,7 +123,7 @@
 -(void)saveScore;
 - (void)reportScore:(int)newScore forCategory:(NSString*) category;
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
--(void)saveFriendStat:(SRButton *)button withValue:(BOOL)correct;
+-(void)saveFriendStat:(NSDictionary *)data;
 -(void)disableUserButtons;
 -(void)enableUserButtons;
 -(void)disableTweetButtons;
@@ -136,6 +136,7 @@
 -(void)inARowAchievement;
 - (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
 -(void)awardAchievement:(NSString *)achievementID;
+-(void)reauthTwitter;
 
 
 @end
