@@ -19,6 +19,7 @@
 	MGTwitterEngine *twitterEngine;
 	
 	IBOutlet UIButton *playButton;
+	IBOutlet UIImageView *scoreImage;
 	NSMutableArray *playerAchievements;
 	BOOL newAchievements;
 	NSMutableArray *tweets;
@@ -47,6 +48,9 @@
 	SRButton *user1Button;
 	SRButton *user2Button;
 	SRButton *user3Button;
+	IBOutlet UIImageView *user1Image;
+	IBOutlet UIImageView *user2Image;
+	IBOutlet UIImageView *user3Image;
 	UILabel *user1Label;
 	UILabel *user2Label;
 	UILabel *user3Label;
@@ -105,7 +109,7 @@
 -(void)showMode2Components;
 -(void)setupMode1;
 -(void)initMode1Components:(NSDictionary *)tweet;
--(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label;
+-(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withImage:(UIImageView *)imageView withLabel:(UILabel *)label;
 -(void)setupMode2;
 -(void)initMode2Components:(NSMutableArray *)tweetChoices;
 -(void)initTweet:(NSDictionary *)tweet withButton:(SRButton *)button;
@@ -119,7 +123,6 @@
 -(void) startTimerThread;
 -(void)countdown:(NSTimer *)timer;
 -(void)presentGameOver;
--(void) startGameThread;
 -(void)saveScore;
 - (void)reportScore:(int)newScore forCategory:(NSString*) category;
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
@@ -137,6 +140,8 @@
 - (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
 -(void)awardAchievement:(NSString *)achievementID;
 -(void)reauthTwitter;
+-(void)answerCorrect:(SRButton *)sender;
+-(void)answerWrong:(SRButton *)sender;
 
 
 @end

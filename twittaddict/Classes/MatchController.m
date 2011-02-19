@@ -88,7 +88,7 @@
 //=============================================================================================================================
 #pragma mark SA_OAuthTwitterEngineDelegate
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
-	NSUserDefaults			*defaults = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	[defaults setObject: data forKey: @"authData"];
 	[defaults synchronize];
@@ -114,6 +114,13 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"We're Sorry!" message:@"Twitter is experiencing problems.  Please try again later!" delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:nil];
 		[alert show];
 		[alert release];
+	} else if ([error code]==401) {
+		[_engine clearAccessToken];
+		_engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
+		_engine.consumerKey    = kOAuthConsumerKey;
+		_engine.consumerSecret = kOAuthConsumerSecret;	
+		UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_engine delegate:self];
+		[self presentModalViewController: controller animated: YES];
 	} else {
 		[self viewDidAppear:FALSE];		
 	}
@@ -226,6 +233,7 @@
 }
 
 -(void)setupRandomMode {
+	playButton.hidden = YES;
 	int rand = (arc4random() % 2 ? 1 : 0);
 	if (rand==0) {
 		[self setupMode1];
@@ -267,9 +275,9 @@
 	[friends shuffle];
 	NSMutableArray *users = [self userChoices:[tweet objectForKey:@"user"]];
 	[users shuffle];
-	[self initUser:[users objectAtIndex:0] withButton:user1Button withLabel:user1Label];
-	[self initUser:[users objectAtIndex:1] withButton:user2Button withLabel:user2Label];
-	[self initUser:[users objectAtIndex:2] withButton:user3Button withLabel:user3Label];
+	[self initUser:[users objectAtIndex:0] withButton:user1Button withImage:user1Image withLabel:user1Label];
+	[self initUser:[users objectAtIndex:1] withButton:user2Button withImage:user2Image withLabel:user2Label];
+	[self initUser:[users objectAtIndex:2] withButton:user3Button withImage:user3Image withLabel:user3Label];
 	[self hideMode2Components];
 	[self showMode1Components];
 }
@@ -295,9 +303,17 @@
 	user2Button.hidden = YES;
 	user3Label.hidden = YES;
 	user3Button.hidden = YES;
+	user1Image.hidden = YES;
+	user2Image.hidden = YES;
+	user3Image.hidden = YES;
+	
 }
 
 -(void)showMode1Components {
+	UIColor *color = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0];
+	user1Label.textColor = color;
+	user2Label.textColor = color;
+	user3Label.textColor = color;
 	background1Image.hidden = NO;
 	tweetText.hidden = NO;
 	user1Label.hidden = NO;
@@ -306,11 +322,14 @@
 	user2Button.hidden = NO;
 	user3Label.hidden = NO;
 	user3Button.hidden = NO;
+	user1Image.hidden = NO;
+	user2Image.hidden = NO;
+	user3Image.hidden = NO;
 }
 
--(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withLabel:(UILabel *)label {
+-(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withImage:(UIImageView *)imageView withLabel:(UILabel *)label {
 	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
-	[button setImage:image forState:UIControlStateNormal];
+	imageView.image = image;
 	label.text = [user objectForKey:@"screen_name"];
 	[self initButton:button withUser:user];
 }
@@ -395,17 +414,11 @@
 	[self disableUserButtons];
 	attempted += 1;
 	if ([[sender userID] isEqualToString:correctUserID]) {
-		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
-		[self increaseScore];
-		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"yes",@"correct",nil]];
+		[self answerCorrect:sender];
 	} else {
-		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
-		[self decreaseScore];
-		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"no",@"correct",nil]];
+		[self answerWrong:sender];
 	}
-	gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
-	[gameThread start];
-	[gameThread release];
+	[self setupRandomMode];
 }
 
 -(void)disableUserButtons {
@@ -422,20 +435,14 @@
 
 -(IBAction)tweetSelected:(id)sender {
 	[self disableTweetButtons];
+	[sender setTitle:@"" forState:UIControlStateHighlighted];
 	attempted += 1;
-	[sender setTitle:@"" forState:UIControlStateNormal];
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
-		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateNormal];
-		[self increaseScore];
-		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"yes",@"correct",nil]];
+		[self answerCorrect:sender];
 	} else {
-		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateNormal];
-		[self decreaseScore];
-		[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:[NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"no",@"correct",nil]];
+		[self answerWrong:sender];
 	}
-	gameThread = [[NSThread alloc]initWithTarget:self selector:@selector(startGameThread) object:nil];
-	[gameThread start];
-	[gameThread release];
+	[self setupRandomMode];
 }
 
 -(void)disableTweetButtons {
@@ -449,7 +456,25 @@
 	tweet2Button.enabled = YES;
 	tweet3Button.enabled = YES;
 }
-		 
+
+-(void)answerCorrect:(SRButton *)sender {
+	UIImage *image = [UIImage imageNamed:@"correct.png"];
+	[sender setImage:image forState:UIControlStateHighlighted];
+	scoreImage.image = image;
+	[self increaseScore];
+	NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"yes",@"correct",nil];
+	[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:data];
+}
+
+-(void)answerWrong:(SRButton *)sender { 
+	UIImage *image = [UIImage imageNamed:@"wrong.png"];
+	[sender setImage:image forState:UIControlStateHighlighted];
+	scoreImage.image = image;
+	[self decreaseScore];
+	NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"no",@"correct",nil];
+	[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:data];
+}
+
 -(void)increaseScore {
 	score += 10;
 	scoreLabel.text = [NSString stringWithFormat:@"%d",score];
@@ -517,14 +542,6 @@
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts {
 	NSDecimalNumberHandler *roundingBehavior = [[NSDecimalNumberHandler alloc] initWithRoundingMode:NSRoundUp scale:2 raiseOnExactness:NO raiseOnOverflow:NO raiseOnUnderflow:NO raiseOnDivideByZero:NO];
 	return [[correct decimalNumberByDividingBy:attempts withBehavior:roundingBehavior] decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
-}
-
--(void) startGameThread {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
-	[self setupRandomMode];
-	[runLoop run];
-	[pool release];
 }
 
 -(void)saveScore {
