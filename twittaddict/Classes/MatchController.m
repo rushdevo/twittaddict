@@ -23,7 +23,6 @@
 @synthesize backupTweets;
 @synthesize follows;
 @synthesize currentUser;
-@synthesize friends;
 @synthesize scoreLabel;
 @synthesize timerLabel;
 @synthesize background1Image;
@@ -63,7 +62,6 @@
 	instructMode2 = 0;
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
-	friends = [[NSMutableArray alloc]init];
 	retrievedCurrentUser = NO;
 	correctUserID = [[NSMutableString alloc]init];
 	correctTweetID = [[NSMutableString alloc]init];
@@ -142,7 +140,7 @@
 		}
 	}
 	backupTweets = [[NSMutableArray alloc]initWithArray:tweets];
-	if ([tweets count] > 0 && [friends count]>0) {
+	if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 0) {
 		[self hideLoading];
 	}
 }
@@ -154,12 +152,17 @@
 		[_engine getFriendIDsFor:[[userInfo objectAtIndex:0]objectForKey:@"screen_name"]];
 		[_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:200];
 	} else {
-		[friends setArray:userInfo];
-		if ([tweets count] > 0 && [friends count] > 0) {
+		for (NSDictionary *user in userInfo) {
+			if (![self userInFriends:[user objectForKey:@"id"]]) {
+				[self addUserToFriends:user];
+			}
+		}
+		if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 0) {
 			[self hideLoading];
 		}
 	}
 }
+
 
 - (void)socialGraphInfoReceived:(NSArray *)socialGraphInfo forRequest:(NSString *)connectionIdentifier {
 	NSMutableArray *friendIDs = [NSMutableArray arrayWithArray:[[socialGraphInfo objectAtIndex:0]objectForKey:@"ids"]];
@@ -178,6 +181,36 @@
 	[friendStringIDs release];
 	[_engine getBulkUserInformationFor:friendString];
 	[friendString release];
+}
+
+-(BOOL)userInFriends:(NSString *)userID {
+	NSPredicate *pred = [NSPredicate predicateWithFormat:@"%K == %@", @"id", userID];
+	NSArray *foundFriends = [[twittaddictAppDelegate friends] filteredArrayUsingPredicate:pred];
+	if ([foundFriends count]>0) {
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
+-(void)addUserToFriends:(NSDictionary *)user {
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:[user objectForKey:@"id"],@"id",
+									   [user objectForKey:@"screen_name"],@"screen_name",
+									   [user objectForKey:@"profile_image_url"],@"profile_image_url",
+									   [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]],@"profile_image",
+									   nil];
+	[[twittaddictAppDelegate friends] insertObject:dictionary atIndex:0];
+}
+
+-(NSDictionary *)getUserFromFriends:(NSDictionary *)user {
+	NSPredicate *pred = [NSPredicate predicateWithFormat:@"%K == %@", @"id", [user objectForKey:@"id"]];
+	NSArray *foundFriends = [[twittaddictAppDelegate friends] filteredArrayUsingPredicate:pred];
+	if ([foundFriends count]>0) {
+		return [foundFriends objectAtIndex:0];
+	} else {
+		[self addUserToFriends:user];
+		return [[twittaddictAppDelegate friends]objectAtIndex:0];
+	}
 }
 
 #pragma mark Game Setup
@@ -271,9 +304,10 @@
 
 -(void)initMode1Components:(NSDictionary *)tweet {
 	tweetText.text = [tweet valueForKey:@"text"];
-	[correctUserID setString:[[tweet objectForKey:@"user"]valueForKey:@"id"]];
-	[friends shuffle];
-	NSMutableArray *users = [self userChoices:[tweet objectForKey:@"user"]];
+	NSDictionary *correctUser = [self getUserFromFriends:[tweet	objectForKey:@"user"]];
+	[correctUserID setString:[correctUser objectForKey:@"id"]];
+	[[twittaddictAppDelegate friends] shuffle];
+	NSMutableArray *users = [self userChoices:correctUser];
 	[users shuffle];
 	[self initUser:[users objectAtIndex:0] withButton:user1Button withImage:user1Image withLabel:user1Label];
 	[self initUser:[users objectAtIndex:1] withButton:user2Button withImage:user2Image withLabel:user2Label];
@@ -282,11 +316,17 @@
 	[self showMode1Components];
 }
 
+-(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withImage:(UIImageView *)imageView withLabel:(UILabel *)label {
+	imageView.image = [user objectForKey:@"profile_image"];
+	label.text = [user objectForKey:@"screen_name"];
+	[self initButton:button withUser:user];
+}
+
 -(NSMutableArray *)userChoices:(NSDictionary *)correctUser {
 	NSMutableArray *userChoices = [NSMutableArray arrayWithObject:correctUser];
 	while ([userChoices count]<3) {
-		NSDictionary *user = [friends objectAtIndex:arc4random()%[friends count]];
-		if (![userChoices containsObject:user] && ![[user valueForKey:@"id"] isEqualToString:correctUserID]) {
+		NSDictionary *user = [[twittaddictAppDelegate friends] objectAtIndex:arc4random()%[[twittaddictAppDelegate friends] count]];
+		if (![userChoices containsObject:user]) {
 			[userChoices addObject:user];
 		}
 	}
@@ -325,13 +365,6 @@
 	user1Image.hidden = NO;
 	user2Image.hidden = NO;
 	user3Image.hidden = NO;
-}
-
--(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withImage:(UIImageView *)imageView withLabel:(UILabel *)label {
-	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
-	imageView.image = image;
-	label.text = [user objectForKey:@"screen_name"];
-	[self initButton:button withUser:user];
 }
 
 -(void)hideMode2Components {
@@ -381,9 +414,8 @@
 
 -(void)initMode2Components:(NSMutableArray *)tweetChoices {
 	[correctTweetID setString:[[tweetChoices objectAtIndex:0]objectForKey:@"tweet_id"]];
-	NSDictionary *user = [[tweetChoices objectAtIndex:0]objectForKey:@"user"];
-	UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[user objectForKey:@"profile_image_url"]]]];
-	userImage.image = image;
+	NSDictionary *user = [self getUserFromFriends:[[tweetChoices objectAtIndex:0]objectForKey:@"user"]];	
+	userImage.image = [user objectForKey:@"profile_image"];
 	userLabel.text = [user objectForKey:@"screen_name"];
 	[tweetChoices shuffle];
 	[self initTweet:[tweetChoices objectAtIndex:0] withButton:tweet1Button];
@@ -491,6 +523,8 @@
 }
 
 -(void)saveFriendStat:(NSDictionary *)data {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];	
 	SRButton *button = [data objectForKey:@"button"];
 	NSString *correct = [data objectForKey:@"correct"];
 	twittaddictAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -535,6 +569,8 @@
 		NSError *error;
 		[context save:&error];
 	}
+	[runLoop run];
+	[pool release];
 }
 
 
@@ -650,13 +686,11 @@
 }
 
 - (void)dealloc {
-	[newAchievements release];
 	[playerAchievements release];
 	[tweets release];
 	[backupTweets release];
 	[follows release];
 	[currentUser release];
-	[friends release];
 	[_engine release];
 	[selectedUsers release];
 	[scoreLabel release];
@@ -684,6 +718,5 @@
 	[mode2InstructionImage release];
     [super dealloc];
 }
-
 
 @end

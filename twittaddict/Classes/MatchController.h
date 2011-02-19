@@ -15,7 +15,7 @@
 @class SA_OAuthTwitterEngine; 
 
 @interface MatchController : BaseController <SA_OAuthTwitterControllerDelegate> {
-	SA_OAuthTwitterEngine    *_engine; 
+	SA_OAuthTwitterEngine *_engine; 
 	MGTwitterEngine *twitterEngine;
 	
 	IBOutlet UIButton *playButton;
@@ -25,7 +25,6 @@
 	NSMutableArray *tweets;
 	NSMutableArray *backupTweets;
 	NSMutableArray *follows;
-	NSMutableArray *friends;
 	NSDictionary *currentUser;
 	BOOL retrievedCurrentUser;
 	int score;
@@ -74,7 +73,6 @@
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *backupTweets;
 @property(nonatomic,retain) NSMutableArray *follows;
-@property(nonatomic,retain) NSMutableArray *friends;
 @property(nonatomic,retain) NSDictionary *currentUser;
 @property(nonatomic,retain) NSMutableString *correctUserID;
 @property(nonatomic,retain) NSMutableArray *selectedUsers;
@@ -101,6 +99,9 @@
 @property(nonatomic,retain) IBOutlet UILabel *userLabel;
 @property(nonatomic,retain) NSMutableString *correctTweetID;
 
+-(BOOL)userInFriends:(NSString *)userID;
+-(void)addUserToFriends:(NSDictionary *)user;
+-(NSDictionary *)getUserFromFriends:(NSDictionary *)user;
 -(void)hideLoading;
 -(void)setupRandomMode;
 -(void)hideMode1Components;
@@ -119,12 +120,12 @@
 -(void)increaseScore;
 -(void)decreaseScore;
 -(IBAction)startGame;
--(void) startTimer;
--(void) startTimerThread;
+-(void)startTimer;
+-(void)startTimerThread;
 -(void)countdown:(NSTimer *)timer;
 -(void)presentGameOver;
 -(void)saveScore;
-- (void)reportScore:(int)newScore forCategory:(NSString*) category;
+-(void)reportScore:(int)newScore forCategory:(NSString*) category;
 -(NSDecimalNumber *)percentCorrect:(NSDecimal *)correct withAttempts:(NSDecimal *)attempts;
 -(void)saveFriendStat:(NSDictionary *)data;
 -(void)disableUserButtons;
@@ -137,9 +138,8 @@
 -(NSDictionary *)randomTweet;
 -(void)loadAchievements;
 -(void)inARowAchievement;
-- (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
+- (void)reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
 -(void)awardAchievement:(NSString *)achievementID;
--(void)reauthTwitter;
 -(void)answerCorrect:(SRButton *)sender;
 -(void)answerWrong:(SRButton *)sender;
 

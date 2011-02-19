@@ -9,6 +9,7 @@
 @class MatchController;
 
 BOOL gameCenter;
+NSMutableArray *friends;
 
 @interface twittaddictAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
@@ -29,6 +30,8 @@ BOOL gameCenter;
 
 +(BOOL)gameCenter;
 +(void)setGameCenter:(BOOL)hasGameCenter;
++(NSMutableArray *)friends;
++(void)setFriends;
 -(NSURL *)applicationDocumentsDirectory;
 -(void)saveContext;
 -(BOOL)isGameCenterAvailable;

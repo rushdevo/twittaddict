@@ -22,12 +22,21 @@
 	gameCenter = hasGameCenter;
 }
 
++(NSMutableArray *)friends {
+	return friends;
+}
+
++(void)setFriends:(NSMutableArray *)newFriends {
+	friends = newFriends;
+}
+
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[self checkLocalPlayer];
+	friends = [[NSMutableArray alloc]init];
 	return YES;
 }
 
@@ -102,6 +111,7 @@
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+	[friends release];
     /*
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
