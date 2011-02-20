@@ -10,6 +10,7 @@
 
 BOOL gameCenter;
 NSMutableArray *friends;
+NSMutableArray *playerAchievements;
 
 @interface twittaddictAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
@@ -32,6 +33,9 @@ NSMutableArray *friends;
 +(void)setGameCenter:(BOOL)hasGameCenter;
 +(NSMutableArray *)friends;
 +(void)setFriends;
++(NSMutableArray *)playerAchievements;
++(void)setPlayerAchievements;
+
 -(NSURL *)applicationDocumentsDirectory;
 -(void)saveContext;
 -(BOOL)isGameCenterAvailable;

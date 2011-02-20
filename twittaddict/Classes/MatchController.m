@@ -18,7 +18,6 @@
 @implementation MatchController
 
 @synthesize newAchievements;
-@synthesize playerAchievements;
 @synthesize tweets;
 @synthesize backupTweets;
 @synthesize follows;
@@ -49,9 +48,6 @@
 @synthesize mode2InstructionImage;
 
 - (void)viewDidAppear: (BOOL)animated {
-	if ([twittaddictAppDelegate gameCenter]) {
-		[self loadAchievements];
-	}
 	newAchievements = NO;
 	score = 0;
 	correctInARow = 0;
@@ -67,7 +63,10 @@
 	correctTweetID = [[NSMutableString alloc]init];
 	selectedUsers = [[NSMutableArray alloc]init];
 	tweetText.font = [UIFont fontWithName:@"Arial" size:14.0f];
-	
+	[tweet1Button setTitle:@"" forState:UIControlStateHighlighted];
+	[tweet2Button setTitle:@"" forState:UIControlStateHighlighted];
+	[tweet3Button setTitle:@"" forState:UIControlStateHighlighted];
+
 	if(!_engine){
 		_engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
 		_engine.consumerKey    = kOAuthConsumerKey;
@@ -140,7 +139,7 @@
 		}
 	}
 	backupTweets = [[NSMutableArray alloc]initWithArray:tweets];
-	if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 0) {
+	if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 3) {
 		[self hideLoading];
 	}
 }
@@ -152,15 +151,38 @@
 		[_engine getFriendIDsFor:[[userInfo objectAtIndex:0]objectForKey:@"screen_name"]];
 		[_engine getFollowedTimelineSinceID:0 startingAtPage:0 count:200];
 	} else {
-		for (NSDictionary *user in userInfo) {
-			if (![self userInFriends:[user objectForKey:@"id"]]) {
-				[self addUserToFriends:user];
-			}
+		[self performSelectorInBackground:@selector(initFriends:) withObject:userInfo];
+		while ([[twittaddictAppDelegate friends]count]<4) {
+			NSLog([NSString stringWithFormat:@"%i",[[twittaddictAppDelegate friends]count]]);
 		}
-		if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 0) {
+		if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 3) {
 			[self hideLoading];
 		}
 	}
+}
+
+-(void)initFriends:(NSArray *)userInfo {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
+	for (NSDictionary *user in userInfo) {
+		if (![self userInFriends:[user objectForKey:@"id"]]) {
+			[self addUserToFriends:user];
+		}
+	}
+	[runLoop run];
+	[pool release];
+}
+
+-(void)friendsFromTweets:(NSMutableArray *)tweetArray {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
+	for (NSDictionary *tweet in tweetArray) {
+		if (![self userInFriends:[[tweet objectForKey:@"user"]objectForKey:@"id"]]) {
+			[self addUserToFriends:[tweet objectForKey:@"user"]];
+		}
+	}
+	[runLoop run];
+	[pool release];
 }
 
 
@@ -217,7 +239,9 @@
 
 -(void)hideLoading {
 	loadingActivity.hidden = YES;
-	playButton.hidden = NO;
+	if (!loadingImage.hidden) {
+		playButton.hidden = NO;
+	}
 }
 
 -(IBAction)startGame {
@@ -319,6 +343,11 @@
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withImage:(UIImageView *)imageView withLabel:(UILabel *)label {
 	imageView.image = [user objectForKey:@"profile_image"];
 	label.text = [user objectForKey:@"screen_name"];
+	if ([[user objectForKey:@"id"]isEqualToString:correctUserID]) {
+		[button setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
+	} else {
+		[button setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
+	}
 	[self initButton:button withUser:user];
 }
 
@@ -429,6 +458,11 @@
 	[button setImage:nil forState:UIControlStateNormal];
 	[button setTitle:[tweet objectForKey:@"text"] forState:UIControlStateNormal];
 	button.tweetID = [tweet objectForKey:@"tweet_id"];
+	if ([[tweet objectForKey:@"tweet_id"]isEqualToString:correctTweetID]) {
+		[button setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
+	} else {
+		[button setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
+	}
 	[self initButton:button withUser:[tweet objectForKey:@"user"]];
 }
 
@@ -467,7 +501,6 @@
 
 -(IBAction)tweetSelected:(id)sender {
 	[self disableTweetButtons];
-	[sender setTitle:@"" forState:UIControlStateHighlighted];
 	attempted += 1;
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[self answerCorrect:sender];
@@ -490,18 +523,14 @@
 }
 
 -(void)answerCorrect:(SRButton *)sender {
-	UIImage *image = [UIImage imageNamed:@"correct.png"];
-	[sender setImage:image forState:UIControlStateHighlighted];
-	scoreImage.image = image;
+	scoreImage.image = [UIImage imageNamed:@"correct.png"];
 	[self increaseScore];
 	NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"yes",@"correct",nil];
 	[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:data];
 }
 
 -(void)answerWrong:(SRButton *)sender { 
-	UIImage *image = [UIImage imageNamed:@"wrong.png"];
-	[sender setImage:image forState:UIControlStateHighlighted];
-	scoreImage.image = image;
+	scoreImage.image = [UIImage imageNamed:@"wrong.png"];
 	[self decreaseScore];
 	NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:sender,@"button",@"no",@"correct",nil];
 	[NSThread detachNewThreadSelector:@selector(saveFriendStat:) toTarget:self withObject:data];
@@ -593,7 +622,7 @@
 	[context save:&error];
 	if ([twittaddictAppDelegate gameCenter]) {
 		[self reportScore:score forCategory:@"twittaddict1"];
-		if (![playerAchievements containsObject:@"all_achievement"] && attempted==correctInARow) {
+		if (![[twittaddictAppDelegate playerAchievements] containsObject:@"all_achievement"] && attempted==correctInARow) {
 			[self awardAchievement:@"all_achievement"];
 		}
 	}
@@ -610,17 +639,6 @@
 			NSLog(@"report error %d",[error code]);
         }
     }];
-}
-
-- (void)loadAchievements {    
-	[GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
-		if (achievements != nil) {
-			playerAchievements = [[NSMutableArray alloc]init];
-			for (GKAchievement* achievement in achievements) {
-				[playerAchievements addObject:achievement.identifier];
-			}
-		}
-	}];
 }
 
 - (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent {
@@ -661,9 +679,9 @@
 }
 
 -(void)awardAchievement:(NSString *)achievementID {
-	if (![playerAchievements containsObject:achievementID]) {
+	if (![[twittaddictAppDelegate playerAchievements] containsObject:achievementID]) {
 		[self reportAchievementIdentifier:achievementID percentComplete:100.0];
-		[playerAchievements addObject:achievementID];
+		[[twittaddictAppDelegate playerAchievements] addObject:achievementID];
 		newAchievements = YES;
 	}
 }
@@ -680,13 +698,11 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
 	self.backupTweets = nil;
-	self.playerAchievements = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
-	[playerAchievements release];
 	[tweets release];
 	[backupTweets release];
 	[follows release];

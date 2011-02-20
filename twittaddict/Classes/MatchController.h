@@ -20,7 +20,6 @@
 	
 	IBOutlet UIButton *playButton;
 	IBOutlet UIImageView *scoreImage;
-	NSMutableArray *playerAchievements;
 	BOOL newAchievements;
 	NSMutableArray *tweets;
 	NSMutableArray *backupTweets;
@@ -69,7 +68,6 @@
 }
 
 @property BOOL newAchievements;
-@property(nonatomic,retain) NSMutableArray *playerAchievements;
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *backupTweets;
 @property(nonatomic,retain) NSMutableArray *follows;
@@ -142,6 +140,7 @@
 -(void)awardAchievement:(NSString *)achievementID;
 -(void)answerCorrect:(SRButton *)sender;
 -(void)answerWrong:(SRButton *)sender;
+-(void)initFriends:(NSArray *)userInfo;
 
 
 @end

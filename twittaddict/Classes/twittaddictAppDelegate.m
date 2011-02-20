@@ -30,6 +30,14 @@
 	friends = newFriends;
 }
 
++(NSMutableArray *)playerAchievements {
+	return playerAchievements;
+}
+
++(void)setPlayerAchievements:(NSMutableArray *)newAchievements {
+	playerAchievements = newAchievements;
+}
+
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -58,6 +66,18 @@
 			} 
 		} else {
 			gameCenter = YES;
+			[self loadAchievements];
+		}
+	}];
+}
+
+- (void)loadAchievements {    
+	[GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
+		if (achievements != nil) {
+			playerAchievements = [[NSMutableArray alloc]init];
+			for (GKAchievement* achievement in achievements) {
+				[playerAchievements addObject:achievement.identifier];
+			}
 		}
 	}];
 }
@@ -112,6 +132,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	[friends release];
+	[playerAchievements release];
     /*
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.

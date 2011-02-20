@@ -154,7 +154,7 @@
 						<float key="IBUIMinimumFontSize">10</float>
 						<int key="IBUITextAlignment">1</int>
 					</object>
-					<object class="IBUIImageView" id="816289835">
+					<object class="IBUIImageView" id="174867542">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{31, 318}, {48, 48}}</string>
@@ -162,7 +162,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIImageView" id="68695689">
+					<object class="IBUIImageView" id="106872060">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{136, 318}, {48, 48}}</string>
@@ -170,7 +170,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIImageView" id="865508909">
+					<object class="IBUIImageView" id="880882556">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{240, 318}, {48, 48}}</string>
@@ -203,10 +203,6 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="167695848">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">correct.png</string>
-						</object>
 					</object>
 					<object class="IBUIButton" id="312449875">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -218,13 +214,14 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="758420911"/>
+						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 						<reference key="IBUIHighlightedTitleColor" ref="176720107"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
-						<reference key="IBUIHighlightedImage" ref="167695848"/>
 					</object>
 					<object class="IBUIButton" id="561796308">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -236,13 +233,15 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="758420911"/>
+						<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
+						<bool key="IBUIAdjustsImageWhenDisabled">NO</bool>
 						<reference key="IBUIHighlightedTitleColor" ref="176720107"/>
+						<reference key="IBUISelectedTitleColor" ref="176720107"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
-						<reference key="IBUIHighlightedImage" ref="167695848"/>
 					</object>
 					<object class="IBUIButton" id="851228628">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -268,7 +267,6 @@
 							<bytes key="NSRGB">MC4zMzMzMzMzMzMzIDAuMzMzMzMzMzMzMyAwLjMzMzMzMzMzMzMAA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
-						<reference key="IBUIHighlightedImage" ref="167695848"/>
 					</object>
 					<object class="IBUIButton" id="73691107">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -287,7 +285,6 @@
 						<reference key="IBUIHighlightedTitleColor" ref="176720107"/>
 						<reference key="IBUINormalTitleColor" ref="161375230"/>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
-						<reference key="IBUIHighlightedImage" ref="167695848"/>
 					</object>
 					<object class="IBUIButton" id="502429047">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -306,9 +303,8 @@
 						<reference key="IBUIHighlightedTitleColor" ref="176720107"/>
 						<reference key="IBUINormalTitleColor" ref="161375230"/>
 						<reference key="IBUINormalTitleShadowColor" ref="396449567"/>
-						<reference key="IBUIHighlightedImage" ref="167695848"/>
 					</object>
-					<object class="IBUIImageView" id="116532104">
+					<object class="IBUIImageView" id="496651519">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{177, 19}, {23, 23}}</string>
@@ -733,7 +729,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">scoreImage</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="116532104"/>
+						<reference key="destination" ref="496651519"/>
 					</object>
 					<int key="connectionID">73</int>
 				</object>
@@ -741,7 +737,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">user1Image</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="816289835"/>
+						<reference key="destination" ref="174867542"/>
 					</object>
 					<int key="connectionID">77</int>
 				</object>
@@ -749,7 +745,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">user2Image</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="68695689"/>
+						<reference key="destination" ref="106872060"/>
 					</object>
 					<int key="connectionID">78</int>
 				</object>
@@ -757,7 +753,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">user3Image</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="865508909"/>
+						<reference key="destination" ref="880882556"/>
 					</object>
 					<int key="connectionID">79</int>
 				</object>
@@ -791,11 +787,11 @@
 							<reference ref="757029691"/>
 							<reference ref="886949210"/>
 							<reference ref="38580560"/>
-							<reference ref="116532104"/>
+							<reference ref="496651519"/>
 							<reference ref="605860892"/>
-							<reference ref="816289835"/>
-							<reference ref="68695689"/>
-							<reference ref="865508909"/>
+							<reference ref="174867542"/>
+							<reference ref="106872060"/>
+							<reference ref="880882556"/>
 							<reference ref="264413084"/>
 							<reference ref="312449875"/>
 							<reference ref="561796308"/>
@@ -928,22 +924,22 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">72</int>
-						<reference key="object" ref="116532104"/>
+						<reference key="object" ref="496651519"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">74</int>
-						<reference key="object" ref="816289835"/>
+						<reference key="object" ref="174867542"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">75</int>
-						<reference key="object" ref="68695689"/>
+						<reference key="object" ref="106872060"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">76</int>
-						<reference key="object" ref="865508909"/>
+						<reference key="object" ref="880882556"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -1157,8 +1153,8 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>answerCorrect:withMode:</string>
-							<string>answerWrong:withMode:</string>
+							<string>answerCorrect:</string>
+							<string>answerWrong:</string>
 							<string>startGame</string>
 							<string>tweetSelected:</string>
 							<string>userSelected:</string>
@@ -1176,8 +1172,8 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>answerCorrect:withMode:</string>
-							<string>answerWrong:withMode:</string>
+							<string>answerCorrect:</string>
+							<string>answerWrong:</string>
 							<string>startGame</string>
 							<string>tweetSelected:</string>
 							<string>userSelected:</string>
@@ -1185,11 +1181,11 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
-								<string key="name">answerCorrect:withMode:</string>
+								<string key="name">answerCorrect:</string>
 								<string key="candidateClassName">SRButton</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">answerWrong:withMode:</string>
+								<string key="name">answerWrong:</string>
 								<string key="candidateClassName">SRButton</string>
 							</object>
 							<object class="IBActionInfo">
@@ -1674,7 +1670,6 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>correct.png</string>
 				<string>loading.png</string>
 				<string>match_1_bg.png</string>
 				<string>match_1_instruction_bg.png</string>
@@ -1683,7 +1678,6 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{48, 48}</string>
 				<string>{320, 460}</string>
 				<string>{320, 460}</string>
 				<string>{320, 460}</string>
