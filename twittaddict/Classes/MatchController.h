@@ -37,6 +37,7 @@
 	BOOL scoreSaved;
 	int instructMode1;
 	int instructMode2;
+	NSMutableArray *queue;
 	
 	NSThread *gameThread;
 	
@@ -67,6 +68,7 @@
 	NSMutableString *correctTweetID;
 }
 
+@property(nonatomic,retain) NSMutableArray *queue;
 @property BOOL newAchievements;
 @property(nonatomic,retain) NSMutableArray *tweets;
 @property(nonatomic,retain) NSMutableArray *backupTweets;
@@ -97,6 +99,7 @@
 @property(nonatomic,retain) IBOutlet UILabel *userLabel;
 @property(nonatomic,retain) NSMutableString *correctTweetID;
 
+-(void)loadQueue;
 -(BOOL)userInFriends:(NSString *)userID;
 -(void)addUserToFriends:(NSDictionary *)user;
 -(NSDictionary *)getUserFromFriends:(NSDictionary *)user;
@@ -107,10 +110,10 @@
 -(void)hideMode2Components;
 -(void)showMode2Components;
 -(void)setupMode1;
--(void)initMode1Components:(NSDictionary *)tweet;
+-(void)initMode1Components:(NSDictionary *)element;
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withImage:(UIImageView *)imageView withLabel:(UILabel *)label;
 -(void)setupMode2;
--(void)initMode2Components:(NSMutableArray *)tweetChoices;
+-(void)initMode2Components:(NSMutableArray *)tweetChoices withElement:(NSDictionary *)element;
 -(void)initTweet:(NSDictionary *)tweet withButton:(SRButton *)button;
 -(void)initButton:(SRButton *)button withUser:(NSDictionary *)user;
 -(IBAction)userSelected:(id)sender;
@@ -132,7 +135,7 @@
 -(void)enableTweetButtons;
 -(void)increaseInstructionView:(NSString *)mode;
 -(NSMutableArray *)userChoices:(NSDictionary *)correctUser;
--(NSMutableArray *)tweetChoices;
+-(NSMutableArray *)tweetChoices:(NSDictionary *)element;
 -(NSDictionary *)randomTweet;
 -(void)loadAchievements;
 -(void)inARowAchievement;

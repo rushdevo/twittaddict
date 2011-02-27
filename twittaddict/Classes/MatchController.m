@@ -46,6 +46,7 @@
 @synthesize correctTweetID;
 @synthesize mode1InstructionImage;
 @synthesize mode2InstructionImage;
+@synthesize queue;
 
 - (void)viewDidAppear: (BOOL)animated {
 	newAchievements = NO;
@@ -56,6 +57,7 @@
 	secondsRemaining = 60;
 	instructMode1 = 0;
 	instructMode2 = 0;
+	queue = [[NSMutableArray alloc]init];
 	tweets = [[NSMutableArray alloc]init];
 	follows = [[NSMutableArray alloc]init];
 	retrievedCurrentUser = NO;
@@ -140,7 +142,7 @@
 	}
 	backupTweets = [[NSMutableArray alloc]initWithArray:tweets];
 	if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 3) {
-		[self hideLoading];
+		[self performSelectorInBackground:@selector(startQueue) withObject:nil];
 	}
 }
 
@@ -156,9 +158,36 @@
 			NSLog([NSString stringWithFormat:@"%i",[[twittaddictAppDelegate friends]count]]);
 		}
 		if ([tweets count] > 0 && [[twittaddictAppDelegate friends] count] > 3) {
-			[self hideLoading];
+			[self performSelectorInBackground:@selector(startQueue) withObject:nil];
 		}
 	}
+}
+
+-(void)startQueue {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
+	[runLoop run];
+	while ([queue count]<4) {
+		[self loadQueue];
+	}
+	[self performSelectorOnMainThread:@selector(hideLoading) withObject:nil waitUntilDone:NO];
+	while (secondsRemaining>0 && [tweets count]>0) {
+		[self loadQueue];
+	}
+	[pool release];
+}
+
+-(void)loadQueue {
+	NSDictionary *tweet = [self randomTweet];
+	NSDictionary *user = [self getUserFromFriends:[tweet objectForKey:@"user"]];
+	NSDictionary *elements = [NSDictionary dictionaryWithObjectsAndKeys:tweet,@"tweet",user,@"user",nil];
+	[queue addObject:elements];
+}
+
+-(NSDictionary *)nextElement {
+	NSDictionary *element = [NSDictionary dictionaryWithDictionary:[queue objectAtIndex:0]];
+	[queue removeObject:element];
+	return element;
 }
 
 -(void)initFriends:(NSArray *)userInfo {
@@ -172,19 +201,6 @@
 	[runLoop run];
 	[pool release];
 }
-
--(void)friendsFromTweets:(NSMutableArray *)tweetArray {
-	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
-	for (NSDictionary *tweet in tweetArray) {
-		if (![self userInFriends:[[tweet objectForKey:@"user"]objectForKey:@"id"]]) {
-			[self addUserToFriends:[tweet objectForKey:@"user"]];
-		}
-	}
-	[runLoop run];
-	[pool release];
-}
-
 
 - (void)socialGraphInfoReceived:(NSArray *)socialGraphInfo forRequest:(NSString *)connectionIdentifier {
 	NSMutableArray *friendIDs = [NSMutableArray arrayWithArray:[[socialGraphInfo objectAtIndex:0]objectForKey:@"ids"]];
@@ -301,9 +317,8 @@
 
 -(void)setupMode1 {
 	[self enableUserButtons];
-	NSDictionary *tweet = [self randomTweet];
-	[tweets removeObject:tweet];
-	[self performSelectorOnMainThread:@selector(initMode1Components:) withObject:tweet waitUntilDone:NO];
+	NSDictionary *element = [self nextElement];
+	[self initMode1Components:element];
 	if (instructMode1 < 3) {
 		background1Image.hidden = YES;
 		mode1InstructionImage.hidden = NO;
@@ -311,24 +326,10 @@
 	}
 }
 
--(NSDictionary *)randomTweet {
-	if ([tweets count]==0) {
-		[tweets setArray:backupTweets];
-	}
-	return [tweets objectAtIndex:arc4random()%[tweets count]];
-}
-
--(void)increaseInstructionView:(NSString *)mode {
-	if ([mode isEqualToString:@"mode1"]) {
-		instructMode1 += 1;
-	} else if ([mode isEqualToString:@"mode2"]) {
-		instructMode2 += 1;
-	}
-}
-
--(void)initMode1Components:(NSDictionary *)tweet {
+-(void)initMode1Components:(NSDictionary *)element {
+	NSDictionary *tweet = [element objectForKey:@"tweet"];
 	tweetText.text = [tweet valueForKey:@"text"];
-	NSDictionary *correctUser = [self getUserFromFriends:[tweet	objectForKey:@"user"]];
+	NSDictionary *correctUser = [element objectForKey:@"user"];
 	[correctUserID setString:[correctUser objectForKey:@"id"]];
 	[[twittaddictAppDelegate friends] shuffle];
 	NSMutableArray *users = [self userChoices:correctUser];
@@ -343,12 +344,25 @@
 -(void)initUser:(NSDictionary *)user withButton:(SRButton *)button withImage:(UIImageView *)imageView withLabel:(UILabel *)label {
 	imageView.image = [user objectForKey:@"profile_image"];
 	label.text = [user objectForKey:@"screen_name"];
-	if ([[user objectForKey:@"id"]isEqualToString:correctUserID]) {
-		[button setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
-	} else {
-		[button setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
-	}
+
 	[self initButton:button withUser:user];
+}
+
+-(NSDictionary *)randomTweet {
+	if ([tweets count]==0) {
+		[tweets setArray:backupTweets];
+	}
+	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	[tweets removeObject:tweet];					   
+	return tweet;
+}
+
+-(void)increaseInstructionView:(NSString *)mode {
+	if ([mode isEqualToString:@"mode1"]) {
+		instructMode1 += 1;
+	} else if ([mode isEqualToString:@"mode2"]) {
+		instructMode2 += 1;
+	}
 }
 
 -(NSMutableArray *)userChoices:(NSDictionary *)correctUser {
@@ -375,7 +389,6 @@
 	user1Image.hidden = YES;
 	user2Image.hidden = YES;
 	user3Image.hidden = YES;
-	
 }
 
 -(void)showMode1Components {
@@ -417,8 +430,9 @@
 
 -(void)setupMode2 {
 	[self enableTweetButtons];
-	NSMutableArray *choices = [self tweetChoices];
-	[self performSelectorOnMainThread:@selector(initMode2Components:) withObject:choices waitUntilDone:NO];
+	NSDictionary *element = [self nextElement];
+	NSMutableArray *choices = [self tweetChoices:element];
+	[self initMode2Components:choices withElement:element];
 	if (instructMode2 < 3) {
 		background2Image.hidden = YES;
 		mode2InstructionImage.hidden = NO;
@@ -426,11 +440,10 @@
 	}
 }
 
--(NSMutableArray *)tweetChoices {
-	NSDictionary *correctChoice = [self randomTweet];
+-(NSMutableArray *)tweetChoices:(NSDictionary *)element {
+	NSDictionary *correctChoice = [element objectForKey:@"tweet"];
 	NSString *userID = [[correctChoice objectForKey:@"user"]objectForKey:@"id"];
 	NSMutableArray *choices = [NSMutableArray arrayWithObject:correctChoice];
-	[tweets removeObject:correctChoice];
 	while ([choices count]<3) {	
 		NSDictionary *choice = [self randomTweet];
 		if (![[[choice objectForKey:@"user"]objectForKey:@"id"]isEqualToString:userID]) {
@@ -441,9 +454,9 @@
 	return choices;
 }
 
--(void)initMode2Components:(NSMutableArray *)tweetChoices {
+-(void)initMode2Components:(NSMutableArray *)tweetChoices withElement:(NSDictionary *)element {
 	[correctTweetID setString:[[tweetChoices objectAtIndex:0]objectForKey:@"tweet_id"]];
-	NSDictionary *user = [self getUserFromFriends:[[tweetChoices objectAtIndex:0]objectForKey:@"user"]];	
+	NSDictionary *user = [element objectForKey:@"user"];	
 	userImage.image = [user objectForKey:@"profile_image"];
 	userLabel.text = [user objectForKey:@"screen_name"];
 	[tweetChoices shuffle];
@@ -458,11 +471,6 @@
 	[button setImage:nil forState:UIControlStateNormal];
 	[button setTitle:[tweet objectForKey:@"text"] forState:UIControlStateNormal];
 	button.tweetID = [tweet objectForKey:@"tweet_id"];
-	if ([[tweet objectForKey:@"tweet_id"]isEqualToString:correctTweetID]) {
-		[button setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
-	} else {
-		[button setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
-	}
 	[self initButton:button withUser:[tweet objectForKey:@"user"]];
 }
 
@@ -481,8 +489,10 @@
 	attempted += 1;
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[self answerCorrect:sender];
+		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
 	} else {
 		[self answerWrong:sender];
+		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
 	}
 	[self setupRandomMode];
 }
@@ -504,8 +514,10 @@
 	attempted += 1;
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[self answerCorrect:sender];
+		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
 	} else {
 		[self answerWrong:sender];
+		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
 	}
 	[self setupRandomMode];
 }
@@ -698,6 +710,7 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
 	self.backupTweets = nil;
+	self.queue = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -732,6 +745,7 @@
 	[correctTweetID release];
 	[mode1InstructionImage release];
 	[mode2InstructionImage release];
+	[queue release];
     [super dealloc];
 }
 
