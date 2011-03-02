@@ -49,6 +49,8 @@
 @synthesize queue;
 
 - (void)viewDidAppear: (BOOL)animated {
+	[self disableUserButtons];
+	[self disableTweetButtons];
 	newAchievements = NO;
 	score = 0;
 	correctInARow = 0;
@@ -65,9 +67,6 @@
 	correctTweetID = [[NSMutableString alloc]init];
 	selectedUsers = [[NSMutableArray alloc]init];
 	tweetText.font = [UIFont fontWithName:@"Arial" size:14.0f];
-	[tweet1Button setTitle:@"" forState:UIControlStateHighlighted];
-	[tweet2Button setTitle:@"" forState:UIControlStateHighlighted];
-	[tweet3Button setTitle:@"" forState:UIControlStateHighlighted];
 
 	if(!_engine){
 		_engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate:self];
@@ -352,7 +351,8 @@
 	if ([tweets count]==0) {
 		[tweets setArray:backupTweets];
 	}
-	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:arc4random()%[tweets count]]];
+	[tweets shuffle];
+	NSDictionary *tweet = [NSDictionary dictionaryWithDictionary:[tweets objectAtIndex:0]];
 	[tweets removeObject:tweet];					   
 	return tweet;
 }
@@ -489,10 +489,8 @@
 	attempted += 1;
 	if ([[sender userID] isEqualToString:correctUserID]) {
 		[self answerCorrect:sender];
-		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
 	} else {
 		[self answerWrong:sender];
-		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
 	}
 	[self setupRandomMode];
 }
@@ -514,10 +512,8 @@
 	attempted += 1;
 	if ([[sender tweetID] isEqualToString:correctTweetID]) {
 		[self answerCorrect:sender];
-		[sender setImage:[UIImage imageNamed:@"correct.png"] forState:UIControlStateHighlighted];
 	} else {
 		[self answerWrong:sender];
-		[sender setImage:[UIImage imageNamed:@"wrong.png"] forState:UIControlStateHighlighted];
 	}
 	[self setupRandomMode];
 }
